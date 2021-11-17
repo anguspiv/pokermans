@@ -2,3 +2,5 @@ jest.config.js
 jest.setup.js
 __mocks__/fileMock.js
 __mocks__/styleMock.js
+cypress/plugins
+cypress/support

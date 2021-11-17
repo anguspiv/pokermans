@@ -5,8 +5,7 @@
     "airbnb",
     "airbnb-typescript",
     "airbnb/hooks",
-    "plugin:prettier/recommended",
-    "plugin:jest/all"
+    "plugin:prettier/recommended"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -14,7 +13,7 @@
     "sourceType": "module",
     "project": "./tsconfig.json"
   },
-  "plugins": ["@typescript-eslint", "prettier", "jest"],
+  "plugins": ["@typescript-eslint", "prettier", "jest", "cypress"],
   "rules": {
     "react/jsx-props-no-spreading": "off",
     "prettier/prettier": "error",
@@ -24,7 +23,20 @@
     "react/function-component-definition": "off",
     "react/react-in-jsx-scope": "off"
   },
-  "env": {
-    "jest/globals": true
-  }
+  "overrides": [
+    {
+      "files": ["*.test.ts", "*.test.tsx"],
+      "extends": "plugin:jest/all",
+      "env": {
+        "jest/globals": true
+       }
+    },
+    {
+      "files": ["*.spec.ts", "*.spec.tsx"],
+      "extends": "plugin:cypress/recommended",
+      "env": {
+        "cypress/globals": true
+       }
+    }
+  ]
 }
