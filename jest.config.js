@@ -6,6 +6,8 @@ module.exports = {
     '!**/*.d.ts',
     '!**/node_modules/**',
     '!**/.next/**',
+    '!**/stories/**',
+    '!**/{src,pages}/*.stories.@{js,jsx,ts,tsx}',
   ],
   coverageDirectory: 'coverage',
   coverageThreshold: {
