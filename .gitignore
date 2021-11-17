@@ -37,3 +37,7 @@ yarn-error.log*
 *.tsbuildinfo
 
 .eslintcache
+
+# cypress
+/cypress/videos
+/cypress/screenshots

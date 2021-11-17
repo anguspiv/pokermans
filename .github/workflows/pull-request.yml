@@ -53,3 +53,14 @@ jobs:
         run: npm ci
       - name: Run Tests
         run: npm run test
+
+  cypress:
+    name: Cypress Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Cypress run
+        uses: cypress-io/github-action@v2
+        with:
+          build: npm run build
+          start: npm start
