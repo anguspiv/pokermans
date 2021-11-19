@@ -34,8 +34,14 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Install Dependencies
-        run: npm ci
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install
       - name: Run ESLint
         run: npm run lint
 
@@ -49,8 +55,14 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Install Dependencies
-        run: npm ci
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install
       - name: Run Tests
         run: npm run test
 
@@ -64,3 +76,25 @@ jobs:
         with:
           build: npm run build
           start: npm start
+
+  chromatic:
+    name: Chromatic Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install
+        # 👇 Adds Chromatic as a step in the workflow
+      - name: Publish to Chromatic
+        uses: chromaui/action@v1
+        # Chromatic GitHub Action options
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          # 👇 Chromatic projectToken, refer to the manage page to obtain it.
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
