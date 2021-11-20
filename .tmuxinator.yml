@@ -51,7 +51,7 @@ windows:
       # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
       # synchronize: after
       panes:
-        - gh issue list 
+        - gh issue list
         - git status
 
   - tests:
@@ -59,8 +59,13 @@ windows:
       panes:
         - npm test -- --watchAll
         - npm run cypress:open
-  - server: 
+  - server:
       layout: even-vertical
       panes:
         - npm run dev
         - npm run storybook
+
+  - database:
+      layout: even-vertical
+      panes:
+        - npx prisma studio

@@ -37,6 +37,12 @@
       "env": {
         "cypress/globals": true
        }
+    },
+    {
+      "files": ["**/graphql/types/**/*.ts"],
+      "rules": {
+        "import/no-cycle": "off"
+      }
     }
   ]
 }
