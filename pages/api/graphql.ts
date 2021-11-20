@@ -1,27 +1,13 @@
-import { gql, ApolloServer } from 'apollo-server-micro';
+import { ApolloServer } from 'apollo-server-micro';
 import Cors from 'micro-cors';
+import { schema } from '../../src/graphql/schema';
+import { createContext } from '../../src/graphql/context';
 
 const cors = Cors();
 
-const typeDefs = gql`
-  type User {
-    id: ID!
-  }
-
-  type Query {
-    getUser: User
-  }
-`;
-
-const resolvers = {
-  Query: {
-    getUser: () => ({ id: '1' }),
-  },
-};
-
 const server = new ApolloServer({
-  typeDefs,
-  resolvers,
+  schema,
+  context: createContext,
 });
 
 const startServer = server.start();
