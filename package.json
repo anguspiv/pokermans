@@ -15,7 +15,9 @@
     "test": "jest",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "chromatic": "npx chromatic"
+    "chromatic": "npx chromatic",
+    "vercel-build": "prisma generate && prisma migrate deploy && next build",
+    "lint:write": "next lint --cache --fix"
   },
   "dependencies": {
     "@chakra-ui/react": "^1.7.2",
@@ -86,7 +88,7 @@
     "@storybook/react/webpack": "^5"
   },
   "lint-staged": {
-    "*.{js,ts,jsx,tsx}": "eslint --cache --fix"
+    "*.{js,ts,jsx,tsx,css,md}": "eslint --cache --fix"
   },
   "prisma": {
     "seed": "node --loader ts-node/esm prisma/seed.ts"
