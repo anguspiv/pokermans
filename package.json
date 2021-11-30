@@ -25,6 +25,7 @@
     "@emotion/styled": "^11.6.0",
     "@prisma/client": "^3.5.0",
     "apollo-server-micro": "^3.5.0",
+    "consola": "^2.15.3",
     "eslint-config-airbnb-typescript": "^15.0.0",
     "framer-motion": "^4.1.17",
     "graphql": "^15.7.2",
