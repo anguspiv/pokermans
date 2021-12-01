@@ -8,6 +8,7 @@ module.exports = {
     '!**/.next/**',
     '!**/stories/**',
     '!**/{src,pages}/*.stories.@{js,jsx,ts,tsx}',
+    '!**/pages/_error.js',
   ],
   coverageDirectory: 'coverage',
   coverageThreshold: {

@@ -4,3 +4,7 @@ __mocks__/fileMock.js
 __mocks__/styleMock.js
 cypress/plugins
 cypress/support
+pages/_error.js
+next.config.wizardcopy.js
+sentry.client.config.js
+sentry.server.config.js
