@@ -12,7 +12,7 @@ const server = new ApolloServer({
 
 const startServer = server.start();
 
-export default cors(async (req, res) => {
+const graphql = cors(async (req, res) => {
   if (req.method === 'OPTIONS') {
     res.end();
     return;
@@ -29,3 +29,5 @@ export const config = {
     bodyParser: false,
   },
 };
+
+export default graphql;

@@ -52,21 +52,14 @@ windows:
       # synchronize: after
       panes:
         - ls -l
-        - gh issue list
+        - npm run test -- --watchAll
         - git status
 
-  - tests:
-      layout: even-vertical
-      panes:
-        - npm test -- --watchAll
-        - npm run cypress:open
   - server:
       layout: even-vertical
       panes:
         - npm run dev
         - npm run storybook
-
-  - database:
-      layout: even-vertical
-      panes:
+        - npm run cypress:open
         - npx prisma studio
+
