@@ -49,3 +49,6 @@ build-storybook.log
 
 # Sentry
 .sentryclirc
+
+#VSCode
+.vscode
