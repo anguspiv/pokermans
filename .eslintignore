@@ -8,3 +8,4 @@ pages/_error.js
 next.config.wizardcopy.js
 sentry.client.config.js
 sentry.server.config.js
+CHANGELOG.md
