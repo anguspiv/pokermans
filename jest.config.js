@@ -9,6 +9,7 @@ module.exports = {
     '!**/stories/**',
     '!**/{src,pages}/*.stories.@{js,jsx,ts,tsx}',
     '!**/pages/_error.js',
+    '!**/pages/user.tsx',
   ],
   coverageDirectory: 'coverage',
   coverageThreshold: {
