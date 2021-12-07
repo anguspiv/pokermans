@@ -17,3 +17,17 @@ This project and everyone participating in it is governed by the [Code of Conduc
 ## I don't want to read this whole thing I just have a question!!!
 
 ### TBD
+
+## Deploying your own App
+
+## Reporting A Bug
+
+## Requesting A Feature
+
+## Style Guide
+
+### JavaScript
+
+### Commit Messages
+
+### Testing
