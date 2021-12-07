@@ -9,7 +9,7 @@
 
 > An app to help run your home poker games.
 
-## 🏠 [www.pokermans.com](www.pokermans.com)
+## 🏠 [www.pokermans.com](https://www.pokermans.com)
 
 ## Features
 
