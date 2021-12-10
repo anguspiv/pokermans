@@ -10,6 +10,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// User Accounts and Login Sessions
 model Account {
   id                 String  @id @default(cuid())
   userId             String
@@ -47,6 +48,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  Profile       Profile?
 }
 
 model VerificationToken {
@@ -55,4 +57,16 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+// User Profile
+model Profile {
+  id        String  @id @default(cuid())
+  userId    String  @unique
+  firstName String?
+  lastName  String?
+  nickname  String?
+  image     String?
+  bio       String?
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
