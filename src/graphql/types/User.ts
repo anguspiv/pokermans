@@ -1,4 +1,4 @@
-import { objectType, extendType, stringArg } from 'nexus';
+import { objectType, extendType, inputObjectType, mutationType } from 'nexus';
 
 // eslint-disable-next-line import/prefer-default-export
 export const User = objectType({
@@ -19,6 +19,17 @@ export const User = objectType({
   },
 });
 
+export const UserInput = inputObjectType({
+  name: 'UserInput',
+  description: 'The User Input',
+  definition(t) {
+    t.string('id', { description: "The User's id" });
+    t.string('name', { description: "The User's full name" });
+    t.string('email', { description: "The User's email" });
+    t.string('image', { description: "The User's image when using social accounts to register" });
+  },
+});
+
 export const UserQuery = extendType({
   type: 'Query',
   definition(t) {
@@ -26,13 +37,19 @@ export const UserQuery = extendType({
       type: 'User',
       description: 'Get a list of Users',
       args: {
-        name: stringArg({ description: 'Filter the list of Users by name' }),
+        input: UserInput,
       },
-      resolve(_parent, { name }, ctx) {
+      resolve(_parent, { input: { name, email } = {} }, ctx) {
         if (name) {
           return ctx.prisma.user.findMany({
             where: {
               OR: [
+                {
+                  email: {
+                    contains: email,
+                    mode: 'insensitive',
+                  },
+                },
                 {
                   name: {
                     contains: name,
@@ -74,20 +91,78 @@ export const UserQuery = extendType({
     t.field('user', {
       type: 'User',
       description: 'Find a single user',
-      args: {
-        id: stringArg({ description: "Search by the User's id" }),
-        email: stringArg({ description: "Search by the User's email" }),
+      args: { input: UserInput },
+      resolve(_parent, { input = {} }, ctx) {
+        const { id, email } = input;
+
+        return ctx.prisma.user.findUnique({
+          where: {
+            id,
+            email,
+          },
+        });
       },
-      resolve(_parent, { id, email }, ctx) {
-        if (id) {
-          return ctx.prisma.user.findUnique({ where: { id } });
-        }
+    });
+  },
+});
 
-        if (email) {
-          return ctx.prisma.user.findUnique({ where: { email } });
-        }
+export const UserMutation = mutationType({
+  definition(t) {
+    t.field('createUser', {
+      type: 'User',
+      description: 'Create a new User',
+      args: {
+        input: UserInput,
+      },
+      resolve(_parent, { input: { id, name, image, ...input } = {} }, ctx) {
+        const [firstName, lastName] = name.split(' ');
+        return ctx.prisma.user.create({
+          data: {
+            Profile: {
+              create: {
+                firstName,
+                lastName,
+                image,
+              },
+            },
+            name,
+            image,
+            ...input,
+          },
+        });
+      },
+    });
 
-        return null;
+    t.field('updateUser', {
+      type: 'User',
+      description: 'Update a User',
+      args: {
+        input: UserInput,
+      },
+      resolve(_parent, { input: { id, ...input } = {} }, ctx) {
+        return ctx.prisma.user.update({
+          where: {
+            id,
+          },
+          data: {
+            ...input,
+          },
+        });
+      },
+    });
+
+    t.field('deleteUser', {
+      type: 'User',
+      description: 'Delete a User',
+      args: {
+        input: UserInput,
+      },
+      resolve(_parent, { input: { id } = {} }, ctx) {
+        return ctx.prisma.user.delete({
+          where: {
+            id,
+          },
+        });
       },
     });
   },
