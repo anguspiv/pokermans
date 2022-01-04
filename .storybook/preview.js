@@ -1,5 +1,5 @@
 import * as NextImage from 'next/image';
-
+import { RouterContext } from 'next/dist/shared/lib/router-context';
 import { ChakraProvider } from '@chakra-ui/react';
 
 const OriginalImage = NextImage.default;
@@ -18,6 +18,14 @@ export const parameters = {
       color: /(background|color)$/i,
       date: /Date$/,
     },
+  },
+
+  nextRouter: {
+    Provider: RouterContext.Provider,
+    path: '/',
+    asPath: '/',
+    query: {},
+    push() {},
   },
 };
 
