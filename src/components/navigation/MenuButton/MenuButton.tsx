@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box } from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faXmark } from '@fortawesome/pro-light-svg-icons';
+import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
 
 interface MenuButtonProps {
   onClick: () => void;
