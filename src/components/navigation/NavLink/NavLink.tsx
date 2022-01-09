@@ -40,7 +40,7 @@ function NavLink({ href = '#', label, children, icon }: NavLinkProps) {
         }}
       >
         <HStack spacing={4}>
-          <Box width="1em">{icon && <FontAwesomeIcon icon={icon} data-testid="icon" />}</Box>
+          {!!icon && <Box width="1em">{icon && <FontAwesomeIcon icon={icon} data-testid="icon" />}</Box>}
           <Text as="span">{children || label}</Text>
         </HStack>
       </Link>
