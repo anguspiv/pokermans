@@ -14,7 +14,7 @@ function AppHeader() {
             <MenuButton isOpen={isOpen} onClick={onToggle} />
           </Box>
           <Box>
-            <Text size="3xl" as="div" data-testid="app-title">
+            <Text fontSize="l" as="div" data-testid="app-title">
               Pokermans
             </Text>
           </Box>
