@@ -1,5 +1,6 @@
+import { Story } from '@storybook/react';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
-import NavLink from './NavLink';
+import NavLink, { NavLinkProps } from './NavLink';
 
 export default {
   title: 'components/navigation/NavLink',
@@ -9,7 +10,7 @@ export default {
   },
 };
 
-const Template = (args) => <NavLink {...args} />;
+const Template: Story<NavLinkProps> = (args) => <NavLink {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
