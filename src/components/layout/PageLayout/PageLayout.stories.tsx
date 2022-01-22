@@ -10,9 +10,9 @@ export default {
   },
 };
 
-const Template = (args) => (
-  <SessionProvider session={{}}>
-    <PageLayout {...args}>
+const Template = () => (
+  <SessionProvider session={{ expires: '' }}>
+    <PageLayout>
       <Flex width="100%" height="100%" justify="center" alignContent="center" background="red.100">
         Content
       </Flex>
@@ -21,4 +21,3 @@ const Template = (args) => (
 );
 
 export const Default = Template.bind({});
-Default.args = {};
