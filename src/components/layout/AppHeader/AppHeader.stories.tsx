@@ -9,11 +9,10 @@ export default {
   },
 };
 
-const Template = (args) => (
+const Template = () => (
   <SessionProvider>
-    <AppHeader {...args} />
+    <AppHeader />
   </SessionProvider>
 );
 
 export const Default = Template.bind({});
-Default.args = {};
