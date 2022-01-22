@@ -1,3 +1,5 @@
+import { TextProps } from '@chakra-ui/react';
+import { Story } from '@storybook/react';
 import NavMenuTitle from './NavMenuTitle';
 
 export default {
@@ -5,7 +7,7 @@ export default {
   component: NavMenuTitle,
 };
 
-const Template = (args) => <NavMenuTitle {...args} />;
+const Template: Story<TextProps> = (args) => <NavMenuTitle {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {};
