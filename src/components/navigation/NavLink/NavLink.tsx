@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { HStack, Link, Text, Box } from '@chakra-ui/react';
 
-interface NavLinkProps {
+export interface NavLinkProps {
   href?: string;
   label?: React.ReactNode;
   children?: React.ReactNode;
