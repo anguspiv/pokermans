@@ -1,7 +1,7 @@
 import React from 'react';
 import { Stack } from '@chakra-ui/react';
 
-interface NavMenuProps {
+export interface NavMenuProps {
   children?: React.ReactNode;
 }
 
