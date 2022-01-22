@@ -3,7 +3,7 @@ import { Box } from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
 
-interface MenuButtonProps {
+export interface MenuButtonProps {
   onClick: () => void;
   isOpen: boolean;
 }
