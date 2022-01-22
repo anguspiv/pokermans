@@ -15,18 +15,18 @@ import NavMenu from '../NavMenu';
 import NavLink from '../NavLink';
 import NavMenuTitle from '../NavMenuTitle';
 
-interface AppDrawerProps {
+export interface AppDrawerProps {
   isOpen?: boolean;
   onClose?: () => void;
 }
 
-function AppDrawer({ isOpen, onClose }: AppDrawerProps) {
+function AppDrawer({ isOpen = false, onClose = () => {} }: AppDrawerProps) {
   const { status } = useSession();
 
   const isAuthed = status === 'authenticated';
 
   return (
-    <Drawer placement="left" isOpen={isOpen} onClose={onClose}>
+    <Drawer placement="left" isOpen={!!isOpen} onClose={onClose}>
       <DrawerOverlay />
       <DrawerContent color="gray.200" bg="gray.800" data-testid="app-drawer">
         <DrawerCloseButton />
@@ -52,10 +52,5 @@ function AppDrawer({ isOpen, onClose }: AppDrawerProps) {
     </Drawer>
   );
 }
-
-AppDrawer.defaultProps = {
-  isOpen: false,
-  onClose: () => {},
-};
 
 export default AppDrawer;
