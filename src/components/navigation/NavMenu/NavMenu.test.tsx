@@ -1,18 +1,18 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import AppMenu from './AppMenu';
+import NavMenu from './NavMenu';
 
-describe('<AppMenu />', () => {
-  const setupAppMenu = (props: object = {}) => {
-    return render(<AppMenu {...props} />);
+describe('<NavMenu />', () => {
+  const setupNavMenu = (props: object = {}) => {
+    return render(<NavMenu {...props} />);
   };
 
   it('renders the app menu', () => {
     expect.assertions(1);
 
-    const { getByTestId } = setupAppMenu();
+    const { getByTestId } = setupNavMenu();
 
-    expect(getByTestId('app-menu')).toBeInTheDocument();
+    expect(getByTestId('nav-menu')).toBeInTheDocument();
   });
 
   it('renders the children', () => {
@@ -20,7 +20,7 @@ describe('<AppMenu />', () => {
 
     const children = <span>Example</span>;
 
-    const { getByText } = setupAppMenu({ children });
+    const { getByText } = setupNavMenu({ children });
 
     expect(getByText('Example')).toBeInTheDocument();
   });

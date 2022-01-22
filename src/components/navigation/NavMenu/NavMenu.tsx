@@ -1,20 +1,20 @@
 import React from 'react';
 import { Stack } from '@chakra-ui/react';
 
-interface AppMenuProps {
+interface NavMenuProps {
   children?: React.ReactNode;
 }
 
-function AppMenu({ children }: AppMenuProps) {
+function NavMenu({ children }: NavMenuProps) {
   return (
-    <Stack data-testid="app-menu" pb="6">
+    <Stack data-testid="nav-menu" pb="6">
       {children}
     </Stack>
   );
 }
 
-AppMenu.defaultProps = {
+NavMenu.defaultProps = {
   children: null,
 };
 
-export default AppMenu;
+export default NavMenu;

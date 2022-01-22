@@ -1,7 +1,7 @@
 import { Text, TextProps } from '@chakra-ui/react';
 import React from 'react';
 
-function AppMenuTitle(props: TextProps) {
+function NavMenuTitle(props: TextProps) {
   return (
     <Text
       casing="uppercase"
@@ -15,4 +15,4 @@ function AppMenuTitle(props: TextProps) {
   );
 }
 
-export default AppMenuTitle;
+export default NavMenuTitle;

@@ -11,9 +11,9 @@ import {
 } from '@chakra-ui/react';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
 import { useSession } from 'next-auth/react';
-import AppMenu from '../AppMenu';
+import NavMenu from '../NavMenu';
 import NavLink from '../NavLink';
-import AppMenuTitle from '../AppMenuTitle';
+import NavMenuTitle from '../NavMenuTitle';
 
 interface AppDrawerProps {
   isOpen?: boolean;
@@ -33,14 +33,14 @@ function AppDrawer({ isOpen, onClose }: AppDrawerProps) {
         <DrawerHeader>Pokermans</DrawerHeader>
         <DrawerBody>
           <Box fontSize="sm" lineHeight="tall" as="nav" display="block" height="100%">
-            <AppMenu>
+            <NavMenu>
               <NavLink href="/" label="Home" icon={faHome} />
-            </AppMenu>
+            </NavMenu>
             {isAuthed && (
-              <AppMenu>
-                <AppMenuTitle>User</AppMenuTitle>
+              <NavMenu>
+                <NavMenuTitle>User</NavMenuTitle>
                 <NavLink href="/account" label="Account" />
-              </AppMenu>
+              </NavMenu>
             )}
           </Box>
         </DrawerBody>
