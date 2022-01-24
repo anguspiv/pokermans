@@ -1,3 +1,11 @@
+# [1.2.0](https://github.com/anguspiv/pokermans/compare/v1.1.0...v1.2.0) (2022-01-24)
+
+
+### Features
+
+* adds breadcrumbs component for site navigation ([ad5d4b5](https://github.com/anguspiv/pokermans/commit/ad5d4b5c5dd7acbf670cf604514cbec5149fe04c)), closes [#75](https://github.com/anguspiv/pokermans/issues/75)
+* adds the page header component ([f324696](https://github.com/anguspiv/pokermans/commit/f324696c82b5d4e1f9738315c1ea9479374d0314)), closes [#75](https://github.com/anguspiv/pokermans/issues/75)
+
 # [1.1.0](https://github.com/anguspiv/pokermans/compare/v1.0.0...v1.1.0) (2022-01-22)
 
 

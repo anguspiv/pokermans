@@ -108,5 +108,5 @@
   "prisma": {
     "seed": "node --loader ts-node/esm prisma/seed.ts"
   },
-  "version": "1.1.0"
+  "version": "1.2.0"
 }
