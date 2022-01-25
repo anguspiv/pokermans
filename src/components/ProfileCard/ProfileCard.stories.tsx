@@ -1,11 +1,12 @@
-import { ProfileCard } from './ProfileCard';
+import { Story } from '@storybook/react';
+import { ProfileCard, ProfileCardProps } from './ProfileCard';
 
 export default {
   title: 'components/account/ProfileCard',
   component: ProfileCard,
 };
 
-const Template = (args) => <ProfileCard {...args} />;
+const Template: Story<ProfileCardProps> = (args) => <ProfileCard {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

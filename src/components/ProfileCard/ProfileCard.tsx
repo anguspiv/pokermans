@@ -1,6 +1,14 @@
 import React from 'react';
 import { Grid, GridItem, Heading, Text, Avatar } from '@chakra-ui/react';
 
+export interface ProfileCardProps {
+  firstName: string;
+  lastName: string;
+  nickname: string;
+  email: string;
+  image: string;
+}
+
 const styles = {
   nickname: {
     '&:before': {
@@ -11,20 +19,13 @@ const styles = {
     },
   },
 };
-
 export function ProfileCard({
   firstName = '',
   lastName = '',
   nickname = '',
   email = '',
   image = '',
-}: {
-  firstName: string;
-  lastName: string;
-  nickname: string;
-  email: string;
-  image: string;
-}) {
+}: ProfileCardProps) {
   return (
     <Grid
       bg="white"
