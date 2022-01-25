@@ -32,7 +32,7 @@ describe('<MenuButton />', () => {
     const { getByText, getByTestId } = setupMenuButton({ isOpen: true });
 
     expect(getByText('Close Menu')).toBeInTheDocument();
-    expect(getByTestId('menu-button-icon')).toHaveAttribute('data-icon', 'xmark');
+    expect(getByTestId('menu-button-icon')).toHaveAttribute('data-icon', 'times');
   });
 
   it('should show the open icon and text', () => {
