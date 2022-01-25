@@ -1,3 +1,21 @@
+# [1.3.0](https://github.com/anguspiv/pokermans/compare/v1.2.0...v1.3.0) (2022-01-25)
+
+
+### Bug Fixes
+
+* **api-user:** corrects typing errors ([ce8ffed](https://github.com/anguspiv/pokermans/commit/ce8ffedc5c19307134d37d37477a2dffbc248bc8))
+* **auth:** fixes next-auth signin error ([b36ad16](https://github.com/anguspiv/pokermans/commit/b36ad1604dc7d77e3fa1f13e748a426330dcbfd0))
+* **menu-button:** uses times icon for close ([0c17eae](https://github.com/anguspiv/pokermans/commit/0c17eae19d51f16a8bd93ccd5361a3f089045153))
+* **profile-card:** fixes typing errors in docs ([dc9e77b](https://github.com/anguspiv/pokermans/commit/dc9e77bc999835c103b3157b304f8600ae4a5e77))
+
+
+### Features
+
+* adds profile card component ([75c9a54](https://github.com/anguspiv/pokermans/commit/75c9a542cf658199e2a75172e60bf580b7671d2c)), closes [#47](https://github.com/anguspiv/pokermans/issues/47)
+* adds user and profile crud apis ([44e9ef7](https://github.com/anguspiv/pokermans/commit/44e9ef7ce07ac8927b07b490b2e6c994b885c562)), closes [#53](https://github.com/anguspiv/pokermans/issues/53)
+* **db:** adds user profile schema ([2173513](https://github.com/anguspiv/pokermans/commit/2173513a1fa02ea6be4e84b8bc284d7f4e2b4ec3)), closes [#53](https://github.com/anguspiv/pokermans/issues/53)
+* **graphql:** adds user and profile queries ([a47b2e3](https://github.com/anguspiv/pokermans/commit/a47b2e38dedaf3dce11d659ff1ee9d529ba1dc87)), closes [#53](https://github.com/anguspiv/pokermans/issues/53)
+
 # [1.2.0](https://github.com/anguspiv/pokermans/compare/v1.1.0...v1.2.0) (2022-01-24)
 
 
