@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box } from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 export interface MenuButtonProps {
   onClick: () => void;
@@ -27,7 +27,7 @@ function MenuButton({ onClick, isOpen }: MenuButtonProps) {
       onClick={onClick}
     >
       <Box srOnly>{title}</Box>
-      <FontAwesomeIcon icon={isOpen ? faXmark : faBars} data-testid="menu-button-icon" />
+      <FontAwesomeIcon icon={isOpen ? faTimes : faBars} data-testid="menu-button-icon" />
     </Box>
   );
 }
