@@ -1,5 +1,4 @@
 import { objectType, extendType, inputObjectType } from 'nexus';
-import logger from '../../utils/logger';
 
 // eslint-disable-next-line import/prefer-default-export
 export const Profile = objectType({
@@ -37,8 +36,8 @@ export const ProfileQuery = extendType({
       type: 'Profile',
       description: "Find a User's profile",
       args: { input: ProfileInput },
-      resolve(_parent, { input: { id, userId } = {} }, ctx) {
-        logger.info('profile id', id);
+      resolve(_parent, args, ctx) {
+        const { id, userId } = args.input || {};
 
         if (id) {
           return ctx.prisma.profile.findUnique({
@@ -65,7 +64,9 @@ export const ProfileMutation = extendType({
       type: 'Profile',
       description: 'Update a profile',
       args: { input: ProfileInput },
-      resolve(_parent, { input: { id, userId, ...input } = {} }, ctx) {
+      resolve(_parent, args, ctx) {
+        const { id, userId, ...input } = args.input || {};
+
         return ctx.prisma.profile.update({
           where: { id },
           data: {

@@ -7,7 +7,7 @@ export const User = objectType({
     t.nonNull.string('id', { description: "The User's id" });
     t.string('name', { description: "The User's full name" });
     t.string('email', { description: "The User's email" });
-    t.datetime('emailVerified', { description: 'The DateTime when the User verified their email' });
+    // t.datetime('emailVerified', { description: 'The DateTime when the User verified their email' });
     t.string('image', { description: "The User's image when using social accounts to register" });
     t.field('profile', {
       type: 'Profile',
@@ -39,7 +39,8 @@ export const UserQuery = extendType({
       args: {
         input: UserInput,
       },
-      resolve(_parent, { input: { name, email } = {} }, ctx) {
+      resolve(_parent, { input }, ctx) {
+        const { name, email } = input || {};
         if (name) {
           return ctx.prisma.user.findMany({
             where: {
@@ -114,7 +115,9 @@ export const UserMutation = mutationType({
       args: {
         input: UserInput,
       },
-      resolve(_parent, { input: { id, name, image, ...input } = {} }, ctx) {
+      resolve(_parent, args, ctx) {
+        const { id, name, image, ...input } = args.input || {};
+
         const [firstName, lastName] = name.split(' ');
         return ctx.prisma.user.create({
           data: {
@@ -139,7 +142,8 @@ export const UserMutation = mutationType({
       args: {
         input: UserInput,
       },
-      resolve(_parent, { input: { id, ...input } = {} }, ctx) {
+      resolve(_parent, args, ctx) {
+        const { id, ...input } = args.input || {};
         return ctx.prisma.user.update({
           where: {
             id,
@@ -157,7 +161,9 @@ export const UserMutation = mutationType({
       args: {
         input: UserInput,
       },
-      resolve(_parent, { input: { id } = {} }, ctx) {
+      resolve(_parent, { input }, ctx) {
+        const { id } = input;
+
         return ctx.prisma.user.delete({
           where: {
             id,
