@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/anguspiv/pokermans/compare/v1.3.0...v1.4.0) (2022-01-26)
+
+
+### Features
+
+* adds the /account page ([e44a50f](https://github.com/anguspiv/pokermans/commit/e44a50fce61d85f29b93bc203902edcb75fb5a49)), closes [#72](https://github.com/anguspiv/pokermans/issues/72)
+
 # [1.3.0](https://github.com/anguspiv/pokermans/compare/v1.2.0...v1.3.0) (2022-01-25)
 
 
