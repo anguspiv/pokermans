@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npm run build:nexus-typegen && next build",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
     "lint": "next lint",
@@ -16,6 +16,7 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "chromatic": "npx chromatic",
+    "build:nexus-typegen": "ts-node --compiler-options '{\"module\":\"CommonJS\"}' --transpile-only schema",
     "vercel-build": "prisma generate && prisma migrate deploy && next build",
     "lint:write": "next lint --cache --fix"
   },
