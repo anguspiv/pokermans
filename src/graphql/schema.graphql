@@ -2,30 +2,120 @@
 ### Do not make changes to this file directly
 
 
-type Link {
-  category: String
-  description: String
+"""
+A date string, such as 2007-12-03, compliant with the `full-date` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+"""
+scalar Date
+
+"""
+A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+"""
+scalar DateTime
+
+type Mutation {
+  """Create a new User"""
+  createUser(input: UserInput): User
+
+  """Delete a profile"""
+  deleteProfile(input: ProfileInput): Profile
+
+  """Delete a User"""
+  deleteUser(input: UserInput): User
+
+  """Update a profile"""
+  updateProfile(input: ProfileInput): Profile
+
+  """Update a User"""
+  updateUser(input: UserInput): User
+}
+
+"""User Profile information for display"""
+type Profile {
+  """A 250 character description of the User"""
+  bio: String
+
+  """The User Profile's First Name"""
+  firstName: String
+
+  """The Profile ID"""
   id: String
-  imageUrl: String
-  title: String
-  url: String
-  users: [User]
+
+  """The User Profile's Image URL"""
+  image: String
+
+  """The User Profile's Last Name"""
+  lastName: String
+
+  """The User Profile's Nickname"""
+  nickname: String
+
+  """The Profiles User ID"""
+  userId: String
+}
+
+"""Profile Input"""
+input ProfileInput {
+  """A 250 character description of the User"""
+  bio: String
+
+  """The User Profile's First Name"""
+  firstName: String
+
+  """The Profile ID"""
+  id: String
+
+  """The User Profile's Image URL"""
+  image: String
+
+  """The User Profile's Last Name"""
+  lastName: String
+
+  """The User Profile's Nickname"""
+  nickname: String
+
+  """The Profiles User ID"""
+  userId: String
 }
 
 type Query {
-  links: [Link]!
-}
+  """Find a User's profile"""
+  profile(input: ProfileInput): Profile
 
-enum Role {
-  ADMIN
-  USER
+  """Find a single user"""
+  user(input: UserInput): User
+
+  """Get a list of Users"""
+  users(input: UserInput): [User]!
 }
 
 type User {
-  bookmarks: [Link]
+  """The User's email"""
   email: String
-  id: String
+
+  """The User's id"""
+  id: String!
+
+  """The User's image when using social accounts to register"""
   image: String
+
+  """The User's full name"""
   name: String
-  role: Role
+
+  """The User's Profile"""
+  profile: Profile
+}
+
+"""The User Input"""
+input UserInput {
+  """The User's email"""
+  email: String
+
+  """The User's id"""
+  id: String
+
+  """The User's image when using social accounts to register"""
+  image: String
+
+  """The User's full name"""
+  name: String
 }

@@ -1,29 +1,51 @@
 import { ApolloServer } from 'apollo-server-micro';
 import Cors from 'micro-cors';
+import { getToken } from 'next-auth/jwt';
 import { schema } from '../../src/graphql/schema';
 import { createContext } from '../../src/graphql/context';
-import { prisma } from '../../src/db/prisma';
+
+const secret = process.env.NEXTAUTH_SECRET;
 
 const cors = Cors();
 
 const server = new ApolloServer({
   schema,
-  context: () => createContext(prisma),
+  context: createContext,
 });
 
 const startServer = server.start();
 
-const graphql = cors(async (req, res) => {
-  if (req.method === 'OPTIONS') {
-    res.end();
-    return;
+let apolloHandler;
+
+const getHandler = async () => {
+  if (!apolloHandler) {
+    await startServer;
+
+    apolloHandler = server.createHandler({
+      path: '/api/graphql',
+    });
   }
 
-  await startServer;
-  await server.createHandler({
-    path: '/api/graphql',
-  })(req, res);
-});
+  return apolloHandler;
+};
+
+const graphql = async (req, res) => {
+  const handler = await getHandler();
+
+  if (req.method === 'OPTIONS') {
+    res.status(200).end();
+    return null;
+  }
+
+  const token = getToken({ req, secret });
+
+  if (!token) {
+    res.status(401).send('unauthorized');
+    return null;
+  }
+
+  return handler(req, res);
+};
 
 export const config = {
   api: {
@@ -31,4 +53,4 @@ export const config = {
   },
 };
 
-export default graphql;
+export default cors(graphql);

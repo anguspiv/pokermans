@@ -37,4 +37,5 @@ export default NextAuth({
   adapter,
   providers,
   secret: process.env.NEXTAUTH_SECRET,
+  session: { strategy: 'jwt' },
 });
