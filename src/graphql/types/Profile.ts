@@ -36,17 +36,17 @@ export const ProfileQuery = extendType({
       type: 'Profile',
       description: "Find a User's profile",
       args: { input: ProfileInput },
-      resolve(_parent, args, ctx) {
+      resolve(_parent, args, { prisma }) {
         const { id, userId } = args.input || {};
 
         if (id) {
-          return ctx.prisma.profile.findUnique({
+          return prisma.profile.findUnique({
             where: { id },
           });
         }
 
         if (userId) {
-          return ctx.prisma.profile.findUnique({
+          return prisma.profile.findUnique({
             where: { userId },
           });
         }
@@ -64,11 +64,12 @@ export const ProfileMutation = extendType({
       type: 'Profile',
       description: 'Update a profile',
       args: { input: ProfileInput },
-      resolve(_parent, args, ctx) {
+      resolve(_parent, args, { prisma, token }) {
+        const authId = token.sub;
         const { id, userId, ...input } = args.input || {};
 
-        return ctx.prisma.profile.update({
-          where: { id },
+        return prisma.profile.update({
+          where: { id: authId },
           data: {
             ...input,
           },
@@ -80,9 +81,11 @@ export const ProfileMutation = extendType({
       type: 'Profile',
       description: 'Delete a profile',
       args: { input: ProfileInput },
-      resolve(_parent, { input }, ctx) {
-        return ctx.prisma.profile.delete({
-          where: { id: input.id },
+      resolve(_parent, args, { prisma, token }) {
+        const authId = token.sub;
+
+        return prisma.profile.delete({
+          where: { id: authId },
         });
       },
     });

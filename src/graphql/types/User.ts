@@ -39,10 +39,12 @@ export const UserQuery = extendType({
       args: {
         input: UserInput,
       },
-      resolve(_parent, { input }, ctx) {
-        const { name, email } = input || {};
+      resolve(_parent, { input }, { prisma }) {
+        const name = input?.name || '';
+        const email = input?.email || '';
+
         if (name) {
-          return ctx.prisma.user.findMany({
+          return prisma.user.findMany({
             where: {
               OR: [
                 {
@@ -86,17 +88,19 @@ export const UserQuery = extendType({
           });
         }
 
-        return ctx.prisma.user.findMany();
+        return prisma.user.findMany();
       },
     });
     t.field('user', {
       type: 'User',
       description: 'Find a single user',
       args: { input: UserInput },
-      resolve(_parent, { input = {} }, ctx) {
-        const { id, email } = input;
+      resolve(_parent, { input }, { token, prisma }) {
+        const email = input?.email || '';
+        let id = input?.id ? input.id : token?.sub;
+        id = id || '';
 
-        return ctx.prisma.user.findUnique({
+        return prisma.user.findUnique({
           where: {
             id,
             email,
@@ -115,11 +119,13 @@ export const UserMutation = mutationType({
       args: {
         input: UserInput,
       },
-      resolve(_parent, args, ctx) {
-        const { id, name, image, ...input } = args.input || {};
+      resolve(_parent, args, { prisma }) {
+        const { id, image, ...input } = args.input || {};
+        const name = input?.name || '';
 
         const [firstName, lastName] = name.split(' ');
-        return ctx.prisma.user.create({
+
+        return prisma.user.create({
           data: {
             Profile: {
               create: {
@@ -128,9 +134,9 @@ export const UserMutation = mutationType({
                 image,
               },
             },
-            name,
             image,
             ...input,
+            name,
           },
         });
       },
@@ -142,11 +148,13 @@ export const UserMutation = mutationType({
       args: {
         input: UserInput,
       },
-      resolve(_parent, args, ctx) {
+      resolve(_parent, args, { prisma, token }) {
+        const userId = token.sub;
         const { id, ...input } = args.input || {};
-        return ctx.prisma.user.update({
+
+        return prisma.user.update({
           where: {
-            id,
+            id: userId,
           },
           data: {
             ...input,
@@ -161,12 +169,12 @@ export const UserMutation = mutationType({
       args: {
         input: UserInput,
       },
-      resolve(_parent, { input }, ctx) {
-        const { id } = input;
+      resolve(_parent, args, { prisma, token }) {
+        const userId = token.sub;
 
-        return ctx.prisma.user.delete({
+        return prisma.user.delete({
           where: {
-            id,
+            id: userId,
           },
         });
       },
