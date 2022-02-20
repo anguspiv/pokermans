@@ -1,10 +1,8 @@
 import { ApolloServer } from 'apollo-server-micro';
 import Cors from 'micro-cors';
-import { getToken } from 'next-auth/jwt';
+import { RequestHandler } from 'micro';
 import { schema } from '../../src/graphql/schema';
 import { createContext } from '../../src/graphql/context';
-
-const secret = process.env.NEXTAUTH_SECRET;
 
 const cors = Cors();
 
@@ -15,7 +13,7 @@ const server = new ApolloServer({
 
 const startServer = server.start();
 
-let apolloHandler;
+let apolloHandler: RequestHandler;
 
 const getHandler = async () => {
   if (!apolloHandler) {
@@ -29,23 +27,16 @@ const getHandler = async () => {
   return apolloHandler;
 };
 
-const graphql = async (req, res) => {
+const graphql = cors(async (req, res) => {
   const handler = await getHandler();
 
   if (req.method === 'OPTIONS') {
-    res.status(200).end();
-    return null;
-  }
-
-  const token = getToken({ req, secret });
-
-  if (!token) {
-    res.status(401).send('unauthorized');
+    res.end();
     return null;
   }
 
   return handler(req, res);
-};
+});
 
 export const config = {
   api: {
@@ -53,4 +44,4 @@ export const config = {
   },
 };
 
-export default cors(graphql);
+export default graphql;

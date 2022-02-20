@@ -68,5 +68,5 @@ model Profile {
   nickname  String?
   image     String?
   bio       String?
-  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user      User    @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade)
 }
