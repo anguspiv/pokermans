@@ -21,6 +21,7 @@
     "lint:write": "next lint --cache --fix"
   },
   "dependencies": {
+    "@apollo/client": "^3.5.9",
     "@chakra-ui/react": "^1.7.4",
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
@@ -36,7 +37,7 @@
     "consola": "^2.15.3",
     "eslint-config-airbnb-typescript": "^15.0.0",
     "framer-motion": "^4.1.17",
-    "graphql": "^15.7.2",
+    "graphql": "^15.8.0",
     "graphql-iso-date": "^3.6.1",
     "micro": "^9.3.4",
     "micro-cors": "^0.1.1",
