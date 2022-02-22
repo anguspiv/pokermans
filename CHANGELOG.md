@@ -1,3 +1,11 @@
+# [1.5.0](https://github.com/anguspiv/pokermans/compare/v1.4.0...v1.5.0) (2022-02-22)
+
+
+### Features
+
+* **api:** requires user login to access apis ([5983aba](https://github.com/anguspiv/pokermans/commit/5983abac1723bc065279fd0c7914df3bc60215c9)), closes [#84](https://github.com/anguspiv/pokermans/issues/84)
+* **graphql:** secures user and profile mutations ([a731ff7](https://github.com/anguspiv/pokermans/commit/a731ff7d2def6abebd4bb1a2636204aac39baa6f)), closes [#84](https://github.com/anguspiv/pokermans/issues/84)
+
 # [1.4.0](https://github.com/anguspiv/pokermans/compare/v1.3.0...v1.4.0) (2022-01-26)
 
 
