@@ -27,6 +27,7 @@
     {
       "files": ["*.stories.ts", "*.stories.tsx"],
       "rules": {
+        "react/prop-types": "off",
         "import/no-extraneous-dependencies": "off"
       }
     },
