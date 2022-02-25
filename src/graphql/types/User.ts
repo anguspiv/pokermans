@@ -40,8 +40,8 @@ export const UserQuery = extendType({
         input: UserInput,
       },
       resolve(_parent, { input }, { prisma }) {
-        const name = input?.name || '';
-        const email = input?.email || '';
+        const name = input?.name || undefined;
+        const email = input?.email || undefined;
 
         if (name) {
           return prisma.user.findMany({
@@ -96,9 +96,9 @@ export const UserQuery = extendType({
       description: 'Find a single user',
       args: { input: UserInput },
       resolve(_parent, { input }, { token, prisma }) {
-        const email = input?.email || '';
+        const email = input?.email || undefined;
         let id = input?.id ? input.id : token?.sub;
-        id = id || '';
+        id = id || undefined;
 
         return prisma.user.findUnique({
           where: {
@@ -121,9 +121,9 @@ export const UserMutation = mutationType({
       },
       resolve(_parent, args, { prisma }) {
         const { id, image, ...input } = args.input || {};
-        const name = input?.name || '';
+        const name = input?.name || undefined;
 
-        const [firstName, lastName] = name.split(' ');
+        const [firstName, lastName] = name ? name.split(' ') : [];
 
         return prisma.user.create({
           data: {
