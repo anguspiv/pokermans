@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
   stories: [
     '../src/**/*.stories.mdx',
@@ -21,6 +23,11 @@ module.exports = {
           ...config.resolve.alias,
           '@emotion/core': '@emotion/react',
           'emotion-theming': '@emotion/react',
+          '@components': path.resolve(__dirname, '../src/components'),
+          '@pages': path.resolve(__dirname, '../pages'),
+          '@db': path.resolve(__dirname, '../src/db'),
+          '@graphql': path.resolve(__dirname, '../src/graphql'),
+          '@utils': path.resolve(__dirname, '../src/utils'),
         },
       },
     };
