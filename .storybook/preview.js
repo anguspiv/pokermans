@@ -1,6 +1,7 @@
 import * as NextImage from 'next/image';
 import { RouterContext } from 'next/dist/shared/lib/router-context';
 import { ChakraProvider } from '@chakra-ui/react';
+import { MockedProvider } from '@apollo/client/testing';
 
 const OriginalImage = NextImage.default;
 
@@ -26,6 +27,9 @@ export const parameters = {
     asPath: '/',
     query: {},
     push() {},
+  },
+  apolloClient: {
+    MockedProvider,
   },
 };
 
