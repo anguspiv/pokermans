@@ -36,22 +36,23 @@ export const ProfileQuery = extendType({
       type: 'Profile',
       description: "Find a User's profile",
       args: { input: ProfileInput },
-      resolve(_parent, args, { prisma }) {
+      resolve(_parent, args, { prisma, token }) {
         const { id, userId } = args.input || {};
+        const authId = token?.sub;
+
+        const where = {};
 
         if (id) {
-          return prisma.profile.findUnique({
-            where: { id },
-          });
+          where.id = id;
+        } else if (userId) {
+          where.userId = userId;
+        } else {
+          where.userId = authId;
         }
 
-        if (userId) {
-          return prisma.profile.findUnique({
-            where: { userId },
-          });
-        }
-
-        return null;
+        return prisma.profile.findUnique({
+          where,
+        });
       },
     });
   },
@@ -65,11 +66,19 @@ export const ProfileMutation = extendType({
       description: 'Update a profile',
       args: { input: ProfileInput },
       resolve(_parent, args, { prisma, token }) {
-        const authId = token.sub;
+        const authId = token?.sub;
         const { id, userId, ...input } = args.input || {};
 
+        const where = {};
+
+        if (id) {
+          where.id = id;
+        } else {
+          where.userId = authId;
+        }
+
         return prisma.profile.update({
-          where: { id: authId },
+          where,
           data: {
             ...input,
           },
@@ -82,10 +91,10 @@ export const ProfileMutation = extendType({
       description: 'Delete a profile',
       args: { input: ProfileInput },
       resolve(_parent, args, { prisma, token }) {
-        const authId = token.sub;
+        const authId = token?.sub;
 
         return prisma.profile.delete({
-          where: { id: authId },
+          where: { userId: authId },
         });
       },
     });
