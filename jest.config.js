@@ -39,6 +39,7 @@ module.exports = {
     '^@db(.*)$': '<rootDir>/src/db$1',
     '^@graphql(.*)$': '<rootDir>/src/graphql$1',
     '^@utils(.*)$': '<rootDir>/src/utils$1',
+    '^@pages(.*)$': '<rootDir>/pages$1',
   },
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   testPathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/.next/', '<rootDir>/cypress/'],
