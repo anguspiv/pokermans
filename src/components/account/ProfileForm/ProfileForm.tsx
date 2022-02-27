@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect } from 'react';
 import { FormControl, FormLabel, Input, Button, FormErrorMessage } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -22,6 +22,7 @@ export function ProfileForm({ profile, onSubmit = () => {} }: ProfileFormProps) 
     handleSubmit,
     register,
     formState: { errors },
+    reset,
   } = useForm({
     mode: 'onBlur',
     defaultValues: {
@@ -35,6 +36,14 @@ export function ProfileForm({ profile, onSubmit = () => {} }: ProfileFormProps) 
   };
 
   const firstName = register('firstName');
+
+  useEffect(() => {
+    if (profile) {
+      reset({
+        firstName: profile.firstName,
+      });
+    }
+  }, [profile, reset]);
 
   return (
     <form data-testid="profile-form" onSubmit={handleSubmit(onFormSubmit)}>
