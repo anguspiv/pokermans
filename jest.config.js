@@ -35,6 +35,10 @@ module.exports = {
     /* Handle image imports
     https://jestjs.io/docs/webpack#handling-static-assets */
     '^.+\\.(jpg|jpeg|png|gif|webp|avif|svg)$': '<rootDir>/__mocks__/fileMock.js',
+    '^@components(.*)$': '<rootDir>/src/components$1',
+    '^@db(.*)$': '<rootDir>/src/db$1',
+    '^@graphql(.*)$': '<rootDir>/src/graphql$1',
+    '^@utils(.*)$': '<rootDir>/src/utils$1',
   },
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   testPathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/.next/', '<rootDir>/cypress/'],
