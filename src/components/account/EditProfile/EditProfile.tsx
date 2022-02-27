@@ -17,7 +17,7 @@ export function EditProfile() {
   };
 
   return (
-    <Box data-testid="edit-profile">
+    <Box data-testid="edit-profile" p={4}>
       <ProfileForm profile={profile} onSubmit={onSubmit} />
     </Box>
   );
