@@ -1,29 +1,9 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { useQuery, gql } from '@apollo/client';
-import PageHeader from '../../src/components/layout/PageHeader';
-
-const QUERY = gql`
-  query User {
-    user {
-      id
-      name
-      email
-      image
-      profile {
-        id
-        firstName
-        lastName
-        nickname
-        bio
-      }
-    }
-  }
-`;
+import PageHeader from '@components/layout/PageHeader';
+import EditProfile from '@components/account/EditProfile';
 
 const Account: NextPage = () => {
-  const { data, loading, error } = useQuery(QUERY);
-
   return (
     <>
       <Head>
@@ -31,9 +11,7 @@ const Account: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <PageHeader title="User Account" />
-      {loading && <p>Loading...</p>}
-      {error && <p>Error :( {error}</p>}
-      {data && <pre>{JSON.stringify(data, null, 2)}</pre>}
+      <EditProfile />
     </>
   );
 };
