@@ -1,5 +1,7 @@
 import { useQuery, useMutation } from '@apollo/client';
 import { fireEvent, render, waitFor } from '@testing-library/react';
+import { useToast } from '@chakra-ui/react';
+import logger from '@utils/logger';
 import { EditProfile } from './EditProfile';
 
 const updateProfileMock = jest.fn();
@@ -10,17 +12,29 @@ jest.mock('@apollo/client', () => ({
   useMutation: jest.fn().mockReturnValue([jest.fn(), {}]),
 }));
 
+jest.mock('@chakra-ui/react', () => ({
+  ...jest.requireActual('@chakra-ui/react'),
+  useToast: jest.fn().mockReturnValue(jest.fn()),
+}));
+
 describe('<EditProfile />', () => {
-  const setupEditProfile = (props, { profile, loading = false, error = null } = {}) => {
+  // eslint-disable-next-line jest/no-hooks
+  beforeAll(() => {
+    logger.wrapAll();
+  });
+
+  const setupEditProfile = (props, { profile, ...getQuery } = {}, updateQuery = {}) => {
+    logger.mockTypes(() => jest.fn());
+
     useQuery.mockReturnValue({
       data: {
         profile,
       },
-      loading,
-      error,
+      loading: false,
+      ...getQuery,
     });
 
-    useMutation.mockReturnValue([updateProfileMock, { data: { updateProfile: { id: '1' } } }]);
+    useMutation.mockReturnValue([updateProfileMock, updateQuery]);
 
     return render(<EditProfile {...props} />);
   };
@@ -79,5 +93,83 @@ describe('<EditProfile />', () => {
         },
       }),
     );
+  });
+
+  it('should set the form loading while waiting to fetch profile', () => {
+    expect.assertions(1);
+
+    const { getByRole } = setupEditProfile({}, { loading: true });
+
+    expect(getByRole('button', { name: /Saving/i })).toBeDisabled();
+  });
+
+  it('should set the form loading while waiting to save profile', async () => {
+    expect.assertions(1);
+
+    const { getByRole } = setupEditProfile({}, {}, { loading: true });
+
+    expect(getByRole('button', { name: /Saving/i })).toBeDisabled();
+  });
+
+  it('should log the get profile error', () => {
+    expect.assertions(1);
+
+    const error = new Error('Error');
+
+    setupEditProfile({}, { error });
+
+    expect(logger.error).toHaveBeenCalledWith(error);
+  });
+
+  it('should log the update profile error', () => {
+    expect.assertions(1);
+
+    const error = new Error('Error');
+
+    setupEditProfile({}, {}, { error });
+
+    expect(logger.error).toHaveBeenCalledWith(error);
+  });
+
+  it('should display an error message', () => {
+    expect.assertions(1);
+
+    const toast = jest.fn();
+
+    useToast.mockReturnValue(toast);
+
+    const error = new Error('Error');
+
+    setupEditProfile({}, { error });
+
+    expect(toast).toHaveBeenCalledWith({
+      title: 'Error Saving Changes',
+      description: 'We could not save your changes. Please try again.',
+      status: 'error',
+      duration: 9000,
+      isClosable: true,
+    });
+  });
+
+  it('should display an succes message', () => {
+    expect.assertions(1);
+
+    const toast = jest.fn();
+
+    useToast.mockReturnValue(toast);
+
+    const profile = {
+      id: '1',
+    };
+
+    setupEditProfile({}, {}, { data: { updateProfile: profile } });
+
+    expect(toast).toHaveBeenCalledWith({
+      title: 'Profile saved!',
+      description: 'Changes saved successfully.',
+      status: 'success',
+      duration: 9000,
+      isClosable: true,
+    });
   });
 });
