@@ -18,4 +18,5 @@ const Template: Story<ProfileFormProps> = ({ firstName, ...args }) => {
 export const Default = Template.bind({});
 Default.args = {
   firstName: 'John',
+  loading: false,
 };
