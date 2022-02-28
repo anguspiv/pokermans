@@ -84,4 +84,34 @@ describe('<ProfileForm />', () => {
 
     await waitFor(() => expect(onSubmit).toHaveBeenCalledWith({ firstName: 'Jane' }));
   });
+
+  it('should show the form loading button', () => {
+    expect.assertions(1);
+
+    const { getByRole } = setupProfileForm({ loading: true });
+
+    const button = getByRole('button', { name: /Saving/i });
+
+    expect(button).toHaveAttribute('disabled');
+  });
+
+  it('should disable the fields while loading', () => {
+    expect.assertions(1);
+
+    const { getByLabelText } = setupProfileForm({ loading: true });
+
+    expect(getByLabelText('First Name')).toBeDisabled();
+  });
+
+  it('should disable the form until dirty', () => {
+    expect.assertions(2);
+
+    const { getByRole, getByLabelText } = setupProfileForm();
+
+    expect(getByRole('button', { name: /Save/i })).toBeDisabled();
+
+    fireEvent.change(getByLabelText('First Name'), { target: { value: 'Jane' } });
+
+    expect(getByRole('button', { name: /Save/i })).not.toBeDisabled();
+  });
 });
