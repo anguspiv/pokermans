@@ -10,7 +10,7 @@ export interface ProfileData {
 
 export interface ProfileFormProps {
   profile?: ProfileData;
-  onSubmit: (data: ProfileData) => void | Promise;
+  onSubmit: (data: ProfileData) => void | Promise<unknown>;
   loading?: boolean;
 }
 
@@ -37,7 +37,7 @@ export function ProfileForm({ profile, onSubmit = () => {}, loading = false }: P
     resolver: yupResolver(schema),
   });
 
-  const onFormSubmit = (data) => {
+  const onFormSubmit = (data: ProfileData) => {
     onSubmit(data);
   };
 
@@ -57,7 +57,7 @@ export function ProfileForm({ profile, onSubmit = () => {}, loading = false }: P
 
   return (
     <form data-testid="profile-form" onSubmit={handleSubmit(onFormSubmit)}>
-      <FormControl isInvalid={errors.firstName}>
+      <FormControl isInvalid={!!errors.firstName}>
         <FormLabel htmlFor="firstName">First Name</FormLabel>
         <Input id="firstName" type="text" placeholder="John" {...firstName} disabled={disabled} />
         <FormErrorMessage>{errors?.firstName?.message}</FormErrorMessage>

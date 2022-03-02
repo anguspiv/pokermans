@@ -7,7 +7,13 @@ export default {
   argTypes: { onSubmit: { action: 'submitted' } },
 };
 
-const Template: Story<ProfileFormProps> = ({ firstName, ...args }) => {
+interface StoryArgs {
+  firstName: string;
+  loading: boolean;
+  onSubmit: (data: ProfileFormProps['profile']) => void;
+}
+
+const Template: Story<StoryArgs> = ({ firstName, ...args }) => {
   const profile = {
     firstName,
   };
