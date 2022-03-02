@@ -1,3 +1,25 @@
+# [1.6.0](https://github.com/anguspiv/pokermans/compare/v1.5.0...v1.6.0) (2022-03-02)
+
+
+### Bug Fixes
+
+* **edit-profile:** adds padding ([4f0e78d](https://github.com/anguspiv/pokermans/commit/4f0e78d91ed3dec86a2e17925d7c4c93e1986ef1))
+* **gql-profile:** updates profile by userid and not id ([9324a47](https://github.com/anguspiv/pokermans/commit/9324a47f0cedb6f7890ecd69958c6d051ce913da))
+* **profile-form:** resets form on profile update ([652d7b6](https://github.com/anguspiv/pokermans/commit/652d7b6b7b4d8c83c1e239463b25cde32b34f4ca))
+* stupid typing errors ([caa2220](https://github.com/anguspiv/pokermans/commit/caa2220543ff93afb4c27a4ef04c4e33e02f8ff8))
+* **user:** defaults args to undefined ([482dcbb](https://github.com/anguspiv/pokermans/commit/482dcbbda17d138c731f8441ee1a208a9372def6))
+
+
+### Features
+
+* **account-page:** adds edit profile ([09b9896](https://github.com/anguspiv/pokermans/commit/09b9896edd1f7c92f6d3b302f57a3c26fd208be0))
+* adds apollo client for data fetching ([886bdd3](https://github.com/anguspiv/pokermans/commit/886bdd3553eb94e05995ff6655ed4f323ec27a42))
+* adds common user and profile queries ([5e187e2](https://github.com/anguspiv/pokermans/commit/5e187e2105e4d1c3f1dffd8d92558d8da13aab05))
+* adds edit profile component ([83461b7](https://github.com/anguspiv/pokermans/commit/83461b72c0680445aaf47e853c2bf21b01a446df))
+* adds the profile form component ([7c5b6b4](https://github.com/anguspiv/pokermans/commit/7c5b6b4202457688a02cf53e3b74f86fd0264005))
+* **edit-profile:** adds loading state for the form ([c54ea25](https://github.com/anguspiv/pokermans/commit/c54ea256ee59e8f32738550054a65f490d18b0ce))
+* **profile-form:** adds loading state ([7fb2cd6](https://github.com/anguspiv/pokermans/commit/7fb2cd6991011eaacb3fba33a74cfdea914f30c1))
+
 # [1.5.0](https://github.com/anguspiv/pokermans/compare/v1.4.0...v1.5.0) (2022-02-22)
 
 
