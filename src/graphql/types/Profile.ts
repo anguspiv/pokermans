@@ -1,5 +1,10 @@
 import { objectType, extendType, inputObjectType } from 'nexus';
 
+interface ProfileWhere {
+  id?: string;
+  userId?: string;
+}
+
 // eslint-disable-next-line import/prefer-default-export
 export const Profile = objectType({
   name: 'Profile',
@@ -40,7 +45,7 @@ export const ProfileQuery = extendType({
         const { id, userId } = args.input || {};
         const authId = token?.sub;
 
-        const where = {};
+        const where: ProfileWhere = {};
 
         if (id) {
           where.id = id;
@@ -69,7 +74,7 @@ export const ProfileMutation = extendType({
         const authId = token?.sub;
         const { id, userId, ...input } = args.input || {};
 
-        const where = {};
+        const where: ProfileWhere = {};
 
         if (id) {
           where.id = id;
