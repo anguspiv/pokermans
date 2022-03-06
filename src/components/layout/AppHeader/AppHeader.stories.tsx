@@ -1,5 +1,6 @@
+import { Story } from '@storybook/react';
 import { SessionProvider } from 'next-auth/react';
-import AppHeader from './AppHeader';
+import AppHeader, { AppHeaderProps } from './AppHeader';
 
 export default {
   title: 'components/layout/AppHeader',
@@ -9,7 +10,7 @@ export default {
   },
 };
 
-const Template = (props) => (
+const Template: Story<AppHeaderProps> = (props) => (
   <SessionProvider>
     <AppHeader {...props} />
   </SessionProvider>

@@ -122,4 +122,22 @@ describe('<PageLayout />', () => {
 
     expect(onToggle).toHaveBeenCalledTimes(1);
   });
+
+  it('should hide the page sidebar', () => {
+    expect.assertions(1);
+
+    const { queryByTestId } = setupPageLayout();
+
+    expect(queryByTestId('aoo-sidebar')).toBeNull();
+  });
+
+  it('should render the page sidebar', () => {
+    expect.assertions(1);
+
+    const mediaQuery = [true];
+
+    const { getByTestId } = setupPageLayout({}, { mediaQuery });
+
+    expect(getByTestId('app-sidebar')).toBeInTheDocument();
+  });
 });

@@ -3,8 +3,8 @@ import { Container, Grid, GridItem, Text, Box } from '@chakra-ui/react';
 import MenuButton from '@components/navigation/MenuButton';
 
 export interface AppHeaderProps {
-  isMenuOpen?: boolean;
-  hideMenuButton?: boolean;
+  isMenuOpen: boolean;
+  hideMenuButton: boolean;
   onMenuToggle: () => void;
 }
 
@@ -20,6 +20,7 @@ function AppHeader({ isMenuOpen, onMenuToggle, hideMenuButton }: AppHeaderProps)
           templateColumns="repeat(3, 1fr)"
           gap={2}
           templateAreas="'left center right'"
+          height="100%"
         >
           <GridItem minWidth="1.75em" gridArea="left" textAlign="left">
             {!hideMenuButton && <MenuButton isOpen={isMenuOpen} onClick={onMenuToggle} />}

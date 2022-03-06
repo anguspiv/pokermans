@@ -2,11 +2,11 @@ import { Box } from '@chakra-ui/react';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
 import { useSession } from 'next-auth/react';
 import NavMenu from '../NavMenu';
-import NavLink, { NavLinkProps } from '../NavLink';
+import NavLink from '../NavLink';
 import NavMenuTitle from '../NavMenuTitle';
 
 export interface AppMenuProps {
-  variant?: NavLinkProps.variant;
+  variant?: 'default' | 'transparent';
 }
 
 const variants = {
