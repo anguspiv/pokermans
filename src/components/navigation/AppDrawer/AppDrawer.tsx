@@ -25,7 +25,7 @@ function AppDrawer({ isOpen = false, onClose = () => {} }: AppDrawerProps) {
   return (
     <Drawer placement="left" isOpen={!!isOpen} onClose={onClose}>
       <DrawerOverlay />
-      <DrawerContent color="gray.200" bg="gray.800" data-testid="app-drawer">
+      <DrawerContent color="gray.200" bg="teal.800" data-testid="app-drawer">
         <DrawerCloseButton />
         <DrawerHeader>Pokermans</DrawerHeader>
         <DrawerBody>

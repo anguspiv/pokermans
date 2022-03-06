@@ -17,7 +17,7 @@ const variants = {
   default: {
     color: 'whiteAlpha.900',
     _hover: {
-      bg: 'blue.500',
+      bg: 'teal.500',
       color: 'whiteAlpha.900',
     },
     _activeLink: {
@@ -52,7 +52,6 @@ function NavLink({ href = '#', label, children, icon, variant }: NavLinkProps) {
         display="block"
         py={2}
         px={3}
-        borderRadius="md"
         transition="all 0.3s"
         fontWeight="medium"
         lineHeight="1.5rem"

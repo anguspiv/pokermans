@@ -9,10 +9,15 @@ export default {
   },
 };
 
-const Template = () => (
+const Template = (props) => (
   <SessionProvider>
-    <AppHeader />
+    <AppHeader {...props} />
   </SessionProvider>
 );
 
 export const Default = Template.bind({});
+
+Default.args = {
+  isMenuOpen: false,
+  hideMenuButton: false,
+};

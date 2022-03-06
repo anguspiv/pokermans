@@ -11,12 +11,12 @@ export interface AppMenuProps {
 
 const variants = {
   default: {
-    bg: 'gray.800',
-    color: 'gray.200',
+    bg: 'teal.800',
+    color: 'teal.200',
   },
   transparent: {
     bg: 'transparent',
-    color: 'gray.600',
+    color: 'teal.600',
   },
 };
 
@@ -27,7 +27,16 @@ function AppMenu({ variant }: AppMenuProps) {
   const { color, bg } = variants[variant ?? 'default'] || variants.default;
 
   return (
-    <Box fontSize="sm" lineHeight="tall" as="nav" display="block" height="100%" color={color} bg={bg}>
+    <Box
+      fontSize="sm"
+      lineHeight="tall"
+      as="nav"
+      display="block"
+      height="100%"
+      color={color}
+      bg={bg}
+      data-testid="app-menu"
+    >
       <NavMenu>
         <NavLink href="/" label="PokerMans" icon={faHome} variant={variant} />
       </NavMenu>
