@@ -7,6 +7,10 @@ export default {
   component: NavLink,
   argTypes: {
     onClick: { action: 'clicked' },
+    variant: {
+      options: ['default', 'transparent'],
+      control: { type: 'select' },
+    },
   },
 };
 

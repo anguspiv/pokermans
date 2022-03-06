@@ -83,4 +83,20 @@ describe('<NavLink />', () => {
 
     expect(getByRole('link')).toHaveAttribute('aria-current', 'page');
   });
+
+  it('should use the default style', () => {
+    expect.assertions(1);
+
+    const { getByRole } = setupNavLink({ href: '/test' });
+
+    expect(getByRole('link')).toHaveStyle('background: var(--chakra-colors-blue-700);');
+  });
+
+  it('should use the transparent color scheme', () => {
+    expect.assertions(1);
+
+    const { getByRole } = setupNavLink({ href: '/test', variant: 'transparent' });
+
+    expect(getByRole('link')).toHaveStyle('background-color: transparent');
+  });
 });
