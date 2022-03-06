@@ -10,16 +10,44 @@ export interface NavLinkProps {
   label?: React.ReactNode;
   children?: React.ReactNode;
   icon?: IconProp;
+  variant?: 'default' | 'transparent';
 }
 
-function NavLink({ href = '#', label, children, icon }: NavLinkProps) {
+const variants = {
+  default: {
+    color: 'whiteAlpha.900',
+    _hover: {
+      bg: 'blue.500',
+      color: 'whiteAlpha.900',
+    },
+    _activeLink: {
+      color: 'whiteAlpha.900',
+      fontWeight: 'bolder',
+    },
+  },
+  transparent: {
+    color: 'gray.600',
+    _hover: {
+      bg: 'transparent',
+      color: 'gray.500',
+    },
+    _activeLink: {
+      bg: 'transparent',
+      color: 'gray.700',
+    },
+  },
+};
+
+function NavLink({ href = '#', label, children, icon, variant }: NavLinkProps) {
   const router = useRouter() ?? {};
 
   const isActive = router.asPath === href;
 
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  const { color, _hover, _activeLink } = variants[variant ?? 'default'] || {};
+
   return (
     <NextLink href={href} passHref>
-      {/* eslint-disable jsx-a11y/anchor-is-valid */}
       <Link
         display="block"
         py={2}
@@ -29,23 +57,15 @@ function NavLink({ href = '#', label, children, icon }: NavLinkProps) {
         fontWeight="medium"
         lineHeight="1.5rem"
         aria-current={isActive ? 'page' : undefined}
-        color="whiteAlpha.900"
-        _hover={{
-          bg: 'blue.500',
-          color: 'white',
-        }}
-        _activeLink={{
-          bg: 'blue.700',
-          color: 'white',
-        }}
+        color={color}
+        _hover={_hover}
+        _activeLink={_activeLink}
       >
         <HStack spacing={4}>
           {!!icon && <Box width="1em">{icon && <FontAwesomeIcon icon={icon} data-testid="icon" />}</Box>}
           <Text as="span">{children || label}</Text>
         </HStack>
       </Link>
-
-      {/* eslint-ensable jsx-a11y/anchor-is-valid */}
     </NextLink>
   );
 }
@@ -55,6 +75,7 @@ NavLink.defaultProps = {
   label: '',
   children: null,
   icon: null,
+  variant: 'default',
 };
 
 export default NavLink;
