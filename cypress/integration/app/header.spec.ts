@@ -1,18 +1,28 @@
 describe('header', () => {
-  it('should display the app name', () => {
+  const setup = () => {
+    cy.viewport('iphone-6');
     cy.visit('/');
+  };
 
-    cy.findByTestId('app-title').should('contain', 'Pokermans');
+  const setupDesktop = () => {
+    cy.viewport('macbook-15');
+    cy.visit('/');
+  };
+
+  it('should display the header', () => {
+    setup();
+
+    cy.findByTestId('app-title').should('contain', 'PokerMans');
   });
 
   it('should hide the nav menu by default', () => {
-    cy.visit('/');
+    setup();
 
     cy.findByTestId('app-drawer').should('not.exist');
   });
 
   it('should open the menu', () => {
-    cy.visit('/');
+    setup();
 
     cy.findByRole('button', { name: 'Open Menu' }).click();
 
@@ -20,7 +30,7 @@ describe('header', () => {
   });
 
   it('should close the menu with menu close button', () => {
-    cy.visit('/');
+    setup();
 
     cy.findByRole('button', { name: 'Open Menu' }).click();
 
@@ -29,15 +39,15 @@ describe('header', () => {
     cy.findByTestId('app-drawer').should('not.exist');
   });
 
-  it('should close the menu clicking outside menu', () => {
-    cy.visit('/');
+  it('should hide the header on desktop', () => {
+    setupDesktop();
 
-    cy.findByRole('button', { name: 'Open Menu' }).click();
+    cy.findByTestId('app-title').should('not.exist');
+  });
 
-    cy.findByTestId('app-drawer').should('exist');
+  it('it should display the sidebar on desktop', () => {
+    setupDesktop();
 
-    cy.get('body').click();
-
-    cy.findByTestId('app-drawer').should('not.exist');
+    cy.findByTestId('app-sidebar').should('exist');
   });
 });

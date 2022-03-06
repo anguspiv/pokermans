@@ -1,5 +1,5 @@
 import AppMenu from './AppMenu';
 
-export { AppMenuProps } from './AppMenu';
+export * from './AppMenu';
 
 export default AppMenu;
