@@ -111,7 +111,7 @@
     "@storybook/react/webpack": "^5"
   },
   "lint-staged": {
-    "*.{js,ts,jsx,tsx,css}": ["npm run lint:write", "eslint --cache --fix"]
+    "*.{js,ts,jsx,tsx,css}": ["eslint --cache --fix"]
   },
   "prisma": {
     "seed": "node --loader ts-node/esm prisma/seed.ts"
