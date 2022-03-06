@@ -1,3 +1,14 @@
+# [1.7.0](https://github.com/anguspiv/pokermans/compare/v1.6.0...v1.7.0) (2022-03-06)
+
+
+### Features
+
+* adds desktop sidebar ([8767fe5](https://github.com/anguspiv/pokermans/commit/8767fe54a826db87d241d91be3871d988225c11d))
+* adds the app menu component ([f7a23e8](https://github.com/anguspiv/pokermans/commit/f7a23e89657b583a09d90885a05059ad9d520b0a))
+* **app-drawer:** hides the app drawer on desktop ([2d18fbb](https://github.com/anguspiv/pokermans/commit/2d18fbb6c3b1e74387bc223b743416a8a1dbe505))
+* **nav-link:** adds transparent style variant ([bdfad48](https://github.com/anguspiv/pokermans/commit/bdfad4805bc6d6fcb5a07e7ce8c4fc51712ac132))
+* updates to use a teal color theme ([3406191](https://github.com/anguspiv/pokermans/commit/3406191e4745c4a57f7f19103951d1df8ec8234b))
+
 # [1.6.0](https://github.com/anguspiv/pokermans/compare/v1.5.0...v1.6.0) (2022-03-02)
 
 
