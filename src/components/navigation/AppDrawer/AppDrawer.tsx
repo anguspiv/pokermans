@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  Box,
   Drawer,
   DrawerOverlay,
   DrawerContent,
@@ -9,11 +8,9 @@ import {
   DrawerBody,
   DrawerFooter,
 } from '@chakra-ui/react';
-import { faHome } from '@fortawesome/free-solid-svg-icons';
 import { useSession } from 'next-auth/react';
-import NavMenu from '../NavMenu';
+import AppMenu from '@components/navigation/AppMenu';
 import NavLink from '../NavLink';
-import NavMenuTitle from '../NavMenuTitle';
 
 export interface AppDrawerProps {
   isOpen?: boolean;
@@ -32,17 +29,7 @@ function AppDrawer({ isOpen = false, onClose = () => {} }: AppDrawerProps) {
         <DrawerCloseButton />
         <DrawerHeader>Pokermans</DrawerHeader>
         <DrawerBody>
-          <Box fontSize="sm" lineHeight="tall" as="nav" display="block" height="100%">
-            <NavMenu>
-              <NavLink href="/" label="Home" icon={faHome} />
-            </NavMenu>
-            {isAuthed && (
-              <NavMenu>
-                <NavMenuTitle>User</NavMenuTitle>
-                <NavLink href="/account" label="Account" />
-              </NavMenu>
-            )}
-          </Box>
+          <AppMenu />
         </DrawerBody>
         <DrawerFooter borderTopWidth="thin" justifyContent="center">
           {!isAuthed && <NavLink href="/api/auth/signin" label="Login" />}
