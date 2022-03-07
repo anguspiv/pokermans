@@ -46,7 +46,7 @@ export function EditProfile() {
   }, [updateStatus, toast, loading]);
 
   return (
-    <Box data-testid="edit-profile" p={4}>
+    <Box data-testid="edit-profile" p={4} maxW="xl">
       <ProfileForm profile={profile} onSubmit={onSubmit} loading={loading} />
     </Box>
   );
