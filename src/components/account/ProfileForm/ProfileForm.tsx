@@ -68,7 +68,7 @@ export function ProfileForm({ profile, onSubmit = () => {}, loading = false }: P
         isLoading={saveLoading}
         loadingText="Saving"
         disabled={saveDisabled}
-        colorScheme="blue"
+        colorScheme="teal"
       >
         Save
       </Button>

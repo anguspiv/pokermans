@@ -1,4 +1,4 @@
-import { useDisclosure, useMediaQuery, Grid, GridItem } from '@chakra-ui/react';
+import { useDisclosure, useMediaQuery, Grid, GridItem, Box } from '@chakra-ui/react';
 import AppDrawer from '@components/navigation/AppDrawer';
 import { useEffect } from 'react';
 import AppHeader from '../AppHeader';
@@ -37,7 +37,11 @@ function PageLayout({ children }: PageLayoutProps) {
         )}
       </GridItem>
       <GridItem gridArea="sidebar">{isDesktop && <SideBar />}</GridItem>
-      <GridItem gridArea="content">{children}</GridItem>
+      <GridItem gridArea="content">
+        <Box maxWidth="3xl" marginX="auto">
+          {children}
+        </Box>
+      </GridItem>
     </Grid>
   );
 }
