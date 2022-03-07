@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/anguspiv/pokermans/compare/v1.7.0...v1.8.0) (2022-03-07)
+
+
+### Features
+
+* **account-page:** cleans up the style pages ([017e4b5](https://github.com/anguspiv/pokermans/commit/017e4b5e678efd1837bb6de5dbb90d6c7b2c292f))
+
 # [1.7.0](https://github.com/anguspiv/pokermans/compare/v1.6.0...v1.7.0) (2022-03-06)
 
 
