@@ -1,11 +1,13 @@
 import NextAuth from 'next-auth';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import { PrismaClient } from '@prisma/client';
 import EmailProvider from 'next-auth/providers/email';
 import GoogleProvider from 'next-auth/providers/google';
 import DiscordProvider from 'next-auth/providers/discord';
+import { prisma } from '@db/prisma';
 
-const prisma = new PrismaClient();
+interface NextAuthMessage {
+  user?: User;
+}
 
 const google = GoogleProvider({
   clientId: process.env.GOOGLE_CLIENT_ID ?? '',
@@ -33,9 +35,26 @@ const providers = [email, discord, google];
 
 const adapter = PrismaAdapter(prisma);
 
+const createProfile = (user: User) => {
+  const data = {
+    userId: user.id,
+  };
+
+  return prisma.profile.create({ data });
+};
+
+const createUser = async ({ user }: NextAuthMessage) => {
+  if (user?.id) {
+    createProfile(user);
+  }
+};
+
 export default NextAuth({
   adapter,
   providers,
   secret: process.env.NEXTAUTH_SECRET,
   session: { strategy: 'jwt' },
+  events: {
+    createUser,
+  },
 });
