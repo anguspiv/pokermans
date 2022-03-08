@@ -1,3 +1,10 @@
+## [1.8.1](https://github.com/anguspiv/pokermans/compare/v1.8.0...v1.8.1) (2022-03-08)
+
+
+### Bug Fixes
+
+* **next-auth:** creates profile on create user event ([7ee1490](https://github.com/anguspiv/pokermans/commit/7ee14908d6663fb6aca4d0c689dc3cf0584d3188)), closes [#95](https://github.com/anguspiv/pokermans/issues/95)
+
 # [1.8.0](https://github.com/anguspiv/pokermans/compare/v1.7.0...v1.8.0) (2022-03-07)
 
 
