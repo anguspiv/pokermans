@@ -21,6 +21,9 @@
       "@graphql/*": ["./src/graphql/*"],
       "@utils/*": ["./src/utils/*"],
     },
+    "typeRoots": [
+      "./types"
+    ]
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]

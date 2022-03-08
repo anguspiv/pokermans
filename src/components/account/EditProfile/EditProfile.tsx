@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Box, useToast } from '@chakra-ui/react';
 import { useQuery, useMutation } from '@apollo/client';
-import ProfileForm, { ProfileData } from '@components/account/ProfileForm';
+import ProfileForm from '@components/account/ProfileForm';
 import { GET_PROFILE, UPDATE_PROFILE } from '@graphql/queries';
 import logger from '@utils/logger';
 
@@ -18,7 +18,7 @@ export function EditProfile() {
   const loading = getLoading || updateStatus?.loading;
   const error = getError || updateStatus?.error;
 
-  const onSubmit = (values: ProfileData) => updateProfile({ variables: { input: values } });
+  const onSubmit = (values: Profile) => updateProfile({ variables: { input: values } });
 
   useEffect(() => {
     if (!loading && error) {

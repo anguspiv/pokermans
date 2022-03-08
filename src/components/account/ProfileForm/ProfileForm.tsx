@@ -4,13 +4,9 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
-export interface ProfileData {
-  firstName?: string;
-}
-
 export interface ProfileFormProps {
-  profile?: ProfileData;
-  onSubmit: (data: ProfileData) => void | Promise<unknown>;
+  profile?: Profile;
+  onSubmit: (data: Profile) => void | Promise<unknown>;
   loading?: boolean;
 }
 
@@ -37,7 +33,7 @@ export function ProfileForm({ profile, onSubmit = () => {}, loading = false }: P
     resolver: yupResolver(schema),
   });
 
-  const onFormSubmit = (data: ProfileData) => {
+  const onFormSubmit = (data: Profile) => {
     onSubmit(data);
   };
 
