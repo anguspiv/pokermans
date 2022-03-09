@@ -1,3 +1,11 @@
+# [1.10.0](https://github.com/anguspiv/pokermans/compare/v1.9.0...v1.10.0) (2022-03-09)
+
+
+### Features
+
+* adds form field component ([5ca9279](https://github.com/anguspiv/pokermans/commit/5ca927972aa0ac5cfa91300ea62b6a5e49261c55)), closes [#74](https://github.com/anguspiv/pokermans/issues/74)
+* **profile-form:** adds last name field ([7ad9d2a](https://github.com/anguspiv/pokermans/commit/7ad9d2a4adebba78c26ea5984b725fcb83447709)), closes [#74](https://github.com/anguspiv/pokermans/issues/74)
+
 # [1.9.0](https://github.com/anguspiv/pokermans/compare/v1.8.1...v1.9.0) (2022-03-09)
 
 
