@@ -32,7 +32,7 @@
     "@hookform/resolvers": "^2.8.8",
     "@next-auth/prisma-adapter": "^1.0.1",
     "@prisma/client": "^3.8.1",
-    "@sentry/nextjs": "^6.17.1",
+    "@sentry/nextjs": "^6.18.2",
     "apollo-server-micro": "^3.6.2",
     "babel-plugin-macros": "^3.1.0",
     "consola": "^2.15.3",
