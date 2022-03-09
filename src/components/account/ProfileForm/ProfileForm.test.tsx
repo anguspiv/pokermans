@@ -36,7 +36,7 @@ describe('<ProfileForm />', () => {
 
     const { getByPlaceholderText } = setupProfileForm();
 
-    expect(getByPlaceholderText('John')).toBeInTheDocument();
+    expect(getByPlaceholderText('Poker')).toBeInTheDocument();
   });
 
   it('should set the default value for the firstName', () => {
@@ -61,7 +61,7 @@ describe('<ProfileForm />', () => {
     await waitFor(() => expect(getByText('First Name is required')).toBeInTheDocument());
   });
 
-  it('should change the value of the input', () => {
+  it('should change the value of the firstName', () => {
     expect.assertions(1);
 
     const { getByDisplayValue, getByLabelText } = setupProfileForm();
@@ -69,6 +69,54 @@ describe('<ProfileForm />', () => {
     fireEvent.change(getByLabelText('First Name'), { target: { value: 'Jane' } });
 
     expect(getByDisplayValue('Jane')).toBeInTheDocument();
+  });
+
+  it('should display the last name field', () => {
+    expect.assertions(1);
+
+    const { getByLabelText } = setupProfileForm();
+
+    expect(getByLabelText('Last Name')).toBeInTheDocument();
+  });
+
+  it('should display the lastName placeholder', () => {
+    expect.assertions(1);
+
+    const { getByPlaceholderText } = setupProfileForm();
+
+    expect(getByPlaceholderText('Mans')).toBeInTheDocument();
+  });
+
+  it('should set the default value for the lastName', () => {
+    expect.assertions(1);
+
+    const profile = {
+      lastName: 'Doe',
+    };
+
+    const { getByDisplayValue } = setupProfileForm({ profile });
+
+    expect(getByDisplayValue('Doe')).toBeInTheDocument();
+  });
+
+  it('should require the lastName value', async () => {
+    expect.assertions(1);
+
+    const { getByText, getByLabelText } = setupProfileForm();
+
+    fireEvent.blur(getByLabelText('Last Name'));
+
+    await waitFor(() => expect(getByText('Last Name is required')).toBeInTheDocument());
+  });
+
+  it('should change the value of the lastName', () => {
+    expect.assertions(1);
+
+    const { getByDisplayValue, getByLabelText } = setupProfileForm();
+
+    fireEvent.change(getByLabelText('Last Name'), { target: { value: 'Doe' } });
+
+    expect(getByDisplayValue('Doe')).toBeInTheDocument();
   });
 
   it('should submit the values', async () => {
@@ -80,9 +128,11 @@ describe('<ProfileForm />', () => {
 
     fireEvent.change(getByLabelText('First Name'), { target: { value: 'Jane' } });
 
+    fireEvent.change(getByLabelText('Last Name'), { target: { value: 'Doe' } });
+
     fireEvent.click(getByRole('button', { name: 'Save' }));
 
-    await waitFor(() => expect(onSubmit).toHaveBeenCalledWith({ firstName: 'Jane' }));
+    await waitFor(() => expect(onSubmit).toHaveBeenCalledWith({ firstName: 'Jane', lastName: 'Doe' }));
   });
 
   it('should show the form loading button', () => {
