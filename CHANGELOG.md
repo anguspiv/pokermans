@@ -1,3 +1,10 @@
+# [1.9.0](https://github.com/anguspiv/pokermans/compare/v1.8.1...v1.9.0) (2022-03-09)
+
+
+### Features
+
+* adds sentry.io monitoring ([4cafd31](https://github.com/anguspiv/pokermans/commit/4cafd31daac0b4118e2a063a18451e5a1d92f4ee)), closes [#92](https://github.com/anguspiv/pokermans/issues/92)
+
 ## [1.8.1](https://github.com/anguspiv/pokermans/compare/v1.8.0...v1.8.1) (2022-03-08)
 
 
