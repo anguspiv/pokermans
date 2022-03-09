@@ -76,6 +76,7 @@ describe('<EditProfile />', () => {
       id: '1',
       userId: '1',
       firstName: 'John',
+      lastName: 'Doe',
     };
 
     const { getByDisplayValue, getByRole } = setupEditProfile({}, { profile });
@@ -89,6 +90,7 @@ describe('<EditProfile />', () => {
         variables: {
           input: {
             firstName: 'Jane',
+            lastName: 'Doe',
           },
         },
       }),

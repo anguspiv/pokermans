@@ -1,4 +1,4 @@
-import { forwardRef, Ref } from 'react';
+import { forwardRef } from 'react';
 import { FormControl, FormLabel, Input, FormErrorMessage } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 
@@ -6,9 +6,12 @@ export interface FormFieldProps {
   label: string;
   id?: string | undefined;
   error?: string | undefined;
+  disabled?: boolean;
+  placeholder?: string;
+  type?: string;
 }
 
-const FormField = forwardRef<RefType, FormFieldProps>(({ label, id, error, ...props }: FormFieldProps, ref: Ref) => {
+const FormField = forwardRef<HTMLInputElement, FormFieldProps>(({ label, id, error, ...props }, ref) => {
   return (
     <FormControl isInvalid={!!error}>
       <FormLabel htmlFor={id}>{label}</FormLabel>

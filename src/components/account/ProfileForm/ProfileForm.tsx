@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
-import { FormControl, FormLabel, Input, Button, FormErrorMessage } from '@chakra-ui/react';
+import { Button } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import FormField from '@components/form/FormField';
 
 export interface ProfileFormProps {
   profile?: Profile;
@@ -12,10 +13,12 @@ export interface ProfileFormProps {
 
 const schema = yup.object().shape({
   firstName: yup.string().required('First Name is required'),
+  lastName: yup.string().required('Last Name is required'),
 });
 
 const defaultvalues = {
   firstName: '',
+  lastName: '',
 };
 
 export function ProfileForm({ profile, onSubmit = () => {}, loading = false }: ProfileFormProps) {
@@ -37,12 +40,11 @@ export function ProfileForm({ profile, onSubmit = () => {}, loading = false }: P
     onSubmit(data);
   };
 
-  const firstName = register('firstName');
-
   useEffect(() => {
     if (profile) {
       reset({
         firstName: profile.firstName,
+        lastName: profile.lastName,
       });
     }
   }, [profile, reset]);
@@ -53,11 +55,24 @@ export function ProfileForm({ profile, onSubmit = () => {}, loading = false }: P
 
   return (
     <form data-testid="profile-form" onSubmit={handleSubmit(onFormSubmit)}>
-      <FormControl isInvalid={!!errors.firstName}>
-        <FormLabel htmlFor="firstName">First Name</FormLabel>
-        <Input id="firstName" type="text" placeholder="John" {...firstName} disabled={disabled} />
-        <FormErrorMessage>{errors?.firstName?.message}</FormErrorMessage>
-      </FormControl>
+      <FormField
+        id="firstName"
+        label="First Name"
+        placeholder="Poker"
+        type="text"
+        {...register('firstName')}
+        disabled={disabled}
+        error={errors?.firstName?.message}
+      />
+      <FormField
+        id="lastName"
+        label="Last Name"
+        placeholder="Mans"
+        type="text"
+        {...register('lastName')}
+        disabled={disabled}
+        error={errors?.lastName?.message}
+      />
       <Button
         type="submit"
         mt={2}
