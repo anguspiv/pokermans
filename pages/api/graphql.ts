@@ -1,6 +1,7 @@
 import { ApolloServer } from 'apollo-server-micro';
 import Cors from 'micro-cors';
 import { RequestHandler } from 'micro';
+import { withSentry } from '@sentry/nextjs';
 import { schema } from '../../src/graphql/schema';
 import { createContext } from '../../src/graphql/context';
 
@@ -44,4 +45,4 @@ export const config = {
   },
 };
 
-export default graphql;
+export default withSentry(graphql);

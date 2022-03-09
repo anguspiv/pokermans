@@ -3,6 +3,7 @@ import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import EmailProvider from 'next-auth/providers/email';
 import GoogleProvider from 'next-auth/providers/google';
 import DiscordProvider from 'next-auth/providers/discord';
+import { withSentry } from '@sentry/nextjs';
 import { prisma } from '@db/prisma';
 
 interface NextAuthMessage {
@@ -49,12 +50,14 @@ const createUser = async ({ user }: NextAuthMessage) => {
   }
 };
 
-export default NextAuth({
-  adapter,
-  providers,
-  secret: process.env.NEXTAUTH_SECRET,
-  session: { strategy: 'jwt' },
-  events: {
-    createUser,
-  },
-});
+export default withSentry(
+  NextAuth({
+    adapter,
+    providers,
+    secret: process.env.NEXTAUTH_SECRET,
+    session: { strategy: 'jwt' },
+    events: {
+      createUser,
+    },
+  }),
+);
