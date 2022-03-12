@@ -91,6 +91,7 @@ describe('<EditProfile />', () => {
           input: {
             firstName: 'Jane',
             lastName: 'Doe',
+            nickname: '',
           },
         },
       }),

@@ -7,6 +7,7 @@ export const GET_PROFILE = gql`
       userId
       firstName
       lastName
+      nickname
     }
   }
 `;

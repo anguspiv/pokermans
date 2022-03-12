@@ -14,11 +14,13 @@ export interface ProfileFormProps {
 const schema = yup.object().shape({
   firstName: yup.string().required('First Name is required'),
   lastName: yup.string().required('Last Name is required'),
+  nickname: yup.string(),
 });
 
 const defaultvalues = {
   firstName: '',
   lastName: '',
+  nickname: '',
 };
 
 export function ProfileForm({ profile, onSubmit = () => {}, loading = false }: ProfileFormProps) {
@@ -45,6 +47,7 @@ export function ProfileForm({ profile, onSubmit = () => {}, loading = false }: P
       reset({
         firstName: profile.firstName,
         lastName: profile.lastName,
+        nickname: profile.nickname,
       });
     }
   }, [profile, reset]);
@@ -72,6 +75,15 @@ export function ProfileForm({ profile, onSubmit = () => {}, loading = false }: P
         {...register('lastName')}
         disabled={disabled}
         error={errors?.lastName?.message}
+      />
+      <FormField
+        id="nickname"
+        label="Nickname"
+        placeholder="River Boat Capt."
+        type="text"
+        {...register('nickname')}
+        disabled={disabled}
+        error={errors?.nickname?.message}
       />
       <Button
         type="submit"
