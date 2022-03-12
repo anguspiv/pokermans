@@ -1,3 +1,10 @@
+# [1.11.0](https://github.com/anguspiv/pokermans/compare/v1.10.0...v1.11.0) (2022-03-12)
+
+
+### Features
+
+* **profile-form:** adds the nickname field ([29f7f07](https://github.com/anguspiv/pokermans/commit/29f7f070163e2ae5a850e9bf817b0b0db502b9c1)), closes [#79](https://github.com/anguspiv/pokermans/issues/79)
+
 # [1.10.0](https://github.com/anguspiv/pokermans/compare/v1.9.0...v1.10.0) (2022-03-09)
 
 
