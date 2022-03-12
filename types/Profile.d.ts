@@ -3,4 +3,5 @@ interface Profile {
   userId?: string;
   firstName?: string;
   lastName?: string;
+  nickname?: string;
 }
