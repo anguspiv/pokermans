@@ -2,8 +2,8 @@ import { ApolloServer } from 'apollo-server-micro';
 import Cors from 'micro-cors';
 import { RequestHandler } from 'micro';
 import { withSentry } from '@sentry/nextjs';
-import { schema } from '../../src/graphql/schema';
-import { createContext } from '../../src/graphql/context';
+import { createContext } from '@graphql/context';
+import schema from '../../schema';
 
 const cors = Cors();
 

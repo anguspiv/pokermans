@@ -3,7 +3,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npm run build:nexus-typegen && next build",
+    "build": "npm run build:prisma && npm run build:nexus-typegen && npm run build:next",
+    "build:next": "next build",
+    "build:nexus-typegen": "ts-node --compiler-options '{\"module\":\"CommonJS\"}' --transpile-only schema",
+    "build:prisma": "prisma generate && prisma migrate deploy",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
     "lint": "next lint",
@@ -16,9 +19,8 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "chromatic": "npx chromatic",
-    "build:nexus-typegen": "ts-node --compiler-options '{\"module\":\"CommonJS\"}' --transpile-only schema",
-    "vercel-build": "prisma generate && prisma migrate deploy && next build",
-    "lint:write": "next lint --cache --fix"
+    "lint:write": "next lint --cache --fix",
+    "vercel-build": "npm run build"
   },
   "dependencies": {
     "@apollo/client": "^3.5.9",
