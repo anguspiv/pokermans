@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import FormField from '@components/form/FormField';
+import TextField from '@components/form/TextField';
 
 export interface ProfileFormProps {
   profile?: Profile;
@@ -15,12 +16,14 @@ const schema = yup.object().shape({
   firstName: yup.string().required('First Name is required'),
   lastName: yup.string().required('Last Name is required'),
   nickname: yup.string(),
+  bio: yup.string().max(250, 'Bio must be less than 255 characters'),
 });
 
 const defaultvalues = {
   firstName: '',
   lastName: '',
   nickname: '',
+  bio: '',
 };
 
 export function ProfileForm({ profile, onSubmit = () => {}, loading = false }: ProfileFormProps) {
@@ -44,11 +47,10 @@ export function ProfileForm({ profile, onSubmit = () => {}, loading = false }: P
 
   useEffect(() => {
     if (profile) {
-      reset({
-        firstName: profile.firstName,
-        lastName: profile.lastName,
-        nickname: profile.nickname,
-      });
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      const { id, userId, __typename, ...rest } = profile;
+
+      reset(rest);
     }
   }, [profile, reset]);
 
@@ -84,6 +86,16 @@ export function ProfileForm({ profile, onSubmit = () => {}, loading = false }: P
         {...register('nickname')}
         disabled={disabled}
         error={errors?.nickname?.message}
+      />
+      <TextField
+        id="bio"
+        label="Short Bio"
+        placeholder="This is the story of my life"
+        {...register('bio')}
+        disabled={disabled}
+        error={errors?.bio?.message}
+        max={255}
+        maxWidth="md"
       />
       <Button
         type="submit"

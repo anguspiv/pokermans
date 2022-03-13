@@ -92,6 +92,7 @@ describe('<EditProfile />', () => {
             firstName: 'Jane',
             lastName: 'Doe',
             nickname: '',
+            bio: '',
           },
         },
       }),

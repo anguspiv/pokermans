@@ -4,4 +4,5 @@ interface Profile {
   firstName?: string;
   lastName?: string;
   nickname?: string;
+  __typename?: 'Profile';
 }

@@ -18,7 +18,11 @@ export function EditProfile() {
   const loading = getLoading || updateStatus?.loading;
   const error = getError || updateStatus?.error;
 
-  const onSubmit = (values: Profile) => updateProfile({ variables: { input: values } });
+  const onSubmit = (values: Profile) => {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    const { id, userId, __typename, ...input } = values;
+    updateProfile({ variables: { input } });
+  };
 
   useEffect(() => {
     if (!loading && error) {

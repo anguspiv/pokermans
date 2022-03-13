@@ -13,7 +13,7 @@ export interface FormFieldProps {
 
 const FormField = forwardRef<HTMLInputElement, FormFieldProps>(({ label, id, error, ...props }, ref) => {
   return (
-    <FormControl isInvalid={!!error}>
+    <FormControl isInvalid={!!error} mb={6}>
       <FormLabel htmlFor={id}>{label}</FormLabel>
       <Input focusBorderColor="teal.300" id={id} {...props} ref={ref} />
       <FormErrorMessage>{error}</FormErrorMessage>

@@ -1,14 +1,15 @@
 import { forwardRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { FormControl, FormLabel, Textarea, FormErrorMessage, FormHelperText } from '@chakra-ui/react';
+import { FormControl, FormLabel, Textarea, FormErrorMessage, FormHelperText, StyleProps } from '@chakra-ui/react';
 
-export interface TextFieldProps {
+export interface TextFieldProps extends StyleProps {
   label: string;
   id?: string | undefined;
   error?: string | undefined;
   placeholder?: string | undefined;
   disabled?: boolean;
   max?: number | undefined;
+  maxWidth?: number | string | undefined;
   value?: string | undefined;
   onChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
@@ -25,7 +26,7 @@ const TextField = forwardRef<HTMLTextAreaElement, TextFieldProps>(
     };
 
     return (
-      <FormControl isInvalid={!!error}>
+      <FormControl isInvalid={!!error} mb={6}>
         <FormLabel htmlFor={id}>{label}</FormLabel>
         <Textarea
           colorScheme="teal"
