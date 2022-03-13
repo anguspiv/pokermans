@@ -20,6 +20,7 @@
       "@db/*": ["./src/db/*"],
       "@graphql/*": ["./src/graphql/*"],
       "@utils/*": ["./src/utils/*"],
+      "@schema/*": ["./src/schema/*"],
     },
     "typeRoots": [
       "./types"
