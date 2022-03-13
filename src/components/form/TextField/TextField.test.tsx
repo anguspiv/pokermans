@@ -118,6 +118,6 @@ describe('<TextField />', () => {
 
     fireEvent.change(getByRole('textbox'), event);
 
-    expect(onChange).toHaveBeenCalledWith(event);
+    expect(onChange).toHaveBeenCalledTimes(1);
   });
 });

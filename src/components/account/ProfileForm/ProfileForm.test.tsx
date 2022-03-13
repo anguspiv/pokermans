@@ -141,6 +141,30 @@ describe('<ProfileForm />', () => {
     expect(getByDisplayValue('Capt.')).toBeInTheDocument();
   });
 
+  it('should set the default value for the bio', () => {
+    expect.assertions(1);
+
+    const profile = {
+      bio: 'This is the story of my life',
+    };
+
+    const { getByDisplayValue } = setupProfileForm({ profile });
+
+    expect(getByDisplayValue(profile.bio)).toBeInTheDocument();
+  });
+
+  it('should change the value of the bio', () => {
+    expect.assertions(1);
+
+    const { getByDisplayValue, getByLabelText } = setupProfileForm();
+
+    const value = 'This is the story of my life';
+
+    fireEvent.change(getByLabelText('Short Bio'), { target: { value } });
+
+    expect(getByDisplayValue(value)).toBeInTheDocument();
+  });
+
   it('should submit the values', async () => {
     expect.assertions(2);
 
@@ -154,7 +178,9 @@ describe('<ProfileForm />', () => {
 
     fireEvent.click(getByRole('button', { name: 'Save' }));
 
-    await waitFor(() => expect(onSubmit).toHaveBeenCalledWith({ firstName: 'Jane', lastName: 'Doe', nickname: '' }));
+    await waitFor(() =>
+      expect(onSubmit).toHaveBeenCalledWith({ firstName: 'Jane', lastName: 'Doe', nickname: '', bio: '' }),
+    );
   });
 
   it('should show the form loading button', () => {
