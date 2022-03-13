@@ -1,3 +1,11 @@
+# [1.12.0](https://github.com/anguspiv/pokermans/compare/v1.11.0...v1.12.0) (2022-03-13)
+
+
+### Features
+
+* adds the text field component ([1a431de](https://github.com/anguspiv/pokermans/commit/1a431deb83f0aea4d1f0a518d194a1c3717e98dc)), closes [#81](https://github.com/anguspiv/pokermans/issues/81)
+* **profile-form:** adds the short bio field ([2fc62d4](https://github.com/anguspiv/pokermans/commit/2fc62d4a7f6e4032318dfb8a9fca0c751ef73495)), closes [#81](https://github.com/anguspiv/pokermans/issues/81)
+
 # [1.11.0](https://github.com/anguspiv/pokermans/compare/v1.10.0...v1.11.0) (2022-03-12)
 
 
