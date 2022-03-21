@@ -131,10 +131,8 @@ export const UserMutation = mutationType({
               create: {
                 firstName,
                 lastName,
-                image,
               },
             },
-            image,
             ...input,
             name,
           },

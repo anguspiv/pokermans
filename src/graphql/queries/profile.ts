@@ -8,6 +8,15 @@ export const GET_PROFILE = gql`
       firstName
       lastName
       nickname
+      bio
+      avatar {
+        filename
+        filepath
+        mimeType
+        encoding
+        title
+        description
+      }
     }
   }
 `;

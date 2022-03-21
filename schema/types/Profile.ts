@@ -1,4 +1,5 @@
 import { objectType, extendType, inputObjectType } from 'nexus';
+import { UserInputError } from 'apollo-server-micro';
 
 interface ProfileWhere {
   id?: string;
@@ -15,8 +16,19 @@ export const Profile = objectType({
     t.string('firstName', { description: "The User Profile's First Name" });
     t.string('lastName', { description: "The User Profile's Last Name" });
     t.string('nickname', { description: "The User Profile's Nickname" });
-    t.string('image', { description: "The User Profile's Image URL" });
     t.string('bio', { description: 'A 250 character description of the User' });
+    t.string('avatarId', { description: 'The ID of the User Profile Avatar' });
+    t.field('avatar', {
+      type: 'Image',
+      description: 'A User Profile Avatar Image',
+      resolve(root, args, { prisma }) {
+        if (root.avatarId) {
+          return prisma.image.findUnique({ where: { id: root.avatarId } });
+        }
+
+        return null;
+      },
+    });
   },
 });
 
@@ -29,7 +41,6 @@ export const ProfileInput = inputObjectType({
     t.string('firstName', { description: "The User Profile's First Name" });
     t.string('lastName', { description: "The User Profile's Last Name" });
     t.string('nickname', { description: "The User Profile's Nickname" });
-    t.string('image', { description: "The User Profile's Image URL" });
     t.string('bio', { description: 'A 250 character description of the User' });
   },
 });
@@ -63,6 +74,7 @@ export const ProfileQuery = extendType({
   },
 });
 
+// TODO: add ability to delete avatar image
 export const ProfileMutation = extendType({
   type: 'Mutation',
   definition(t) {
@@ -70,9 +82,9 @@ export const ProfileMutation = extendType({
       type: 'Profile',
       description: 'Update a profile',
       args: { input: ProfileInput },
-      resolve(_parent, args, { prisma, token }) {
+      async resolve(_parent, args, { prisma, token }) {
         const authId = token?.sub;
-        const { id, userId, ...input } = args.input || {};
+        const { id, firstName, lastName, nickname, bio } = args.input || {};
 
         const where: ProfileWhere = {};
 
@@ -82,12 +94,22 @@ export const ProfileMutation = extendType({
           where.userId = authId;
         }
 
-        return prisma.profile.update({
+        const profile = await prisma.profile.findUnique({
           where,
-          data: {
-            ...input,
-          },
         });
+
+        if (!profile) {
+          throw new UserInputError('profile not found');
+        }
+
+        const data = { firstName, lastName, nickname, bio };
+
+        const result = await prisma.profile.update({
+          where,
+          data,
+        });
+
+        return result;
       },
     });
 

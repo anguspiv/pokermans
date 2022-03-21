@@ -14,18 +14,20 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "baseUrl": ".",
+    "baseUrl": "./",
     "paths": {
-      "@components/*": ["./src/components/*"],
-      "@db/*": ["./src/db/*"],
-      "@graphql/*": ["./src/graphql/*"],
-      "@utils/*": ["./src/utils/*"],
-      "@schema/*": ["./src/schema/*"],
+      "@components/*": ["src/components/*"],
+      "@db/*": ["src/db/*"],
+      "@graphql/*": ["src/graphql/*"],
+      "@utils/*": ["src/utils/*"],
+      "@schema/*": ["schema/*"],
+      "@errors/*": ["src/errors/*"],
     },
     "typeRoots": [
       "./types"
     ]
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
+  "ts-node": {}
 }
