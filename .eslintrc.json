@@ -58,6 +58,14 @@
       "rules": {
         "import/no-cycle": "off"
       }
+    },
+    {
+      "files": [
+        "schema/types/**/*.ts"
+      ],
+      "rules": {
+        "import/prefer-default-export": "off"
+      }
     }
   ]
 }

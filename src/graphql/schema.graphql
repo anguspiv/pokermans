@@ -12,6 +12,36 @@ A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `dat
 """
 scalar DateTime
 
+"""Image information for display"""
+type Image {
+  """The Image description"""
+  description: String
+
+  """The Image encoding"""
+  encoding: String
+
+  """The Image filename"""
+  filename: String
+
+  """The Image filepath"""
+  filepath: String
+
+  """The Image ID"""
+  id: String
+
+  """The Image mimeType"""
+  mimeType: String
+
+  """The Image title"""
+  title: String
+}
+
+"""Image Input"""
+input ImageInput {
+  """The Image ID"""
+  id: String
+}
+
 type Mutation {
   """Create a new User"""
   createUser(input: UserInput): User
@@ -27,10 +57,19 @@ type Mutation {
 
   """Update a User"""
   updateUser(input: UserInput): User
+
+  """Upload an Image"""
+  uploadImage(file: Upload): Image
 }
 
 """User Profile information for display"""
 type Profile {
+  """A User Profile Avatar Image"""
+  avatar: Image
+
+  """The ID of the User Profile Avatar"""
+  avatarId: String
+
   """A 250 character description of the User"""
   bio: String
 
@@ -39,9 +78,6 @@ type Profile {
 
   """The Profile ID"""
   id: String
-
-  """The User Profile's Image URL"""
-  image: String
 
   """The User Profile's Last Name"""
   lastName: String
@@ -64,9 +100,6 @@ input ProfileInput {
   """The Profile ID"""
   id: String
 
-  """The User Profile's Image URL"""
-  image: String
-
   """The User Profile's Last Name"""
   lastName: String
 
@@ -78,6 +111,9 @@ input ProfileInput {
 }
 
 type Query {
+  """Find an Image"""
+  image(input: ImageInput): Image
+
   """Find a User's profile"""
   profile(input: ProfileInput): Profile
 
@@ -87,6 +123,9 @@ type Query {
   """Get a list of Users"""
   users(input: UserInput): [User]!
 }
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
 
 type User {
   """The User's email"""

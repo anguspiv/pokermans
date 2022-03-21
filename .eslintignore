@@ -9,3 +9,4 @@ next.config.wizardcopy.js
 sentry.client.config.js
 sentry.server.config.js
 CHANGELOG.md
+types/nexus-typegen
