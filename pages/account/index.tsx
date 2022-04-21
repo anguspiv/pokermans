@@ -1,5 +1,6 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
+import { Flex } from '@chakra-ui/react';
 import PageHeader from '@components/layout/PageHeader';
 import EditProfile from '@components/account/EditProfile';
 
@@ -11,7 +12,15 @@ const Account: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <PageHeader title="User Account" />
-      <EditProfile />
+      <Flex
+        direction="column"
+        alignItems={{
+          base: 'center',
+          lg: 'flex-start',
+        }}
+      >
+        <EditProfile />
+      </Flex>
     </>
   );
 };

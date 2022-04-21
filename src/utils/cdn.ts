@@ -58,17 +58,18 @@ export const uploadFile = async (createReadStream: FileUpload['createReadStream'
 
   const stream = createReadStream();
 
+  const writeStream = file.createWriteStream({
+    predefinedAcl: 'publicRead',
+    resumable: false,
+    gzip: true,
+  });
+
   const promise = new Promise((resolve, reject) => {
     stream.on('error', (err) => reject(err));
 
     stream.on('end', () => resolve(file));
 
-    stream.pipe(
-      file.createWriteStream({
-        resumable: false,
-        gzip: true,
-      }),
-    );
+    stream.pipe(writeStream);
   });
 
   return promise;

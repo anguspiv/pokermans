@@ -1,5 +1,6 @@
 import { Story } from '@storybook/react';
 import { GET_PROFILE, UPDATE_PROFILE } from '@graphql/queries';
+import { UPLOAD_IMAGE } from '@components/form/ImageUpload';
 import { EditProfileProps, EditProfile } from './EditProfile';
 
 export default {
@@ -27,6 +28,17 @@ Default.parameters = {
               id: '1',
               userId: '1',
               firstName: 'John',
+              lastName: 'Doe',
+              nickname: 'JD',
+              bio: 'Somewhere over the rainbow...',
+              avatar: {
+                id: '1',
+                filename: 'angus-perkerson.jpeg',
+                filepath: '/images',
+                mimeType: 'image/jpeg',
+                title: 'Angus Perkerson',
+                description: 'Angus Perkerson',
+              },
             },
           },
         },
@@ -39,6 +51,23 @@ Default.parameters = {
           data: {
             updateProfile: {
               id: '1',
+            },
+          },
+        },
+      },
+      {
+        request: {
+          query: UPLOAD_IMAGE,
+        },
+        result: {
+          data: {
+            uploadImage: {
+              id: '1',
+              filename: 'angus-perkerson.jpeg',
+              filepath: '/images',
+              mimeType: 'image/jpeg',
+              title: 'Angus Perkerson Saved',
+              description: 'Angus Perkerson Saved',
             },
           },
         },

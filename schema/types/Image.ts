@@ -6,6 +6,7 @@ import path from 'path';
 import { UserInputError, AuthenticationError } from 'apollo-server-micro';
 import { isImageMimeType, MAX_IMAGE_SIZE, getFileSize, uploadFile } from '../../src/utils/cdn';
 import { FileTypeError, FileSizeError } from '../../src/errors/file';
+import logger from '../../src/utils/logger';
 
 interface ImageWhere {
   id?: string;
@@ -20,6 +21,8 @@ const uploadImage = async (
   { filename, mimetype, encoding, createReadStream }: FileUpload,
   { filename: rename, path: subpath }: StorageFileOptions,
 ) => {
+  logger.debug(`Uploading image:`, { filename, mimetype, encoding, createReadStream });
+
   const isImage = isImageMimeType(mimetype);
 
   if (!isImage) {
@@ -108,7 +111,9 @@ export const ImageMutation = extendType({
       args: {
         file: arg({ type: 'Upload' }),
       },
-      resolve: async (_parent, { file }, { prisma, token }) => {
+      resolve: async (_parent, args, { prisma, token }) => {
+        const file = await args.file;
+        logger.debug('uploadImage', { file });
         const guid = uuid();
         const userId = token?.sub || '';
 
