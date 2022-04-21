@@ -1,23 +1,31 @@
-import { Circle, VisuallyHiddenInput, VisuallyHidden, Image, Box, Button, Center, Flex } from '@chakra-ui/react';
+import {
+  Circle,
+  VisuallyHiddenInput,
+  VisuallyHidden,
+  Image,
+  Box,
+  Button,
+  Center,
+  Flex,
+  useToast,
+} from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCamera } from '@fortawesome/free-solid-svg-icons';
 import { useDropzone } from 'react-dropzone';
 import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { FieldValues, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { gql, useMutation } from '@apollo/client';
 import logger from '@utils/logger';
 import { getImageUrl } from '@utils/image';
 
-const UPLOAD_IMAGE = gql`
+export const UPLOAD_IMAGE = gql`
   mutation uploadImage($file: Upload!) {
     uploadImage(file: $file) {
       id
       filename
       filepath
-      mimetype
-      encoding
     }
   }
 `;
@@ -27,11 +35,12 @@ const schema = yup.object().shape({
 });
 
 export interface ImageUploadProps {
-  onUpload: (data: unknown) => void | Promise<unknown>;
-  placeholder?: Image;
+  onUpload: (data: Image) => void | Promise<void>;
+  placeholder?: Image | null;
 }
 
 function ImageUpload({ onUpload = () => {}, placeholder = null }: ImageUploadProps) {
+  const toast = useToast();
   const {
     handleSubmit,
     register,
@@ -41,11 +50,14 @@ function ImageUpload({ onUpload = () => {}, placeholder = null }: ImageUploadPro
   } = useForm({
     resolver: yupResolver(schema),
   });
-  const [imgFile, setImgFile] = useState(null);
+  const [imgFile, setImgFile] = useState<null | File>(null);
 
   const [uploadImage] = useMutation(UPLOAD_IMAGE);
 
   const { acceptedFiles, getRootProps, getInputProps, isDragActive } = useDropzone({
+    maxFiles: 1,
+    accept: 'image/*',
+    maxSize: 2097152,
     onDrop: (files) => {
       setValue('image', files, { shouldValidate: true, shouldDirty: true, shouldTouch: true });
     },
@@ -56,14 +68,24 @@ function ImageUpload({ onUpload = () => {}, placeholder = null }: ImageUploadPro
     setImgFile(null);
   };
 
-  const onFormSubmit = async (values) => {
-    const { image } = values;
+  const onFormSubmit = async ({ image }: FieldValues) => {
+    const [file] = image;
 
     try {
-      const { data } = await uploadImage({ variables: { file: image } });
+      const { data } = await uploadImage({ variables: { file } });
+
+      logger.debug('data', data);
       await onUpload(data?.uploadImage);
     } catch (error) {
       logger.error(error);
+
+      toast({
+        title: 'Error Uploading Image',
+        description: 'We could not upload your image. Please try again.',
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+      });
     }
 
     resetForm();
@@ -88,6 +110,7 @@ function ImageUpload({ onUpload = () => {}, placeholder = null }: ImageUploadPro
       flexDirection="column"
       display="inline-flex"
       onSubmit={handleSubmit(onFormSubmit)}
+      data-testid="image-upload-form"
     >
       <Circle
         bg="gray.100"
@@ -105,7 +128,13 @@ function ImageUpload({ onUpload = () => {}, placeholder = null }: ImageUploadPro
           <VisuallyHiddenInput type="file" name="image" id="image-upload" {...getInputProps()} />
         </Box>
         {showPlaceholder && (
-          <Image src={getImageUrl(placeholder)} alt={placeholder?.title} data-testid="placeholder-img" />
+          <Image
+            src={getImageUrl(placeholder)}
+            alt={placeholder?.title}
+            data-testid="placeholder-img"
+            height="100%"
+            maxWidth="none"
+          />
         )}
         {imgFile && <Image src={URL.createObjectURL(imgFile)} alt="Uploaded Image" height="100%" maxWidth="none" />}
       </Circle>

@@ -1,4 +1,4 @@
-export const getImageUrl = ({ filepath, filename }: Image) => `${process.env.CDN_URL || ''}${filepath}/${filename}`;
+export const getImageUrl = ({ filepath }: Image) => `${process.env.NEXT_PUBLIC_CDN_URL || ''}/${filepath}`;
 
 export default {
   getImageUrl,

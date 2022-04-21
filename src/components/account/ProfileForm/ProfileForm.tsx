@@ -95,7 +95,6 @@ export function ProfileForm({ profile, onSubmit = () => {}, loading = false }: P
         disabled={disabled}
         error={errors?.bio?.message}
         max={255}
-        maxWidth="md"
       />
       <Button
         type="submit"

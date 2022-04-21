@@ -42,6 +42,7 @@ export const ProfileInput = inputObjectType({
     t.string('lastName', { description: "The User Profile's Last Name" });
     t.string('nickname', { description: "The User Profile's Nickname" });
     t.string('bio', { description: 'A 250 character description of the User' });
+    t.string('avatarId', { description: 'The ID of the User Profile Avatar' });
   },
 });
 
@@ -84,7 +85,7 @@ export const ProfileMutation = extendType({
       args: { input: ProfileInput },
       async resolve(_parent, args, { prisma, token }) {
         const authId = token?.sub;
-        const { id, firstName, lastName, nickname, bio } = args.input || {};
+        const { id, firstName, lastName, nickname, bio, avatarId } = args.input || {};
 
         const where: ProfileWhere = {};
 
@@ -102,7 +103,7 @@ export const ProfileMutation = extendType({
           throw new UserInputError('profile not found');
         }
 
-        const data = { firstName, lastName, nickname, bio };
+        const data = { firstName, lastName, nickname, bio, avatarId };
 
         const result = await prisma.profile.update({
           where,

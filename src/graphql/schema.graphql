@@ -91,6 +91,9 @@ type Profile {
 
 """Profile Input"""
 input ProfileInput {
+  """The ID of the User Profile Avatar"""
+  avatarId: String
+
   """A 250 character description of the User"""
   bio: String
 

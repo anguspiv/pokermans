@@ -12,8 +12,6 @@ export const GET_PROFILE = gql`
       avatar {
         filename
         filepath
-        mimeType
-        encoding
         title
         description
       }
@@ -25,6 +23,17 @@ export const UPDATE_PROFILE = gql`
   mutation UpdateProfile($input: ProfileInput!) {
     updateProfile(input: $input) {
       id
+      userId
+      firstName
+      lastName
+      nickname
+      bio
+      avatar {
+        filename
+        filepath
+        title
+        description
+      }
     }
   }
 `;

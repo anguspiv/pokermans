@@ -103,6 +103,7 @@ describe('cdn utils', () => {
 
       expect(mockedFile).toHaveBeenCalledWith('test');
       expect(mockedCreateWriteStream).toHaveBeenCalledWith({
+        predefinedAcl: 'publicRead',
         resumable: false,
         gzip: true,
       });

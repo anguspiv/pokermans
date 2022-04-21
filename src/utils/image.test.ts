@@ -19,26 +19,26 @@ describe('getImageUrl', () => {
 
     const image = {
       filename: 'test.jpg',
-      filepath: '/foo/bar',
+      filepath: 'foo/bar/test.jpg',
     };
 
-    process.env.CDN_URL = 'https://cdn.example.com';
+    process.env.NEXT_PUBLIC_CDN_URL = 'https://cdn.example.com';
 
     const url = getImageUrl(image);
 
-    expect(url).toBe(`${process.env.CDN_URL}/foo/bar/test.jpg`);
+    expect(url).toBe(`${process.env.NEXT_PUBLIC_CDN_URL}/foo/bar/test.jpg`);
 
     teardown();
   });
 
-  it('should handle CDN_URL not set', () => {
+  it('should handle NEXT_PUBLIC_CDN_URL not set', () => {
     expect.assertions(1);
 
     setup();
 
     const image = {
       filename: 'test.jpg',
-      filepath: '/foo/bar',
+      filepath: 'foo/bar/test.jpg',
     };
 
     const url = getImageUrl(image);

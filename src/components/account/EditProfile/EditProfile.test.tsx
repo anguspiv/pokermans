@@ -1,10 +1,13 @@
 import { useQuery, useMutation } from '@apollo/client';
 import { fireEvent, render, waitFor } from '@testing-library/react';
+import { useDropzone } from 'react-dropzone';
 import { useToast } from '@chakra-ui/react';
 import logger from '@utils/logger';
 import { EditProfile } from './EditProfile';
 
-const updateProfileMock = jest.fn();
+const useMutate = jest.fn();
+
+const FILE = new File(['(⌐□_□)'], 'chucknorris.png', { type: 'image/png' });
 
 jest.mock('@apollo/client', () => ({
   ...jest.requireActual('@apollo/client'),
@@ -15,6 +18,16 @@ jest.mock('@apollo/client', () => ({
 jest.mock('@chakra-ui/react', () => ({
   ...jest.requireActual('@chakra-ui/react'),
   useToast: jest.fn().mockReturnValue(jest.fn()),
+}));
+
+jest.mock('react-dropzone', () => ({
+  ...jest.requireActual('react-dropzone'),
+  useDropzone: jest.fn().mockReturnValue({
+    acceptedFiles: [],
+    getRootProps: jest.fn(),
+    getInputProps: jest.fn(),
+    isDragActive: false,
+  }),
 }));
 
 describe('<EditProfile />', () => {
@@ -34,7 +47,7 @@ describe('<EditProfile />', () => {
       ...getQuery,
     });
 
-    useMutation.mockReturnValue([updateProfileMock, updateQuery]);
+    useMutation.mockReturnValue([useMutate, updateQuery]);
 
     return render(<EditProfile {...props} />);
   };
@@ -79,14 +92,14 @@ describe('<EditProfile />', () => {
       lastName: 'Doe',
     };
 
-    const { getByDisplayValue, getByRole } = setupEditProfile({}, { profile });
+    const { getByDisplayValue, getAllByRole } = setupEditProfile({}, { profile });
 
     fireEvent.change(getByDisplayValue('John'), { target: { value: 'Jane' } });
 
-    fireEvent.click(getByRole('button', { name: 'Save' }));
+    fireEvent.click(getAllByRole('button', { name: 'Save' })[1]);
 
     await waitFor(() =>
-      expect(updateProfileMock).toHaveBeenCalledWith({
+      expect(useMutate).toHaveBeenCalledWith({
         variables: {
           input: {
             firstName: 'Jane',
@@ -110,52 +123,72 @@ describe('<EditProfile />', () => {
   it('should set the form loading while waiting to save profile', async () => {
     expect.assertions(1);
 
-    const { getByRole } = setupEditProfile({}, {}, { loading: true });
+    const { getAllByRole } = setupEditProfile({}, {}, { loading: true });
 
-    expect(getByRole('button', { name: /Saving/i })).toBeDisabled();
+    const button = getAllByRole('button', { name: /Save/i })[1];
+
+    expect(button).toBeDisabled();
   });
 
-  it('should log the get profile error', () => {
-    expect.assertions(1);
+  it('should log the update profile error', async () => {
+    expect.hasAssertions();
 
-    const error = new Error('Error');
+    const error = new Error('Something went wrong');
 
-    setupEditProfile({}, { error });
+    const profile = {
+      id: '1',
+      userId: '1',
+      firstName: 'John',
+      lastName: 'Doe',
+    };
 
-    expect(logger.error).toHaveBeenCalledWith(error);
+    const { getByDisplayValue, getAllByRole } = setupEditProfile({}, { profile });
+
+    useMutate.mockImplementation(() => {
+      throw error;
+    });
+
+    fireEvent.change(getByDisplayValue('John'), { target: { value: 'Jane' } });
+
+    fireEvent.click(getAllByRole('button', { name: 'Save' })[1]);
+
+    await waitFor(() => expect(logger.error).toHaveBeenCalledWith(error));
   });
 
-  it('should log the update profile error', () => {
-    expect.assertions(1);
-
-    const error = new Error('Error');
-
-    setupEditProfile({}, {}, { error });
-
-    expect(logger.error).toHaveBeenCalledWith(error);
-  });
-
-  it('should display an error message', () => {
-    expect.assertions(1);
+  it('should display an error message', async () => {
+    expect.hasAssertions();
 
     const toast = jest.fn();
 
     useToast.mockReturnValue(toast);
 
-    const error = new Error('Error');
+    const error = new Error('Something went wrong');
 
-    setupEditProfile({}, { error });
+    const profile = {
+      id: '1',
+      userId: '1',
+      firstName: 'John',
+      lastName: 'Doe',
+    };
 
-    expect(toast).toHaveBeenCalledWith({
-      title: 'Error Saving Changes',
-      description: 'We could not save your changes. Please try again.',
-      status: 'error',
-      duration: 9000,
-      isClosable: true,
+    const { getByDisplayValue, getAllByRole } = setupEditProfile({}, { profile });
+
+    useMutate.mockImplementation(() => {
+      throw error;
     });
+
+    fireEvent.change(getByDisplayValue('John'), { target: { value: 'Jane' } });
+
+    fireEvent.click(getAllByRole('button', { name: 'Save' })[1]);
+
+    await waitFor(() =>
+      expect(toast.mock.calls[0][0]).toMatchObject({
+        status: 'error',
+      }),
+    );
   });
 
-  it('should display an succes message', () => {
+  it('should display an succes message', async () => {
     expect.assertions(1);
 
     const toast = jest.fn();
@@ -164,16 +197,68 @@ describe('<EditProfile />', () => {
 
     const profile = {
       id: '1',
+      userId: '1',
+      firstName: 'John',
+      lastName: 'Doe',
     };
 
-    setupEditProfile({}, {}, { data: { updateProfile: profile } });
+    const { getByDisplayValue, getAllByRole } = setupEditProfile({}, { profile });
 
-    expect(toast).toHaveBeenCalledWith({
-      title: 'Profile saved!',
-      description: 'Changes saved successfully.',
-      status: 'success',
-      duration: 9000,
-      isClosable: true,
+    useMutate.mockResolvedValue(profile);
+
+    fireEvent.change(getByDisplayValue('John'), { target: { value: 'Jane' } });
+
+    fireEvent.click(getAllByRole('button', { name: 'Save' })[1]);
+
+    await waitFor(() =>
+      expect(toast.mock.calls[0][0]).toMatchObject({
+        status: 'success',
+      }),
+    );
+  });
+
+  it('should display the image upload form', () => {
+    expect.assertions(1);
+
+    const { getByTestId } = setupEditProfile();
+
+    expect(getByTestId('image-upload-form')).toBeInTheDocument();
+  });
+
+  it('should set the new avatar id', async () => {
+    expect.hasAssertions();
+
+    global.URL = {
+      createObjectURL: jest.fn().mockReturnValue('/image.png'),
+    };
+
+    const imageId = '1';
+
+    useMutate.mockClear().mockResolvedValue({ data: { uploadImage: { id: imageId } } });
+
+    useDropzone.mockImplementation(({ onDrop }) => {
+      onDrop([FILE]);
+
+      return {
+        acceptedFiles: [FILE],
+        getRootProps: jest.fn(),
+        getInputProps: jest.fn(),
+        isDragActive: false,
+      };
+    });
+
+    const { getAllByRole } = setupEditProfile({}, {});
+
+    fireEvent.click(getAllByRole('button', { name: 'Save' })[0]);
+
+    await waitFor(() => {
+      return expect(useMutate).toHaveBeenCalledWith({
+        variables: {
+          input: {
+            avatarId: imageId,
+          },
+        },
+      });
     });
   });
 });
