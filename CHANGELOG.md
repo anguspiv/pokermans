@@ -1,3 +1,12 @@
+# [1.13.0](https://github.com/anguspiv/pokermans/compare/v1.12.0...v1.13.0) (2022-04-25)
+
+
+### Features
+
+* adds an image upload component ([eadcdfd](https://github.com/anguspiv/pokermans/commit/eadcdfdc0ca9473e245f79052e0ea0a82e7281b9))
+* **edit-profile:** adds image avatar upload ([fa1c24e](https://github.com/anguspiv/pokermans/commit/fa1c24e2162b36aaf89de7ca2f7e8a8cc79c9ef7))
+* **graphql:** adds image upload ([d4bdbd2](https://github.com/anguspiv/pokermans/commit/d4bdbd264097660b0725755a0c8673a85afb2fe4)), closes [#102](https://github.com/anguspiv/pokermans/issues/102)
+
 # [1.12.0](https://github.com/anguspiv/pokermans/compare/v1.11.0...v1.12.0) (2022-03-13)
 
 
