@@ -6,6 +6,11 @@ jest.mock('next-auth/react', () => ({
   useSession: jest.fn(),
 }));
 
+jest.mock('@apollo/client', () => ({
+  useQuery: jest.fn().mockReturnValue({ data: { profile: { firstName: 'John' } } }),
+  gql: jest.fn(),
+}));
+
 describe('<SideBar />', () => {
   const setupSideBar = (props: object = {}) => {
     useSession.mockClear().mockReturnValue({});

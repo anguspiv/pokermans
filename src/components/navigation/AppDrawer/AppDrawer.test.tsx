@@ -7,6 +7,11 @@ jest.mock('next-auth/react', () => ({
   useSession: jest.fn(),
 }));
 
+jest.mock('@apollo/client', () => ({
+  useQuery: jest.fn().mockReturnValue({ data: { profile: { firstName: 'John' } } }),
+  gql: jest.fn(),
+}));
+
 describe('<AppDrawer />', () => {
   const setupAppDrawer = (props: object = {}, context: object = {}) => {
     const { session } = context;
@@ -30,14 +35,6 @@ describe('<AppDrawer />', () => {
     const { getByText } = setupAppDrawer();
 
     expect(getByText('Pokermans')).toBeInTheDocument();
-  });
-
-  it('should not display the user menu', () => {
-    expect.assertions(1);
-
-    const { queryByText } = setupAppDrawer();
-
-    expect(queryByText('User')).toBeNull();
   });
 
   it('should render the User Menu', () => {
@@ -68,10 +65,12 @@ describe('<AppDrawer />', () => {
   it('should display a Login Link', () => {
     expect.assertions(3);
 
-    const { getByText, queryByText } = setupAppDrawer();
+    const { getAllByText, queryByText } = setupAppDrawer();
 
-    expect(getByText('Login')).toBeInTheDocument();
-    expect(getByText('Login').closest('a')).toHaveAttribute('href', '/api/auth/signin');
+    const loginLink = getAllByText('Login');
+
+    expect(loginLink.length).toBeGreaterThan(0);
+    expect(loginLink[loginLink.length - 1].closest('a')).toHaveAttribute('href', '/api/auth/signin');
     expect(queryByText('Logout')).toBeNull();
   });
 
@@ -82,10 +81,12 @@ describe('<AppDrawer />', () => {
       status: 'authenticated',
     };
 
-    const { getByText, queryByText } = setupAppDrawer({}, { session });
+    const { getAllByText, queryByText } = setupAppDrawer({}, { session });
 
-    expect(getByText('Logout')).toBeInTheDocument();
-    expect(getByText('Logout').closest('a')).toHaveAttribute('href', '/api/auth/signout');
+    const loginLink = getAllByText('Logout');
+
+    expect(loginLink.length).toBeGreaterThan(0);
+    expect(loginLink[loginLink.length - 1].closest('a')).toHaveAttribute('href', '/api/auth/signout');
     expect(queryByText('Login')).toBeNull();
   });
 

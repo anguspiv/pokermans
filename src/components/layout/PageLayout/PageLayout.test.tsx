@@ -14,6 +14,11 @@ jest.mock('@chakra-ui/react', () => ({
   useMediaQuery: jest.fn(),
 }));
 
+jest.mock('@apollo/client', () => ({
+  useQuery: jest.fn().mockReturnValue({ data: { profile: { firstName: 'John' } } }),
+  gql: jest.fn(),
+}));
+
 describe('<PageLayout />', () => {
   const onOpen = jest.fn();
   const onClose = jest.fn();
