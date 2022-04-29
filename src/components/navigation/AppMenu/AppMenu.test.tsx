@@ -6,6 +6,11 @@ jest.mock('next-auth/react', () => ({
   useSession: jest.fn(),
 }));
 
+jest.mock('@apollo/client', () => ({
+  useQuery: jest.fn().mockReturnValue({ data: { profile: { firstName: 'John' } } }),
+  gql: jest.fn(),
+}));
+
 describe('<AppMenu />', () => {
   const setupAppMenu = (props: object = {}, context: object = {}) => {
     const { session } = context;
@@ -47,22 +52,10 @@ describe('<AppMenu />', () => {
     expect(getByRole('link', { name: 'PokerMans' })).toHaveStyle('color: var(--chakra-colors-gray-600)');
   });
 
-  it('should not display the user menu', () => {
-    expect.assertions(1);
-
-    const { queryByText } = setupAppMenu();
-
-    expect(queryByText('User')).toBeNull();
-  });
-
   it('should render the User Menu', () => {
     expect.assertions(1);
 
-    const session = {
-      status: 'authenticated',
-    };
-
-    const { getByText } = setupAppMenu({}, { session });
+    const { getByText } = setupAppMenu({});
 
     expect(getByText('User')).toBeInTheDocument();
   });
