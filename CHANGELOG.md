@@ -1,3 +1,10 @@
+# [1.14.0](https://github.com/anguspiv/pokermans/compare/v1.13.0...v1.14.0) (2022-04-29)
+
+
+### Features
+
+* **app-menu:** adds the user card to the app menu ([1551a43](https://github.com/anguspiv/pokermans/commit/1551a435317741f8c821e203615d9ddfac42b013)), closes [#105](https://github.com/anguspiv/pokermans/issues/105)
+
 # [1.13.0](https://github.com/anguspiv/pokermans/compare/v1.12.0...v1.13.0) (2022-04-25)
 
 
