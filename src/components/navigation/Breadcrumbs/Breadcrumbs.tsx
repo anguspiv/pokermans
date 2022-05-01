@@ -15,9 +15,9 @@ const getPathLabel = (path: string) => {
 };
 
 function Breadcrumbs({ homeLabel = 'Home' }: BreadcrumbsProps) {
-  const { pathname } = useRouter();
+  const { asPath } = useRouter();
 
-  const paths = pathname.split('/').filter(Boolean);
+  const paths = asPath.split('/').filter(Boolean);
 
   const breadcrumbs = paths.map((path, index) => {
     const label = path.charAt(0).toUpperCase() + path.slice(1);
@@ -38,7 +38,7 @@ function Breadcrumbs({ homeLabel = 'Home' }: BreadcrumbsProps) {
       </BreadcrumbItem>
       {breadcrumbs.map(({ label, href }, index) => {
         const isLast = index === breadcrumbs.length - 1;
-        const isCurrent = href === pathname;
+        const isCurrent = href === asPath;
         const title = getPathLabel(label);
 
         return (
