@@ -5,6 +5,7 @@ import GoogleProvider from 'next-auth/providers/google';
 import DiscordProvider from 'next-auth/providers/discord';
 import { withSentry } from '@sentry/nextjs';
 import { prisma } from '@db/prisma';
+import logger from '@utils/logger';
 
 interface NextAuthMessage {
   user?: User;
@@ -36,17 +37,25 @@ const providers = [email, discord, google];
 
 const adapter = PrismaAdapter(prisma);
 
-const createProfile = (user: User) => {
-  const data = {
-    userId: user.id,
-  };
+const createProfile = async ({ id, name }: User) => {
+  const [firstName, lastName] = name?.split(' ') || [];
 
-  return prisma.profile.create({ data });
+  try {
+    await prisma.profile.create({
+      data: {
+        userId: id,
+        firstName,
+        lastName,
+      },
+    });
+  } catch (error) {
+    logger.error('Error creating profile', { error });
+  }
 };
 
 const createUser = async ({ user }: NextAuthMessage) => {
   if (user?.id) {
-    createProfile(user);
+    await createProfile(user);
   }
 };
 
