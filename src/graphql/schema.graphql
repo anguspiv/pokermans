@@ -120,6 +120,33 @@ type Query {
   """Find a User's profile"""
   profile(input: ProfileInput): Profile
 
+  """Find a list of User Profiles"""
+  profiles(
+    """The User Profile's First Name"""
+    firstName: String
+
+    """The User Profile's Last Name"""
+    lastName: String
+
+    """The number of results to return"""
+    limit: Int = 10
+
+    """The User Profile's Nickname"""
+    nickname: String
+
+    """The number of results to skip"""
+    offset: Int = 0
+
+    """The order to sort by"""
+    order: String = "asc"
+
+    """The search term to search for"""
+    searchTerm: String
+
+    """The field to order by"""
+    sortBy: String = "id"
+  ): [Profile]!
+
   """Find a single user"""
   user(input: UserInput): User
 
