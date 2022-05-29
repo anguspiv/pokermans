@@ -1,4 +1,4 @@
-import { objectType, extendType, inputObjectType } from 'nexus';
+import { objectType, extendType, inputObjectType, stringArg, intArg } from 'nexus';
 import { UserInputError } from 'apollo-server-micro';
 
 interface ProfileWhere {
@@ -46,6 +46,58 @@ export const ProfileInput = inputObjectType({
   },
 });
 
+const getProfileSearchTermWhere = (searchTerm: string) => {
+  const search = {
+    contains: searchTerm,
+    mode: 'insensitive',
+  };
+
+  const where = {
+    OR: [
+      {
+        firstName: search,
+      },
+      {
+        lastName: search,
+      },
+      {
+        nickname: search,
+      },
+    ],
+  };
+
+  return where;
+};
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const getProfileFieldsWhere = ({ firstName, lastName, nickname }: any) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const where: any = {};
+
+  if (firstName) {
+    where.firstName = {
+      contains: firstName,
+      mode: 'insensitive',
+    };
+  }
+
+  if (lastName) {
+    where.lastName = {
+      contains: lastName,
+      mode: 'insensitive',
+    };
+  }
+
+  if (nickname) {
+    where.nickname = {
+      contains: nickname,
+      mode: 'insensitive',
+    };
+  }
+
+  return where;
+};
+
 export const ProfileQuery = extendType({
   type: 'Query',
   definition(t) {
@@ -70,6 +122,68 @@ export const ProfileQuery = extendType({
         return prisma.profile.findUnique({
           where,
         });
+      },
+    });
+
+    t.nonNull.list.field('profiles', {
+      type: 'Profile',
+      description: 'Find a list of User Profiles',
+      args: {
+        searchTerm: stringArg({
+          description: 'The search term to search for',
+        }),
+        firstName: stringArg({
+          description: "The User Profile's First Name",
+        }),
+        lastName: stringArg({
+          description: "The User Profile's Last Name",
+        }),
+        nickname: stringArg({
+          description: "The User Profile's Nickname",
+        }),
+        limit: intArg({
+          description: 'The number of results to return',
+          default: 10,
+        }),
+        offset: intArg({
+          description: 'The number of results to skip',
+          default: 0,
+        }),
+        sortBy: stringArg({
+          description: 'The field to order by',
+          default: 'id',
+        }),
+        order: stringArg({
+          description: 'The order to sort by',
+          default: 'asc',
+        }),
+      },
+      resolve(_parent, { searchTerm, limit, offset, sortBy, order, ...fields }, { prisma }) {
+        let where = {};
+
+        if (searchTerm) {
+          where = getProfileSearchTermWhere(searchTerm);
+        }
+
+        if (!searchTerm) {
+          where = getProfileFieldsWhere(fields);
+        }
+
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const query: any = {
+          where,
+          take: limit,
+        };
+
+        if (offset) {
+          query.skip = offset;
+        }
+
+        if (sortBy) {
+          query.orderBy = [{ [sortBy]: order }];
+        }
+
+        return prisma.profile.findMany(query);
       },
     });
   },
