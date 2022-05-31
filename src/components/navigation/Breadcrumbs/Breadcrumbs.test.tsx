@@ -10,7 +10,7 @@ jest.mock('next/router', () => ({
 
 describe('<Breadcrumbs />', () => {
   const setupBreadcrumbs = (props, { pathname = '/' } = {}) => {
-    useRouter.mockReturnValueOnce({ pathname });
+    useRouter.mockReturnValueOnce({ asPath: pathname });
     return render(<Breadcrumbs {...props} />);
   };
 
