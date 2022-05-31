@@ -5,7 +5,7 @@ import PageHeader from './PageHeader';
 jest.mock('next/router', () => ({
   ...jest.requireActual('next/router'),
   useRouter: jest.fn().mockImplementation(() => ({
-    pathname: '/',
+    asPath: '/',
   })),
 }));
 
