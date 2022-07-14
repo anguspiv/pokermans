@@ -38,7 +38,25 @@ export const UPDATE_PROFILE = gql`
   }
 `;
 
+export const SEARCH_PLAYERS = gql`
+  query SearchPlayers($searchTerm: String) {
+    profiles(searchTerm: $searchTerm) {
+      id
+      firstName
+      nickname
+      lastName
+      avatar {
+        filename
+        filepath
+        title
+        description
+      }
+    }
+  }
+`;
+
 export default {
   GET_PROFILE,
   UPDATE_PROFILE,
+  SEARCH_PLAYERS,
 };
