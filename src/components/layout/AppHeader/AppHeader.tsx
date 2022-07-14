@@ -3,12 +3,12 @@ import { Container, Grid, GridItem, Text, Box } from '@chakra-ui/react';
 import MenuButton from '@components/navigation/MenuButton';
 
 export interface AppHeaderProps {
-  isMenuOpen: boolean;
-  hideMenuButton: boolean;
-  onMenuToggle: () => void;
+  isMenuOpen?: boolean;
+  hideMenuButton?: boolean;
+  onMenuToggle?: () => void;
 }
 
-function AppHeader({ isMenuOpen, onMenuToggle, hideMenuButton }: AppHeaderProps) {
+function AppHeader({ isMenuOpen = false, onMenuToggle = () => {}, hideMenuButton = flase }: AppHeaderProps) {
   return (
     <Box as="header" bg="teal.800" color="gray.200" data-testid="app-header">
       <Container maxW="container.xl" height="46">
@@ -36,11 +36,5 @@ function AppHeader({ isMenuOpen, onMenuToggle, hideMenuButton }: AppHeaderProps)
     </Box>
   );
 }
-
-AppHeader.defaultProps = {
-  isMenuOpen: false,
-  hideMenuButton: false,
-  onMenuToggle: () => {},
-};
 
 export default AppHeader;
