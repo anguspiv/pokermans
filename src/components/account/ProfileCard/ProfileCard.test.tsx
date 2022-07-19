@@ -1,9 +1,9 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import { ProfileCard } from './ProfileCard';
+import { ProfileCard, ProfileCardProps } from './ProfileCard';
 
 describe('<ProfileCard />', () => {
-  const setupProfileCard = (props) => {
+  const setupProfileCard = (props: ProfileCardProps = {}) => {
     return render(<ProfileCard {...props} />);
   };
 

@@ -1,9 +1,9 @@
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react';
-import { ProfileForm } from './ProfileForm';
+import { ProfileForm, ProfileFormProps } from './ProfileForm';
 
 describe('<ProfileForm />', () => {
-  const setupProfileForm = (props) => {
+  const setupProfileForm = (props: ProfileFormProps = {}) => {
     return render(<ProfileForm {...props} />);
   };
 

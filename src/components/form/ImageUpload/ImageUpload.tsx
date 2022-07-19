@@ -35,7 +35,7 @@ const schema = yup.object().shape({
 });
 
 export interface ImageUploadProps {
-  onUpload: (data: Image) => void | Promise<void>;
+  onUpload?: (data: Image) => void | Promise<void>;
   placeholder?: Image | null;
 }
 
@@ -115,8 +115,7 @@ function ImageUpload({ onUpload = () => {}, placeholder = null }: ImageUploadPro
       <Circle
         bg="gray.100"
         color="gray.600"
-        height="32"
-        width="32"
+        size="32px"
         boxShadow={isDragActive ? 'outline' : 'none'}
         transition="all 0.2s ease-in-out"
         overflow="hidden"

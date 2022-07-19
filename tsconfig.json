@@ -24,10 +24,16 @@
       "@errors/*": ["src/errors/*"],
     },
     "typeRoots": [
+      "node_modules/@types",
       "./types"
-    ]
+    ],
+    "types": [
+      "node",
+      "jest",
+      "@testing-library/jest-dom",
+    ],
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
-  "exclude": ["node_modules"],
+  "exclude": ["node_modules",  "cypress"],
   "ts-node": {}
 }

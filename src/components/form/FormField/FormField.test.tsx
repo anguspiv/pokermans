@@ -1,9 +1,9 @@
 import { createRef } from 'react';
 import { render } from '@testing-library/react';
-import FormField from './FormField';
+import FormField, { FormFieldProps } from './FormField';
 
 describe('<FormField />', () => {
-  const setupFormField = (props) => {
+  const setupFormField = (props: FormFieldProps = { label: 'test' }) => {
     return render(<FormField {...props} />);
   };
 
@@ -91,7 +91,7 @@ describe('<FormField />', () => {
   it('should forward the ref', () => {
     expect.assertions(1);
 
-    const ref = createRef();
+    const ref = createRef() as React.RefObject<HTMLInputElement>;
     const id = 'test-label';
     const label = 'Test Label';
 
