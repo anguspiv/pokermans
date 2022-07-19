@@ -1,5 +1,5 @@
 import { Story } from '@storybook/react';
-import PlayerList, { PlayerListProps } from './PlayerList';
+import { PlayerList, PlayerListProps } from './PlayerList';
 
 export default {
   title: 'components/players/PlayerList',
@@ -11,6 +11,7 @@ const Template: Story<PlayerListProps> = (args) => <PlayerList {...args} />;
 export const Default = Template.bind({});
 
 Default.args = {
+  loading: false,
   players: [
     {
       id: '1',
