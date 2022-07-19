@@ -16,19 +16,26 @@ export function PlayerSearch() {
   const onSubmit = (values: PlayerSearchFormData) => {
     const { search, order } = values;
 
-    refetch({ search, order });
+    refetch({ searchTerm: search, order });
   };
 
   const onReset = () => {
-    refetch({ search: '', order: 'ASC' });
+    refetch({ searchTerm: '', order: 'ASC' });
   };
 
   return (
-    <Grid gap={4} display="grid" templateRows="auto 1fr" templateColumns="1fr" templateAreas={'"form" "list"'}>
+    <Grid
+      gap={4}
+      display="grid"
+      templateRows="auto minmax(300px, 1fr)"
+      templateColumns="1fr"
+      templateAreas={'"form" "list"'}
+      height="100%"
+    >
       <GridItem area="form">
         <PlayerSearchForm onSubmit={onSubmit} onReset={onReset} />
       </GridItem>
-      <GridItem area="list">
+      <GridItem area="list" px={2}>
         <PlayerList players={players} loading={loading} />
       </GridItem>
     </Grid>

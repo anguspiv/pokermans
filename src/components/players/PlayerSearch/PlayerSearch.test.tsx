@@ -61,7 +61,7 @@ describe('<PlayerSearch />', () => {
 
     await waitFor(() => {
       expect(refetch).toHaveBeenCalledWith({
-        search: 'test',
+        searchTerm: 'test',
         order: 'ASC',
       });
     });
@@ -87,7 +87,7 @@ describe('<PlayerSearch />', () => {
 
     await waitFor(() => {
       expect(refetch).toHaveBeenCalledWith({
-        search: 'test',
+        searchTerm: 'test',
         order: 'DESC',
       });
     });
@@ -113,7 +113,7 @@ describe('<PlayerSearch />', () => {
 
     await waitFor(() => {
       expect(refetch).toHaveBeenCalledWith({
-        search: '',
+        searchTerm: '',
         order: 'ASC',
       });
     });

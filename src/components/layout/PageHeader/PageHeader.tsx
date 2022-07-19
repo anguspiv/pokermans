@@ -9,7 +9,7 @@ export interface PageHeaderProps {
 
 function PageHeader({ title = '', subtitle = '' }: PageHeaderProps) {
   return (
-    <Box as="header" p={4}>
+    <Box as="header" py={4}>
       <Stack spacing={0}>
         <Box>
           <Breadcrumbs />

@@ -14,7 +14,7 @@ export function PlayerList({ players = [], loading = false }: PlayerListProps) {
   logger.debug('PlayerList', { ids });
 
   return (
-    <Stack spacing={4} data-testid="player-list" divider={<Divider />}>
+    <Stack spacing={4} data-testid="player-list" divider={<Divider />} height="100%">
       {!loading && players.map(({ id, ...player }) => <PlayerListItem key={id} id={id} {...player} />)}
       {!loading && !players.length && (
         <Center color="gray.500" height="100%">
