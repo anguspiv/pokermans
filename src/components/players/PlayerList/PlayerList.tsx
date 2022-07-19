@@ -7,7 +7,7 @@ export interface PlayerListProps {
   players: PlayerListItemProps[];
 }
 
-function PlayerList({ players = [] }: PlayerListProps) {
+export function PlayerList({ players = [] }: PlayerListProps) {
   const ids = players.map(({ id }) => id);
 
   logger.debug('PlayerList', { ids });

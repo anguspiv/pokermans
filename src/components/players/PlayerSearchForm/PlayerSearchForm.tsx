@@ -27,12 +27,17 @@ export interface PlayerSearchFormProps {
   loading?: boolean;
 }
 
+const ASC = 'ASC';
+const DESC = 'DESC';
+
+export interface PlayerSearchFormData {
+  search: string;
+  order: 'ASC' | 'DESC';
+}
+
 const schema = yup.object().shape({
   search: yup.string(),
 });
-
-const ASC = 'ASC';
-const DESC = 'DESC';
 
 const defaultValues = {
   search: '',
@@ -65,7 +70,7 @@ export function PlayerSearchForm({ onSubmit = () => {}, onReset = () => {}, load
   const orderVal = getValues('order');
 
   const sortIcon = orderVal === DESC ? faArrowDownShortWide : faArrowUpShortWide;
-  const sortLabel = orderVal === DESC ? 'Sort Descending' : 'Sort Ascending';
+  const sortLabel = orderVal === ASC ? 'Sort Descending' : 'Sort Ascending';
 
   const onOrderClick = () => {
     const newValue = orderVal === ASC ? DESC : ASC;

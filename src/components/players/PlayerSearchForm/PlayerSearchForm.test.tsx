@@ -135,7 +135,7 @@ describe('<PlayerSearchForm />', () => {
 
     setupPlayerSearchForm();
 
-    expect(screen.getByRole('button', { name: 'Sort Ascending' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Sort Descending' })).toBeInTheDocument();
   });
 
   it('should submit with order ascending', async () => {
@@ -167,7 +167,7 @@ describe('<PlayerSearchForm />', () => {
 
     fireEvent.change(screen.getByPlaceholderText('Search'), { target: { value: 'Jane' } });
 
-    fireEvent.click(screen.getByRole('button', { name: 'Sort Ascending' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Sort Descending' }));
 
     await waitFor(() => {
       const call = onSubmit.mock.calls.pop();
