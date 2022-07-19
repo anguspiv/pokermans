@@ -38,7 +38,7 @@ function PageLayout({ children }: PageLayoutProps) {
       </GridItem>
       <GridItem gridArea="sidebar">{isDesktop && <SideBar />}</GridItem>
       <GridItem gridArea="content">
-        <Box maxWidth="3xl" marginX="auto">
+        <Box maxWidth="3xl" marginX="auto" height="100%">
           {children}
         </Box>
       </GridItem>

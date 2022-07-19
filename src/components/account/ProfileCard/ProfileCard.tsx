@@ -2,11 +2,11 @@ import React from 'react';
 import { Grid, GridItem, Heading, Text, Avatar } from '@chakra-ui/react';
 
 export interface ProfileCardProps {
-  firstName: string;
-  lastName: string;
-  nickname: string;
-  email: string;
-  image: string;
+  firstName?: string;
+  lastName?: string;
+  nickname?: string;
+  email?: string;
+  image?: string;
 }
 
 const styles = {

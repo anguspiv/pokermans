@@ -18,12 +18,15 @@ function NavMenuUser({ image, firstName, lastName }: NavMenuUserProps) {
       gap={2}
       templateRows="auto"
       templateColumns="repeat(2, auto)"
+      templateAreas={`"avatar info"`}
       alignItems="center"
       justifyContent="start"
       px={2}
       py={1}
     >
-      <Avatar src={image} data-testid="avatar" size="xs" name={name} />
+      <GridItem area="avatar">
+        <Avatar src={image} data-testid="avatar" size="xs" name={name} />
+      </GridItem>
       <GridItem area="info">
         <Heading as="p" size="xs">
           {name}

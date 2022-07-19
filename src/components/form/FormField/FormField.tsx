@@ -8,6 +8,7 @@ export interface FormFieldProps {
   error?: string | undefined;
   disabled?: boolean;
   placeholder?: string;
+  ref?: React.Ref<HTMLInputElement>;
   type?: string;
 }
 

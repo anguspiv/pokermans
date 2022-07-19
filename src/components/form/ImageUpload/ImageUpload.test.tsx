@@ -1,8 +1,8 @@
 import { fireEvent, render, waitFor } from '@testing-library/react';
-import { useDropzone } from 'react-dropzone';
-import { useMutation } from '@apollo/client';
+import { useDropzone as useDropzoneOrig } from 'react-dropzone';
+import { useMutation as useMutationOrig } from '@apollo/client';
 import { getImageUrl } from '@utils/image';
-import ImageUpload from './ImageUpload';
+import ImageUpload, { ImageUploadProps } from './ImageUpload';
 
 jest.mock('@apollo/client', () => ({
   ...jest.requireActual('@apollo/client'),
@@ -27,8 +27,11 @@ jest.mock('@apollo/client', () => ({
   useMutation: jest.fn().mockReturnValue([jest.fn(), {}]),
 }));
 
+const useMutation = useMutationOrig as jest.MockedFunction<typeof useMutationOrig>;
+const useDropzone = useDropzoneOrig as jest.MockedFunction<typeof useDropzoneOrig>;
+
 describe('<ImageUpload />', () => {
-  const setupImageUpload = (props) => {
+  const setupImageUpload = (props: ImageUploadProps = {}) => {
     return render(<ImageUpload {...props} />);
   };
 

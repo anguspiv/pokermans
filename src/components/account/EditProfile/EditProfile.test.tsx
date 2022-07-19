@@ -1,9 +1,9 @@
-import { useQuery, useMutation } from '@apollo/client';
+import { useQuery as useQueryOrig, useMutation as useMutationOrig, QueryResult } from '@apollo/client';
 import { fireEvent, render, waitFor } from '@testing-library/react';
 import { useDropzone } from 'react-dropzone';
 import { useToast } from '@chakra-ui/react';
 import logger from '@utils/logger';
-import { EditProfile } from './EditProfile';
+import { EditProfile, EditProfileProps } from './EditProfile';
 
 const useMutate = jest.fn();
 
@@ -30,22 +30,39 @@ jest.mock('react-dropzone', () => ({
   }),
 }));
 
+const useQuery = useQueryOrig as jest.MockedFunction<typeof useQueryOrig>;
+const useMutation = useMutationOrig as jest.MockedFunction<typeof useMutationOrig>;
+
 describe('<EditProfile />', () => {
   // eslint-disable-next-line jest/no-hooks
   beforeAll(() => {
     logger.wrapAll();
   });
 
-  const setupEditProfile = (props, { profile, ...getQuery } = {}, updateQuery = {}) => {
+  const setupEditProfile = (
+    props: EditProfileProps,
+    { profile, ...getQuery } = {
+      profile: {},
+    },
+    updateQuery = {
+      loading: false,
+      called: false,
+      client: {},
+      reset: () => {},
+    },
+  ) => {
     logger.mockTypes(() => jest.fn());
 
-    useQuery.mockReturnValue({
+    const queryResults = {
       data: {
         profile,
       },
       loading: false,
       ...getQuery,
-    });
+    } as QueryResult<unknown, unknown>;
+
+    // ts-ignore
+    useQuery.mockReturnValue(queryResults);
 
     useMutation.mockReturnValue([useMutate, updateQuery]);
 

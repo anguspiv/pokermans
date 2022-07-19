@@ -5,8 +5,17 @@ import { PlayerSearchForm, PlayerSearchFormData } from '@components/players/Play
 import { PlayerList } from '@components/players/PlayerList';
 import { SEARCH_PLAYERS } from '@graphql/queries';
 
+interface SearchPlayersData {
+  profiles: Profile[];
+}
+
 export function PlayerSearch() {
-  const { data, loading, refetch } = useQuery(SEARCH_PLAYERS, { search: '', order: 'ASC' });
+  const { data, loading, refetch } = useQuery<SearchPlayersData, PlayerSearchFormData>(SEARCH_PLAYERS, {
+    variables: {
+      searchTerm: '',
+      order: 'ASC',
+    },
+  });
   const [players, setPlayers] = useState(data?.profiles || []);
 
   useEffect(() => {
@@ -14,21 +23,26 @@ export function PlayerSearch() {
   }, [data]);
 
   const onSubmit = (values: PlayerSearchFormData) => {
-    const { search, order } = values;
-
-    refetch({ search, order });
+    refetch(values);
   };
 
   const onReset = () => {
-    refetch({ search: '', order: 'ASC' });
+    refetch({ searchTerm: '', order: 'ASC' });
   };
 
   return (
-    <Grid gap={4} display="grid" templateRows="auto 1fr" templateColumns="1fr" templateAreas={'"form" "list"'}>
+    <Grid
+      gap={4}
+      display="grid"
+      templateRows="auto minmax(300px, 1fr)"
+      templateColumns="1fr"
+      templateAreas={'"form" "list"'}
+      height="100%"
+    >
       <GridItem area="form">
         <PlayerSearchForm onSubmit={onSubmit} onReset={onReset} />
       </GridItem>
-      <GridItem area="list">
+      <GridItem area="list" px={2}>
         <PlayerList players={players} loading={loading} />
       </GridItem>
     </Grid>

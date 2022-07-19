@@ -8,7 +8,7 @@ export interface AppHeaderProps {
   onMenuToggle?: () => void;
 }
 
-function AppHeader({ isMenuOpen = false, onMenuToggle = () => {}, hideMenuButton = flase }: AppHeaderProps) {
+function AppHeader({ isMenuOpen = false, onMenuToggle = () => {}, hideMenuButton = false }: AppHeaderProps) {
   return (
     <Box as="header" bg="teal.800" color="gray.200" data-testid="app-header">
       <Container maxW="container.xl" height="46">

@@ -4,8 +4,7 @@ import { ProfileForm, ProfileFormProps } from './ProfileForm';
 export default {
   title: 'components/account/ProfileForm',
   component: ProfileForm,
-  argTypes: { onSubmit: { action: 'submitted' } },
-  argTypes: { onReset: { action: 'reset' } },
+  argTypes: { onSubmit: { action: 'submitted' }, onReset: { action: 'reset' } },
 };
 
 interface StoryArgs {
