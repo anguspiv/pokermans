@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import PlayerList from './PlayerList';
+import { PlayerList } from './PlayerList';
 
 describe('<PlayerList />', () => {
   const setupPlayerList = (props) => {
@@ -38,5 +38,21 @@ describe('<PlayerList />', () => {
     });
 
     expect(screen.getAllByTestId('player-list-item')).toHaveLength(2);
+  });
+
+  it('should display an empty list message', () => {
+    expect.assertions(1);
+
+    setupPlayerList();
+
+    expect(screen.getByText('No players found')).toBeInTheDocument();
+  });
+
+  it('should display a loading message', () => {
+    expect.assertions(1);
+
+    setupPlayerList({ loading: true });
+
+    expect(screen.getByText('Loading...')).toBeInTheDocument();
   });
 });
