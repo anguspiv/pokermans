@@ -73,7 +73,7 @@ describe('<PlayerSearchForm />', () => {
 
       const vals = call && call[0];
 
-      expect(vals).toMatchObject({ search: 'Jane' });
+      expect(vals).toMatchObject({ searchTerm: 'Jane' });
     });
   });
 

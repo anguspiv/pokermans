@@ -1,9 +1,9 @@
 import { createRef } from 'react';
 import { render, fireEvent } from '@testing-library/react';
-import TextField from './TextField';
+import TextField, { TextFieldProps } from './TextField';
 
 describe('<TextField />', () => {
-  const setupTextField = (props) => {
+  const setupTextField = (props: TextFieldProps) => {
     return render(<TextField {...props} />);
   };
 
@@ -79,7 +79,7 @@ describe('<TextField />', () => {
   it('should forward the ref', () => {
     expect.assertions(1);
 
-    const ref = createRef();
+    const ref = createRef() as React.RefObject<HTMLTextAreaElement>;
     const id = 'test-label';
     const label = 'Test Label';
 

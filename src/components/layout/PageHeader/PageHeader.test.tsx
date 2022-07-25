@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import PageHeader from './PageHeader';
+import PageHeader, { PageHeaderProps } from './PageHeader';
 
 jest.mock('next/router', () => ({
   ...jest.requireActual('next/router'),
@@ -10,7 +10,7 @@ jest.mock('next/router', () => ({
 }));
 
 describe('<PageHeader />', () => {
-  const setupPageHeader = (props) => {
+  const setupPageHeader = (props: PageHeaderProps) => {
     return render(<PageHeader {...props} />);
   };
 
@@ -29,9 +29,11 @@ describe('<PageHeader />', () => {
   it('should render the subtitle', () => {
     expect.assertions(1);
 
+    const title = 'Test title';
+
     const subtitle = 'Test Subtitle';
 
-    const { getByText } = setupPageHeader({ subtitle });
+    const { getByText } = setupPageHeader({ title, subtitle });
 
     const actual = getByText(subtitle);
 

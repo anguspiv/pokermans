@@ -10,6 +10,7 @@ export interface TextFieldProps extends StyleProps {
   disabled?: boolean;
   max?: number | undefined;
   maxWidth?: number | string | undefined;
+  ref?: React.Ref<HTMLTextAreaElement>;
   value?: string | undefined;
   onChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }

@@ -1,17 +1,23 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
-import { useSession } from 'next-auth/react';
-import AppHeader from './AppHeader';
+import { useSession as useSessionOrig } from 'next-auth/react';
+import AppHeader, { AppHeaderProps } from './AppHeader';
 
 jest.mock('next-auth/react', () => ({
   useSession: jest.fn(),
 }));
 
+interface AppHeaderContext {
+  session?: object;
+}
+
+const useSession = useSessionOrig as jest.MockedFunction<typeof useSessionOrig>;
+
 describe('<AppHeader />', () => {
-  const setupAppHeader = (props: object = {}, context: object = {}) => {
+  const setupAppHeader = (props: AppHeaderProps = {}, context: AppHeaderContext = {}) => {
     const { session } = context;
 
-    useSession.mockClear().mockReturnValue({ ...session });
+    useSession.mockClear().mockReturnValue(session);
 
     return render(<AppHeader {...props} />);
   };

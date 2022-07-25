@@ -35,7 +35,7 @@ const schema = yup.object().shape({
 });
 
 export interface ImageUploadProps {
-  onUpload: (data: Image) => void | Promise<void>;
+  onUpload?: (data: Image) => void | Promise<void>;
   placeholder?: Image | null;
 }
 

@@ -8,7 +8,7 @@ import TextField from '@components/form/TextField';
 
 export interface ProfileFormProps {
   profile?: Profile;
-  onSubmit: (data: Profile) => void | Promise<unknown>;
+  onSubmit?: (data: Profile) => void | Promise<unknown>;
   loading?: boolean;
 }
 

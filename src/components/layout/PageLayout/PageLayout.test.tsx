@@ -1,12 +1,16 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import { useSession } from 'next-auth/react';
-import { useDisclosure, useMediaQuery } from '@chakra-ui/react';
+import { useSession as useSessionOrig } from 'next-auth/react';
+import { useDisclosure as useDisclosureOrig, useMediaQuery as useMediaQueryOrig } from '@chakra-ui/react';
 import PageLayout from './PageLayout';
 
 jest.mock('next-auth/react', () => ({
   useSession: jest.fn(),
 }));
+
+const useSession = useSessionOrig as jest.MockedFunction<typeof useSessionOrig>;
+const useDisclosure = useDisclosureOrig as jest.MockedFunction<typeof useDisclosureOrig>;
+const useMediaQuery = useMediaQueryOrig as jest.MockedFunction<typeof useMediaQueryOrig>;
 
 jest.mock('@chakra-ui/react', () => ({
   ...jest.requireActual('@chakra-ui/react'),

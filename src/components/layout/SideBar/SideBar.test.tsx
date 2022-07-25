@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import { useSession } from 'next-auth/react';
+import { useSession as useSessionOrig } from 'next-auth/react';
 import SideBar from './SideBar';
 
 jest.mock('next-auth/react', () => ({
@@ -10,6 +10,8 @@ jest.mock('@apollo/client', () => ({
   useQuery: jest.fn().mockReturnValue({ data: { profile: { firstName: 'John' } } }),
   gql: jest.fn(),
 }));
+
+const useSession = useSessionOrig as jest.MockedFunction<typeof useSessionOrig>;
 
 describe('<SideBar />', () => {
   const setupSideBar = (props: object = {}) => {
