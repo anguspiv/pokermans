@@ -21,6 +21,10 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
+export interface PlayerSearchFormData {
+  searchTerm?: string;
+  order?: string;
+}
 export interface PlayerSearchFormProps {
   onReset: () => void;
   onSubmit: (data: PlayerSearchFormData) => void | Promise<void>;
@@ -30,17 +34,12 @@ export interface PlayerSearchFormProps {
 const ASC = 'ASC';
 const DESC = 'DESC';
 
-export interface PlayerSearchFormData {
-  search: string;
-  order: 'ASC' | 'DESC';
-}
-
 const schema = yup.object().shape({
-  search: yup.string(),
+  searchTerm: yup.string(),
 });
 
 const defaultValues = {
-  search: '',
+  searchTerm: '',
   order: ASC,
 };
 
@@ -89,13 +88,18 @@ export function PlayerSearchForm({ onSubmit = () => {}, onReset = () => {}, load
             <IconButton
               aria-label="Search"
               icon={<FontAwesomeIcon icon={faSearch} />}
-              type="Submit"
+              type="submit"
               variant="ghost"
               disabled={disabled}
               colorScheme="teal"
             />
           </InputLeftElement>
-          <Input placeholder="Search" {...register('search')} focusBorderColor="teal.300" isDisabled={inputDisabled} />
+          <Input
+            placeholder="Search"
+            {...register('searchTerm')}
+            focusBorderColor="teal.300"
+            isDisabled={inputDisabled}
+          />
           <InputRightElement>
             {inputDisabled ? (
               <FontAwesomeIcon icon={faSpinner} spin aria-busy="true" aria-label="Loading..." />

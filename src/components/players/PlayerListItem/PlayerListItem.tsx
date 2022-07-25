@@ -2,12 +2,8 @@ import React from 'react';
 import NextLink from 'next/link';
 import { Stack, HStack, Text, Avatar } from '@chakra-ui/react';
 
-export interface PlayerListItemProps {
-  id: string | number;
-  firstName?: string | null;
-  nickname?: string | null;
-  lastName?: string | null;
-  image?: string | null;
+export interface PlayerListItemProps extends Profile {
+  image?: string;
 }
 
 export function PlayerListItem({ id, firstName, nickname, lastName, image }: PlayerListItemProps) {

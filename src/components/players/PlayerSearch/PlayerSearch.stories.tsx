@@ -1,13 +1,13 @@
 import { Story } from '@storybook/react';
 import { SEARCH_PLAYERS } from '@graphql/queries';
-import { PlayerSearchProps, PlayerSearch } from './PlayerSearch';
+import { PlayerSearch } from './PlayerSearch';
 
 export default {
   title: 'components/players/PlayerSearch',
   component: PlayerSearch,
 };
 
-const Template: Story<PlayerSearchProps> = (args) => <PlayerSearch {...args} />;
+const Template: Story = (args) => <PlayerSearch {...args} />;
 
 export const Default = Template.bind({});
 

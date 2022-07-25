@@ -17,8 +17,8 @@ const google = GoogleProvider({
 });
 
 const discord = DiscordProvider({
-  clientId: process.env.DISCORD_CLIENT_ID,
-  clientSecret: process.env.DISCORD_CLIENT_SECRET,
+  clientId: process.env.DISCORD_CLIENT_ID ?? '',
+  clientSecret: process.env.DISCORD_CLIENT_SECRET ?? '',
 });
 
 const email = EmailProvider({
