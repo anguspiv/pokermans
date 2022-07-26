@@ -180,7 +180,7 @@ export const ProfileQuery = extendType({
         }
 
         if (orderBy) {
-          query.orderBy = [{ [orderBy]: sort }];
+          query.orderBy = [{ [orderBy]: sort?.toLowerCase() === 'asc' ? 'asc' : 'desc' }];
         }
 
         return prisma.profile.findMany(query);

@@ -39,8 +39,8 @@ export const UPDATE_PROFILE = gql`
 `;
 
 export const SEARCH_PLAYERS = gql`
-  query SearchPlayers($searchTerm: String, $order: String) {
-    profiles(searchTerm: $searchTerm, order: $order) {
+  query SearchPlayers($searchTerm: String, $sort: String) {
+    profiles(searchTerm: $searchTerm, sort: $sort) {
       id
       firstName
       nickname
