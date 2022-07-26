@@ -28,6 +28,8 @@ describe('<PlayerSearchForm />', () => {
 
     setupPlayerSearchForm();
 
+    fireEvent.change(screen.getByPlaceholderText('Search'), { target: { value: 'Jane' } });
+
     expect(screen.getByRole('button', { name: 'Clear' })).toBeInTheDocument();
   });
 

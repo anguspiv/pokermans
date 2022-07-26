@@ -4,8 +4,8 @@ import {
   InputLeftElement,
   InputRightElement,
   IconButton,
-  Flex,
-  Box,
+  Grid,
+  GridItem,
   Text,
   HStack,
 } from '@chakra-ui/react';
@@ -67,6 +67,7 @@ export function PlayerSearchForm({ onSubmit = () => {}, onReset = () => {}, load
   };
 
   const sortVal = getValues('sort');
+  const searchTerm = getValues('searchTerm');
 
   const sortIcon = sortVal === DESC ? faArrowDownShortWide : faArrowUpShortWide;
   const sortLabel = sortVal === ASC ? 'Sort Descending' : 'Sort Ascending';
@@ -81,9 +82,19 @@ export function PlayerSearchForm({ onSubmit = () => {}, onReset = () => {}, load
   const inputDisabled = loading || isSubmitting;
 
   return (
-    <Flex as="form" data-testid="player-search-form" onSubmit={onFormSubmit}>
-      <Box flexGrow={1}>
-        <InputGroup maxWidth="400px">
+    <Grid
+      as="form"
+      data-testid="player-search-form"
+      onSubmit={onFormSubmit}
+      gridTemplateRows={{ base: 'auto auto', sm: 'auto' }}
+      gridTemplateColumns={{ base: '1fr', sm: '1fr auto' }}
+      gridGap={1}
+      gridAutoFlow="column"
+      justifyContent="center"
+      alignItems="center"
+    >
+      <GridItem>
+        <InputGroup>
           <InputLeftElement>
             <IconButton
               aria-label="Search"
@@ -101,9 +112,8 @@ export function PlayerSearchForm({ onSubmit = () => {}, onReset = () => {}, load
             isDisabled={inputDisabled}
           />
           <InputRightElement>
-            {inputDisabled ? (
-              <FontAwesomeIcon icon={faSpinner} spin aria-busy="true" aria-label="Loading..." />
-            ) : (
+            {inputDisabled && <FontAwesomeIcon icon={faSpinner} spin aria-busy="true" aria-label="Loading..." />}{' '}
+            {!inputDisabled && searchTerm && (
               <IconButton
                 aria-label="Clear"
                 icon={<FontAwesomeIcon icon={faTimes} />}
@@ -115,18 +125,20 @@ export function PlayerSearchForm({ onSubmit = () => {}, onReset = () => {}, load
             )}
           </InputRightElement>
         </InputGroup>
-      </Box>
-      <HStack>
-        <Text>Sort:</Text>
-        <IconButton
-          aria-label={sortLabel}
-          onClick={onSortClick}
-          icon={<FontAwesomeIcon icon={sortIcon} />}
-          colorScheme="teal"
-          variant="ghost"
-        />
-      </HStack>
-    </Flex>
+      </GridItem>
+      <GridItem pl="2">
+        <HStack spacing={2}>
+          <Text>Sort:</Text>
+          <IconButton
+            aria-label={sortLabel}
+            onClick={onSortClick}
+            icon={<FontAwesomeIcon icon={sortIcon} />}
+            colorScheme="teal"
+            variant="ghost"
+          />
+        </HStack>
+      </GridItem>
+    </Grid>
   );
 }
 
