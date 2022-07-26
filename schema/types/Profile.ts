@@ -149,16 +149,16 @@ export const ProfileQuery = extendType({
           description: 'The number of results to skip',
           default: 0,
         }),
-        sortBy: stringArg({
+        orderBy: stringArg({
           description: 'The field to order by',
           default: 'id',
         }),
-        order: stringArg({
-          description: 'The order to sort by',
+        sort: stringArg({
+          description: 'The direction to sort the results',
           default: 'asc',
         }),
       },
-      resolve(_parent, { searchTerm, limit, offset, sortBy, order, ...fields }, { prisma }) {
+      resolve(_parent, { searchTerm, limit, offset, orderBy, sort, ...fields }, { prisma }) {
         let where = {};
 
         if (searchTerm) {
@@ -179,8 +179,8 @@ export const ProfileQuery = extendType({
           query.skip = offset;
         }
 
-        if (sortBy) {
-          query.orderBy = [{ [sortBy]: order }];
+        if (orderBy) {
+          query.orderBy = [{ [orderBy]: sort }];
         }
 
         return prisma.profile.findMany(query);

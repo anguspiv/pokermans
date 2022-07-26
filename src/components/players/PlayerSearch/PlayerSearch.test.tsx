@@ -62,12 +62,12 @@ describe('<PlayerSearch />', () => {
     await waitFor(() => {
       expect(refetch).toHaveBeenCalledWith({
         searchTerm: 'test',
-        order: 'ASC',
+        sort: 'ASC',
       });
     });
   });
 
-  it('should make a search player request with order change', async () => {
+  it('should make a search player request with sort change', async () => {
     expect.hasAssertions();
 
     const refetch = jest.fn();
@@ -88,7 +88,7 @@ describe('<PlayerSearch />', () => {
     await waitFor(() => {
       expect(refetch).toHaveBeenCalledWith({
         searchTerm: 'test',
-        order: 'DESC',
+        sort: 'DESC',
       });
     });
   });
@@ -114,7 +114,7 @@ describe('<PlayerSearch />', () => {
     await waitFor(() => {
       expect(refetch).toHaveBeenCalledWith({
         searchTerm: '',
-        order: 'ASC',
+        sort: 'ASC',
       });
     });
   });

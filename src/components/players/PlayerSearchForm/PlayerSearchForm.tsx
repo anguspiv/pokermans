@@ -23,7 +23,7 @@ import * as yup from 'yup';
 
 export interface PlayerSearchFormData {
   searchTerm?: string;
-  order?: string;
+  sort?: string;
 }
 export interface PlayerSearchFormProps {
   onReset: () => void;
@@ -40,7 +40,7 @@ const schema = yup.object().shape({
 
 const defaultValues = {
   searchTerm: '',
-  order: ASC,
+  sort: ASC,
 };
 
 export function PlayerSearchForm({ onSubmit = () => {}, onReset = () => {}, loading = false }: PlayerSearchFormProps) {
@@ -57,7 +57,7 @@ export function PlayerSearchForm({ onSubmit = () => {}, onReset = () => {}, load
     resolver: yupResolver(schema),
   });
 
-  register('order');
+  register('sort');
 
   const onFormSubmit = handleSubmit((data: PlayerSearchFormData) => onSubmit(data));
 
@@ -66,14 +66,14 @@ export function PlayerSearchForm({ onSubmit = () => {}, onReset = () => {}, load
     onReset();
   };
 
-  const orderVal = getValues('order');
+  const sortVal = getValues('sort');
 
-  const sortIcon = orderVal === DESC ? faArrowDownShortWide : faArrowUpShortWide;
-  const sortLabel = orderVal === ASC ? 'Sort Descending' : 'Sort Ascending';
+  const sortIcon = sortVal === DESC ? faArrowDownShortWide : faArrowUpShortWide;
+  const sortLabel = sortVal === ASC ? 'Sort Descending' : 'Sort Ascending';
 
-  const onOrderClick = () => {
-    const newValue = orderVal === ASC ? DESC : ASC;
-    setValue('order', newValue);
+  const onSortClick = () => {
+    const newValue = sortVal === ASC ? DESC : ASC;
+    setValue('sort', newValue);
     onFormSubmit();
   };
 
@@ -120,7 +120,7 @@ export function PlayerSearchForm({ onSubmit = () => {}, onReset = () => {}, load
         <Text>Sort:</Text>
         <IconButton
           aria-label={sortLabel}
-          onClick={onOrderClick}
+          onClick={onSortClick}
           icon={<FontAwesomeIcon icon={sortIcon} />}
           colorScheme="teal"
           variant="ghost"
