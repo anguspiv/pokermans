@@ -10,7 +10,7 @@ jest.mock('next/router', () => ({
 }));
 
 describe('<PageHeader />', () => {
-  const setupPageHeader = (props: PageHeaderProps) => {
+  const setupPageHeader = (props: PageHeaderProps = { title: 'test' }) => {
     return render(<PageHeader {...props} />);
   };
 

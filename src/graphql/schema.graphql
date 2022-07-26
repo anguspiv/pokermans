@@ -137,14 +137,14 @@ type Query {
     """The number of results to skip"""
     offset: Int = 0
 
-    """The order to sort by"""
-    order: String = "asc"
+    """The field to order by"""
+    orderBy: String = "id"
 
     """The search term to search for"""
     searchTerm: String
 
-    """The field to order by"""
-    sortBy: String = "id"
+    """The direction to sort the results"""
+    sort: String = "asc"
   ): [Profile]!
 
   """Find a single user"""

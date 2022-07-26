@@ -15,7 +15,7 @@ const useSession = useSessionOrig as jest.MockedFunction<typeof useSessionOrig>;
 
 describe('<SideBar />', () => {
   const setupSideBar = (props: object = {}) => {
-    useSession.mockClear().mockReturnValue({});
+    useSession.mockClear().mockReturnValue({ data: null, loading: false });
 
     return render(<SideBar {...props} />);
   };
