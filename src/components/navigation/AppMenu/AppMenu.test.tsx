@@ -71,4 +71,16 @@ describe('<AppMenu />', () => {
 
     expect(getByRole('link', { name: 'Account' })).toHaveAttribute('href', '/account');
   });
+
+  it('should render the players link', () => {
+    expect.assertions(1);
+
+    const session = {
+      status: 'authenticated',
+    };
+
+    const { getByRole } = setupAppMenu({}, { session });
+
+    expect(getByRole('link', { name: 'Players' })).toHaveAttribute('href', '/players');
+  });
 });
