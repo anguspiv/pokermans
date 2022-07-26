@@ -1,4 +1,4 @@
-import { useQuery } from '@apollo/client';
+import { useQuery as useQueryOrig } from '@apollo/client';
 import { screen, render, fireEvent, waitFor } from '@testing-library/react';
 import logger from '@utils/logger';
 import { PlayerSearch } from './PlayerSearch';
@@ -14,6 +14,8 @@ jest.mock('@apollo/client', () => ({
   }),
   useMutation: jest.fn().mockReturnValue([jest.fn(), {}]),
 }));
+
+const useQuery = useQueryOrig as jest.MockedFunction<typeof useQueryOrig>;
 
 describe('<PlayerSearch />', () => {
   const setupPlayerSearch = (props, { profiles, ...getQuery } = {}) => {

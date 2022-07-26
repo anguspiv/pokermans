@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import { useSession } from 'next-auth/react';
+import { useSession as useSessionOrig } from 'next-auth/react';
 import AppDrawer from './AppDrawer';
 
 jest.mock('next-auth/react', () => ({
@@ -11,6 +11,8 @@ jest.mock('@apollo/client', () => ({
   useQuery: jest.fn().mockReturnValue({ data: { profile: { firstName: 'John' } } }),
   gql: jest.fn(),
 }));
+
+const useSession = useSessionOrig as jest.MockedFunction<typeof useSessionOrig>;
 
 describe('<AppDrawer />', () => {
   const setupAppDrawer = (props: object = {}, context: object = {}) => {

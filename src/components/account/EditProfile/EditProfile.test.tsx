@@ -44,12 +44,7 @@ describe('<EditProfile />', () => {
     { profile, ...getQuery } = {
       profile: {},
     },
-    updateQuery = {
-      loading: false,
-      called: false,
-      client: {},
-      reset: () => {},
-    },
+    results = {} as QueryResult<unknown, unknown>,
   ) => {
     logger.mockTypes(() => jest.fn());
 
@@ -61,10 +56,15 @@ describe('<EditProfile />', () => {
       ...getQuery,
     } as QueryResult<unknown, unknown>;
 
+    const mutationResults = {
+      reset: () => {},
+      ...results,
+    };
+
     // ts-ignore
     useQuery.mockReturnValue(queryResults);
 
-    useMutation.mockReturnValue([useMutate, updateQuery]);
+    useMutation.mockReturnValue([useMutate, mutationResults]);
 
     return render(<EditProfile {...props} />);
   };
@@ -246,6 +246,7 @@ describe('<EditProfile />', () => {
     expect.hasAssertions();
 
     global.URL = {
+      ...global.URL,
       createObjectURL: jest.fn().mockReturnValue('/image.png'),
     };
 

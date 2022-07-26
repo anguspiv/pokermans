@@ -17,7 +17,7 @@ describe('<AppHeader />', () => {
   const setupAppHeader = (props: AppHeaderProps = {}, context: AppHeaderContext = {}) => {
     const { session } = context;
 
-    useSession.mockClear().mockReturnValue(session);
+    useSession.mockClear().mockReturnValue({ data: null, status: null, ...session });
 
     return render(<AppHeader {...props} />);
   };
