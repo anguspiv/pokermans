@@ -1,12 +1,14 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import { useRouter } from 'next/router';
+import { useRouter as useRouterOrig } from 'next/router';
 import Breadcrumbs from './Breadcrumbs';
 
 jest.mock('next/router', () => ({
   ...jest.requireActual('next/router'),
   useRouter: jest.fn(),
 }));
+
+const useRouter = useRouterOrig as jest.MockedFunction<typeof useRouterOrig>;
 
 describe('<Breadcrumbs />', () => {
   const setupBreadcrumbs = (props, { pathname = '/' } = {}) => {

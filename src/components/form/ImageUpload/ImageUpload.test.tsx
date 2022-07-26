@@ -79,6 +79,7 @@ describe('<ImageUpload />', () => {
     expect.hasAssertions();
 
     global.URL = {
+      ...global.URL,
       createObjectURL: jest.fn().mockReturnValue('/image.png'),
     };
 

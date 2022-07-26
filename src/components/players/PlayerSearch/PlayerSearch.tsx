@@ -13,7 +13,7 @@ export function PlayerSearch() {
   const { data, loading, refetch } = useQuery<SearchPlayersData, PlayerSearchFormData>(SEARCH_PLAYERS, {
     variables: {
       searchTerm: '',
-      order: 'ASC',
+      sort: 'ASC',
     },
   });
   const [players, setPlayers] = useState(data?.profiles || []);
@@ -27,7 +27,7 @@ export function PlayerSearch() {
   };
 
   const onReset = () => {
-    refetch({ searchTerm: '', order: 'ASC' });
+    refetch({ searchTerm: '', sort: 'ASC' });
   };
 
   return (

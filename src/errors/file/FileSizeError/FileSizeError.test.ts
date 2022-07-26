@@ -28,7 +28,7 @@ describe('fileSizeError', () => {
     try {
       throw new FileSizeError('test', { max: 10 });
     } catch (err) {
-      error = err;
+      error = err as FileSizeError;
     }
 
     expect(error.max).toBe(10);
@@ -41,7 +41,7 @@ describe('fileSizeError', () => {
     try {
       throw new FileSizeError('test', { filesize: 100 });
     } catch (err) {
-      error = err;
+      error = err as FileSizeError;
     }
 
     expect(error.filesize).toBe(100);

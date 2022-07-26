@@ -1,4 +1,4 @@
-import { useQuery } from '@apollo/client';
+import { useQuery as useQueryOrig } from '@apollo/client';
 import { screen, render, fireEvent, waitFor } from '@testing-library/react';
 import logger from '@utils/logger';
 import { PlayerSearch } from './PlayerSearch';
@@ -14,6 +14,8 @@ jest.mock('@apollo/client', () => ({
   }),
   useMutation: jest.fn().mockReturnValue([jest.fn(), {}]),
 }));
+
+const useQuery = useQueryOrig as jest.MockedFunction<typeof useQueryOrig>;
 
 describe('<PlayerSearch />', () => {
   const setupPlayerSearch = (props, { profiles, ...getQuery } = {}) => {
@@ -62,12 +64,12 @@ describe('<PlayerSearch />', () => {
     await waitFor(() => {
       expect(refetch).toHaveBeenCalledWith({
         searchTerm: 'test',
-        order: 'ASC',
+        sort: 'ASC',
       });
     });
   });
 
-  it('should make a search player request with order change', async () => {
+  it('should make a search player request with sort change', async () => {
     expect.hasAssertions();
 
     const refetch = jest.fn();
@@ -88,7 +90,7 @@ describe('<PlayerSearch />', () => {
     await waitFor(() => {
       expect(refetch).toHaveBeenCalledWith({
         searchTerm: 'test',
-        order: 'DESC',
+        sort: 'DESC',
       });
     });
   });
@@ -114,7 +116,7 @@ describe('<PlayerSearch />', () => {
     await waitFor(() => {
       expect(refetch).toHaveBeenCalledWith({
         searchTerm: '',
-        order: 'ASC',
+        sort: 'ASC',
       });
     });
   });

@@ -130,7 +130,7 @@ describe('<PlayerSearchForm />', () => {
     expect(screen.getByLabelText('Loading...')).toBeInTheDocument();
   });
 
-  it('should show the order descending button', () => {
+  it('should show the sort descending button', () => {
     expect.assertions(1);
 
     setupPlayerSearchForm();
@@ -138,7 +138,7 @@ describe('<PlayerSearchForm />', () => {
     expect(screen.getByRole('button', { name: 'Sort Descending' })).toBeInTheDocument();
   });
 
-  it('should submit with order ascending', async () => {
+  it('should submit with sort ascending', async () => {
     expect.assertions(1);
 
     const onSubmit = jest.fn();
@@ -154,11 +154,11 @@ describe('<PlayerSearchForm />', () => {
 
       const vals = call && call[0];
 
-      expect(vals).toMatchObject({ order: 'ASC' });
+      expect(vals).toMatchObject({ sort: 'ASC' });
     });
   });
 
-  it('should submit with order descending', async () => {
+  it('should submit with sort descending', async () => {
     expect.assertions(1);
 
     const onSubmit = jest.fn();
@@ -174,7 +174,7 @@ describe('<PlayerSearchForm />', () => {
 
       const vals = call && call[0];
 
-      expect(vals).toMatchObject({ order: 'DESC' });
+      expect(vals).toMatchObject({ sort: 'DESC' });
     });
   });
 });
