@@ -1,5 +1,5 @@
 import { Box } from '@chakra-ui/react';
-import { faHome, faUser, faSignOutAlt, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faUser, faSignOutAlt, faSignInAlt, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { useSession } from 'next-auth/react';
 import { useQuery, gql } from '@apollo/client';
 import Link from 'next/link';
@@ -78,6 +78,11 @@ function AppMenu({ variant }: AppMenuProps) {
           </>
         )}
       </NavMenu>
+      {isAuthed && (
+        <NavMenu>
+          <NavLink href="/players" label="Players" icon={faUsers} />
+        </NavMenu>
+      )}
     </Box>
   );
 }
