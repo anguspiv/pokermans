@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { useRouter as useRouterOrig } from 'next/router';
 import Breadcrumbs from './Breadcrumbs';
 
@@ -54,5 +54,32 @@ describe('<Breadcrumbs />', () => {
     expect(getByText('Test Page')).toHaveAttribute('href', '/test-page');
     expect(getByText('Page Thing Title')).toHaveAttribute('href', '/test-page/page-thing-title');
     expect(getByText('Item')).toBeInTheDocument();
+  });
+
+  it('should replace the crumb label', () => {
+    expect.assertions(2);
+
+    const labels = {
+      '123abc': 'Test Label',
+    };
+
+    setupBreadcrumbs({ labels }, { pathname: '/test-page/page-thing-title/123abc' });
+
+    expect(screen.getByText('Test Label')).toBeInTheDocument();
+    expect(screen.queryByText('123abc')).not.toBeInTheDocument();
+  });
+
+  it('should replace the multiple crumb labels', () => {
+    expect.assertions(2);
+
+    const labels = {
+      '123abc': 'Test Label',
+      'page-thing-title': 'Cool Page',
+    };
+
+    setupBreadcrumbs({ labels }, { pathname: '/test-page/page-thing-title/123abc' });
+
+    expect(screen.getByText('Test Label')).toBeInTheDocument();
+    expect(screen.getByText('Cool Page')).toHaveAttribute('href', '/test-page/page-thing-title');
   });
 });

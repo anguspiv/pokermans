@@ -5,6 +5,7 @@ import Link from 'next/link';
 
 export interface BreadcrumbsProps {
   homeLabel?: string;
+  labels?: { [key: string]: string };
 }
 
 const getPathLabel = (path: string) => {
@@ -14,13 +15,13 @@ const getPathLabel = (path: string) => {
   return pathLabel;
 };
 
-function Breadcrumbs({ homeLabel = 'Home' }: BreadcrumbsProps) {
+function Breadcrumbs({ homeLabel = 'Home', labels = {} }: BreadcrumbsProps) {
   const { asPath } = useRouter();
 
   const paths = asPath.split('/').filter(Boolean);
 
   const breadcrumbs = paths.map((path, index) => {
-    const label = path.charAt(0).toUpperCase() + path.slice(1);
+    const label = labels[path] || path.charAt(0).toUpperCase() + path.slice(1);
     const href = `/${paths.slice(0, index + 1).join('/')}`;
 
     return {
