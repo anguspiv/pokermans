@@ -1,6 +1,5 @@
 import React from 'react';
 import { Stack, Divider, Center, Spinner } from '@chakra-ui/react';
-import logger from '@utils/logger';
 import { PlayerListItem, PlayerListItemProps } from '../PlayerListItem';
 
 export interface PlayerListProps {
@@ -9,10 +8,6 @@ export interface PlayerListProps {
 }
 
 export function PlayerList({ players = [], loading = false }: PlayerListProps) {
-  const ids = players.map(({ id }) => id);
-
-  logger.debug('PlayerList', { ids });
-
   return (
     <Stack spacing={4} data-testid="player-list" divider={<Divider />} height="100%">
       {!loading && players.map(({ id, ...player }) => <PlayerListItem key={id} id={id} {...player} />)}
