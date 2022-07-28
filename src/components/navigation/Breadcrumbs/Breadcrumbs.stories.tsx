@@ -10,12 +10,21 @@ const Template: Story<BreadcrumbsProps> = (args) => <Breadcrumbs {...args} />;
 
 export const Default = Template.bind({});
 
-Default.args = {};
+Default.args = {
+  labels: {
+    '123abc': 'Test Label',
+    profile: 'Players',
+  },
+};
 
 Default.story = {
   parameters: {
     nextRouter: {
-      pathname: '/test/page-breadcrumbs',
+      path: '/profile/[id]',
+      asPath: '/profile/123abc',
+      query: {
+        id: '123abc',
+      },
     },
   },
 };
