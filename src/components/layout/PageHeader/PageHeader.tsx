@@ -5,14 +5,15 @@ import Breadcrumbs from '../../navigation/Breadcrumbs';
 export interface PageHeaderProps {
   title: string;
   subtitle?: string;
+  breadcrumbLabels?: { [key: string]: string };
 }
 
-function PageHeader({ title = '', subtitle = '' }: PageHeaderProps) {
+function PageHeader({ title = '', subtitle = '', breadcrumbLabels = null }: PageHeaderProps) {
   return (
     <Box as="header" py={4}>
       <Stack spacing={0}>
         <Box>
-          <Breadcrumbs />
+          <Breadcrumbs labels={breadcrumbLabels} />
         </Box>
         <Box>
           <Heading as="h1" size="lg" mt={2}>

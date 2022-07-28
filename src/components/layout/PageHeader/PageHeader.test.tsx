@@ -1,5 +1,6 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import { useRouter as userRouterOrig } from 'next/router';
 import PageHeader, { PageHeaderProps } from './PageHeader';
 
 jest.mock('next/router', () => ({
@@ -9,8 +10,15 @@ jest.mock('next/router', () => ({
   })),
 }));
 
+const useRouter = userRouterOrig as jest.Mock<typeof userRouterOrig>;
+
 describe('<PageHeader />', () => {
-  const setupPageHeader = (props: PageHeaderProps = { title: 'test' }) => {
+  const setupPageHeader = (props: PageHeaderProps = { title: 'test' }, router = {}) => {
+    useRouter.mockReturnValue({
+      asPath: '/',
+      ...router,
+    });
+
     return render(<PageHeader {...props} />);
   };
 
@@ -41,12 +49,27 @@ describe('<PageHeader />', () => {
   });
 
   it('should render the breadcrumbs', () => {
-    expect.assertions(1);
+    expect.assertions(2);
 
-    const { getByTestId } = setupPageHeader({}, { pathname: '/test/page' });
+    const { getByTestId } = setupPageHeader({}, { asPath: '/test/page' });
 
     const actual = getByTestId('breadcrumbs');
 
     expect(actual).toBeInTheDocument();
+    expect(screen.getByText('Test')).toHaveAttribute('href', '/test');
+  });
+
+  it('should render the breadcrumb labels', () => {
+    expect.assertions(1);
+
+    const breadcrumbLabels = {
+      test: 'Hello',
+    };
+
+    setupPageHeader({ breadcrumbLabels }, { asPath: '/test/page' });
+
+    const actual = screen.getByText('Hello');
+
+    expect(actual).toHaveAttribute('href', '/test');
   });
 });

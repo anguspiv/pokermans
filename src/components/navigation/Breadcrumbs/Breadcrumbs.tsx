@@ -21,7 +21,7 @@ function Breadcrumbs({ homeLabel = 'Home', labels = {} }: BreadcrumbsProps) {
   const paths = asPath.split('/').filter(Boolean);
 
   const breadcrumbs = paths.map((path, index) => {
-    const label = labels[path] || path.charAt(0).toUpperCase() + path.slice(1);
+    const label = labels?.[path] || path.charAt(0).toUpperCase() + path.slice(1);
     const href = `/${paths.slice(0, index + 1).join('/')}`;
 
     return {
