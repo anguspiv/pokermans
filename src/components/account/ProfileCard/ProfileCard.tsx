@@ -7,6 +7,7 @@ export interface ProfileCardProps {
   nickname?: string;
   email?: string;
   image?: string;
+  bio?: string;
 }
 
 const styles = {
@@ -25,6 +26,7 @@ export function ProfileCard({
   nickname = '',
   email = '',
   image = '',
+  bio = '',
 }: ProfileCardProps) {
   return (
     <Grid
@@ -35,13 +37,16 @@ export function ProfileCard({
       data-testid="profile-card"
       display="grid"
       gap={4}
-      templateRows="auto"
-      templateColumns="repeat(2, auto)"
+      gridTemplateRows="auto"
+      gridTemplateColumns="repeat(2, auto)"
+      gridTemplateAreas="'avatar info'"
       alignItems="center"
       justifyContent="start"
       maxWidth={480}
     >
-      <Avatar name={`${firstName} ${lastName}`} size="xl" src={image} />
+      <GridItem area="avatar">
+        <Avatar name={`${firstName} ${lastName}`} size="xl" src={image} />
+      </GridItem>
       <GridItem area="info">
         <Heading as="p" size="md" mb={2}>
           {firstName} {lastName}
@@ -54,6 +59,11 @@ export function ProfileCard({
         <Text fontSize="sm" color="gray.500">
           {email}
         </Text>
+        {bio && (
+          <Text fontSize="sm" color="gray.500">
+            {bio}
+          </Text>
+        )}
       </GridItem>
     </Grid>
   );
