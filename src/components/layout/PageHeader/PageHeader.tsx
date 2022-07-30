@@ -8,7 +8,7 @@ export interface PageHeaderProps {
   breadcrumbLabels?: { [key: string]: string };
 }
 
-function PageHeader({ title = '', subtitle = '', breadcrumbLabels = null }: PageHeaderProps) {
+function PageHeader({ title = '', subtitle = '', breadcrumbLabels = {} }: PageHeaderProps) {
   return (
     <Box as="header" py={4}>
       <Stack spacing={0}>

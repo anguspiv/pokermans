@@ -1,4 +1,4 @@
-import PlayerList from './PlayerList';
+import { PlayerList } from './PlayerList';
 
 export * from './PlayerList';
 
