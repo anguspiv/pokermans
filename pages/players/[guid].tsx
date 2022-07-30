@@ -10,7 +10,7 @@ import logger from '@utils/logger';
 import ProfileCard from '@components/account/ProfileCard';
 
 const PlayerPage = () => {
-  const [profile, setProfile] = useState({});
+  const [profile, setProfile] = useState<Profile>({});
   const [isLoading, setIsLoading] = useState(true);
   const { query } = useRouter();
   const { guid } = query;
@@ -42,22 +42,22 @@ const PlayerPage = () => {
     return null;
   }
 
+  const breadcrumbLabels: { [key: string]: string } = {};
+
+  if (guid) {
+    breadcrumbLabels[`${guid}`] = name;
+  }
+
   return (
     <>
       <Head>
         <title>Player {fullName}</title>
       </Head>
-      <PageHeader
-        title={`${fullName}`}
-        breadcrumbLabels={{
-          [guid]: name,
-        }}
-      />
+      <PageHeader title={`${fullName}`} breadcrumbLabels={breadcrumbLabels} />
       <ProfileCard
         firstName={profile?.firstName}
         lastName={profile?.lastName}
         nickname={profile?.nickname}
-        email={profile?.email}
         image={getImageUrl(profile?.avatar || {})}
         bio={profile?.bio}
       />

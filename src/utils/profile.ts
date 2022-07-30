@@ -13,7 +13,7 @@ export const getShortName = (profile: Profile): string => {
 export const getInitials = (profile: Profile): string => {
   const { firstName, lastName } = profile;
 
-  return `${firstName[0]}${lastName ? lastName[0] : ''}`.trim();
+  return `${firstName?.[0]}${lastName ? lastName[0] : ''}`.trim();
 };
 
 export const getName = (profile: Profile): string => {

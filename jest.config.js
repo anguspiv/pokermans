@@ -1,14 +1,10 @@
 module.exports = {
   collectCoverage: true,
   collectCoverageFrom: [
-    '**/{pages,src}/**/*.{js,jsx,ts,tsx}',
-    '!**/{src,pages}/**/*.stories.{js,jsx,ts,tsx}',
+    '**/src/**/*.{js,jsx,ts,tsx}',
+    '!**/src/**/*.stories.{js,jsx,ts,tsx}',
     '!**/src/db/**/*',
     '!**/src/graphql/**/*',
-    '!**/pages/_app.tsx',
-    '!**/pages/_error.js',
-    '!**/pages/api/**/*',
-    '!**/pages/user.tsx',
     '!**/*.d.ts',
     '!**/node_modules/**',
     '!**/stories/**',
