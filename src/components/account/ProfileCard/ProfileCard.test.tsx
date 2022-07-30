@@ -68,4 +68,16 @@ describe('<ProfileCard />', () => {
 
     expect(getByText('JD')).toBeInTheDocument();
   });
+
+  it('should render the bio', () => {
+    expect.assertions(1);
+
+    const bio = 'This is a bio';
+
+    const { getByText } = setupProfileCard({
+      bio,
+    });
+
+    expect(getByText(bio)).toBeInTheDocument();
+  });
 });

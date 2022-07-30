@@ -4,8 +4,10 @@ import { useRouter } from 'next/router';
 import { useQuery } from '@apollo/client';
 import PageHeader from '@components/layout/PageHeader';
 import { GET_PROFILE } from '@graphql/queries';
+import { getImageUrl } from '@utils/image';
 import { getFullName, getName } from '@utils/profile';
 import logger from '@utils/logger';
+import ProfileCard from '@components/account/ProfileCard';
 
 const PlayerPage = () => {
   const [profile, setProfile] = useState({});
@@ -50,6 +52,14 @@ const PlayerPage = () => {
         breadcrumbLabels={{
           [guid]: name,
         }}
+      />
+      <ProfileCard
+        firstName={profile?.firstName}
+        lastName={profile?.lastName}
+        nickname={profile?.nickname}
+        email={profile?.email}
+        image={getImageUrl(profile?.avatar || {})}
+        bio={profile?.bio}
       />
     </>
   );
