@@ -1,3 +1,27 @@
+# [1.15.0](https://github.com/anguspiv/pokermans/compare/v1.14.0...v1.15.0) (2022-07-31)
+
+
+### Bug Fixes
+
+* **breadcrumbs:** displays the dynamic route values ([92f3fb3](https://github.com/anguspiv/pokermans/commit/92f3fb333b6ca69ce59c9134b4759948bf80ce83))
+* **graphql-api:** fixes profiles query sorting bug ([d1cf9af](https://github.com/anguspiv/pokermans/commit/d1cf9af241220c2bfe6ac3dfe0ea6b7a8a29f5fb))
+* **profiles:** changes sortBy and order input names ([c653276](https://github.com/anguspiv/pokermans/commit/c653276d11831fff9921c45331f30a547ff07028))
+* **signup:** creates profile on user creation ([e36c241](https://github.com/anguspiv/pokermans/commit/e36c241c9e764c0540faf81c63c17fe26f5a8269))
+
+
+### Features
+
+* adds profile card to player page ([052d572](https://github.com/anguspiv/pokermans/commit/052d572f18ae67e63f6b0e807971bd56de13e846)), closes [#106](https://github.com/anguspiv/pokermans/issues/106)
+* adds the player search form ([cc657e6](https://github.com/anguspiv/pokermans/commit/cc657e6cf2ac378ce01323aa43959200f96edbd4)), closes [#106](https://github.com/anguspiv/pokermans/issues/106)
+* adds the players index page ([7afb4d4](https://github.com/anguspiv/pokermans/commit/7afb4d433e0088885adc3827d849f58bda868421)), closes [#106](https://github.com/anguspiv/pokermans/issues/106)
+* **app-menu:** adds players link ([30514bb](https://github.com/anguspiv/pokermans/commit/30514bb706f5e68cec535c6a70bed148bbb8032c)), closes [#106](https://github.com/anguspiv/pokermans/issues/106)
+* **bread-crumbs:** adds ability to replace labels ([cb767bf](https://github.com/anguspiv/pokermans/commit/cb767bf49f262542909f5531ec195316b2153e43))
+* **player-list:** adds loading state ([e518afc](https://github.com/anguspiv/pokermans/commit/e518afc6236f34b6ccf35563e56671654a6bc3bc)), closes [#106](https://github.com/anguspiv/pokermans/issues/106)
+* **player-page:** fetches profile information ([5a27694](https://github.com/anguspiv/pokermans/commit/5a27694461baa27761bff75db64ab8ec26269a73)), closes [#106](https://github.com/anguspiv/pokermans/issues/106)
+* **player-search:** minor styling tweaks ([2257a39](https://github.com/anguspiv/pokermans/commit/2257a39763dddc2c7686b15774186bf0690cd945))
+* **player:** adds player-list component ([3376722](https://github.com/anguspiv/pokermans/commit/3376722c541caddcba2fd4c98db425313162bab7))
+* **profiles:** adds a profiles search query ([001b835](https://github.com/anguspiv/pokermans/commit/001b8358f22ee7ec91b179fbf89ca3a1fcfdfe5c))
+
 # [1.14.0](https://github.com/anguspiv/pokermans/compare/v1.13.0...v1.14.0) (2022-04-29)
 
 
