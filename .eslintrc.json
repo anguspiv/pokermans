@@ -67,6 +67,15 @@
       "rules": {
         "import/prefer-default-export": "off"
       }
+    },
+    {
+      "files": [
+        "cypress/**/*.ts",
+        "cypress.config.ts"
+      ],
+      "rules": {
+        "import/no-extraneous-dependencies": "off"
+      }
     }
   ]
 }

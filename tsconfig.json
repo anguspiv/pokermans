@@ -34,6 +34,6 @@
     ],
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
-  "exclude": ["node_modules",  "cypress"],
+  "exclude": ["node_modules"],
   "ts-node": {}
 }
