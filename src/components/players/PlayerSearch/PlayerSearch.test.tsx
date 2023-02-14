@@ -3,7 +3,7 @@ import { screen, render, fireEvent, waitFor } from '@testing-library/react';
 import logger from '@utils/logger';
 import { PlayerSearch } from './PlayerSearch';
 
-jest.mock('@apollo/client', () => ({
+jest.mock<typeof import('@apollo/client')>('@apollo/client', () => ({
   ...jest.requireActual('@apollo/client'),
   useQuery: jest.fn().mockReturnValue({
     data: {

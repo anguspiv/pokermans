@@ -3,7 +3,7 @@ import { render, fireEvent } from '@testing-library/react';
 import { useSession as useSessionOrig } from 'next-auth/react';
 import AppHeader, { AppHeaderProps } from './AppHeader';
 
-jest.mock('next-auth/react', () => ({
+jest.mock<typeof import('next-auth/react')>('next-auth/react', () => ({
   useSession: jest.fn(),
 }));
 

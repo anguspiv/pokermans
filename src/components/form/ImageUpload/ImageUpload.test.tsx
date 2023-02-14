@@ -4,7 +4,7 @@ import { useMutation as useMutationOrig } from '@apollo/client';
 import { getImageUrl } from '@utils/image';
 import ImageUpload, { ImageUploadProps } from './ImageUpload';
 
-jest.mock('@apollo/client', () => ({
+jest.mock<typeof import('@apollo/client')>('@apollo/client', () => ({
   ...jest.requireActual('@apollo/client'),
   useQuery: jest.fn(),
   useMutation: jest.fn().mockReturnValue([jest.fn(), {}]),
@@ -12,7 +12,7 @@ jest.mock('@apollo/client', () => ({
 
 const FILE = new File(['(⌐□_□)'], 'chucknorris.png', { type: 'image/png' });
 
-jest.mock('react-dropzone', () => ({
+jest.mock<typeof import('react-dropzone')>('react-dropzone', () => ({
   ...jest.requireActual('react-dropzone'),
   useDropzone: jest.fn().mockReturnValue({
     acceptedFiles: [],
@@ -22,7 +22,7 @@ jest.mock('react-dropzone', () => ({
   }),
 }));
 
-jest.mock('@apollo/client', () => ({
+jest.mock<typeof import('@apollo/client')>('@apollo/client', () => ({
   ...jest.requireActual('@apollo/client'),
   useMutation: jest.fn().mockReturnValue([jest.fn(), {}]),
 }));

@@ -2,11 +2,11 @@ import { render } from '@testing-library/react';
 import { useSession as useSessionOrig } from 'next-auth/react';
 import SideBar from './SideBar';
 
-jest.mock('next-auth/react', () => ({
+jest.mock<typeof import('next-auth/react')>('next-auth/react', () => ({
   useSession: jest.fn(),
 }));
 
-jest.mock('@apollo/client', () => ({
+jest.mock<typeof import('@apollo/client')>('@apollo/client', () => ({
   useQuery: jest.fn().mockReturnValue({ data: { profile: { firstName: 'John' } } }),
   gql: jest.fn(),
 }));

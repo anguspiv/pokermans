@@ -9,18 +9,18 @@ const useMutate = jest.fn();
 
 const FILE = new File(['(⌐□_□)'], 'chucknorris.png', { type: 'image/png' });
 
-jest.mock('@apollo/client', () => ({
+jest.mock<typeof import('@apollo/client')>('@apollo/client', () => ({
   ...jest.requireActual('@apollo/client'),
   useQuery: jest.fn(),
   useMutation: jest.fn().mockReturnValue([jest.fn(), {}]),
 }));
 
-jest.mock('@chakra-ui/react', () => ({
+jest.mock<typeof import('@chakra-ui/react')>('@chakra-ui/react', () => ({
   ...jest.requireActual('@chakra-ui/react'),
   useToast: jest.fn().mockReturnValue(jest.fn()),
 }));
 
-jest.mock('react-dropzone', () => ({
+jest.mock<typeof import('react-dropzone')>('react-dropzone', () => ({
   ...jest.requireActual('react-dropzone'),
   useDropzone: jest.fn().mockReturnValue({
     acceptedFiles: [],

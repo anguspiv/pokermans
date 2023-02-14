@@ -3,7 +3,7 @@ import { render } from '@testing-library/react';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import NavLink from './NavLink';
 
-jest.mock('next/router', () => ({
+jest.mock<typeof import('next/router')>('next/router', () => ({
   useRouter() {
     return {
       route: '/test',
