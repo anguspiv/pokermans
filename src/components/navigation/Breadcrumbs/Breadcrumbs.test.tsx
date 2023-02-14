@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { useRouter as useRouterOrig } from 'next/router';
 import Breadcrumbs from './Breadcrumbs';
 
-jest.mock('next/router', () => ({
+jest.mock<typeof import('next/router')>('next/router', () => ({
   ...jest.requireActual('next/router'),
   useRouter: jest.fn(),
 }));

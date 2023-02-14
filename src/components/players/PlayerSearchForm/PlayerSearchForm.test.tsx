@@ -73,6 +73,7 @@ describe('<PlayerSearchForm />', () => {
     await waitFor(() => {
       const call = onSubmit.mock.calls.pop();
 
+      // eslint-disable-next-line jest/no-conditional-in-test
       const vals = call && call[0];
 
       expect(vals).toMatchObject({ searchTerm: 'Jane' });
@@ -154,6 +155,7 @@ describe('<PlayerSearchForm />', () => {
     await waitFor(() => {
       const call = onSubmit.mock.calls.pop();
 
+      // eslint-disable-next-line jest/no-conditional-in-test
       const vals = call && call[0];
 
       expect(vals).toMatchObject({ sort: 'ASC' });
@@ -174,6 +176,7 @@ describe('<PlayerSearchForm />', () => {
     await waitFor(() => {
       const call = onSubmit.mock.calls.pop();
 
+      // eslint-disable-next-line jest/no-conditional-in-test
       const vals = call && call[0];
 
       expect(vals).toMatchObject({ sort: 'DESC' });
