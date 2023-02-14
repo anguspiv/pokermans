@@ -13,7 +13,7 @@
     "sourceType": "module",
     "project": "./tsconfig.json"
   },
-  "plugins": ["@typescript-eslint", "prettier", "jest", "cypress"],
+  "plugins": ["@typescript-eslint", "prettier", "jest"],
   "rules": {
     "react/jsx-props-no-spreading": "off",
     "prettier/prettier": "error",
@@ -45,13 +45,6 @@
       "extends": "plugin:jest/all",
       "env": {
         "jest/globals": true
-      }
-    },
-    {
-      "files": ["*.spec.ts", "*.spec.tsx"],
-      "extends": "plugin:cypress/recommended",
-      "env": {
-        "cypress/globals": true
       }
     },
     {
