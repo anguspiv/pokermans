@@ -1,5 +1,6 @@
 import { scalarType } from 'nexus';
-import { GraphQLUpload } from 'graphql-upload';
+// eslint-disable-next-line import/extensions
+import GraphQLUpload from 'graphql-upload/GraphQLUpload.mjs';
 
 export const Upload = scalarType({
   name: GraphQLUpload.name,

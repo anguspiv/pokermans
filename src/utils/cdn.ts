@@ -1,5 +1,6 @@
 import { Storage } from '@google-cloud/storage';
-import { FileUpload } from 'graphql-upload';
+// eslint-disable-next-line import/extensions
+import { FileUpload } from 'graphql-upload/processRequest.mjs';
 import { FileSizeError } from '../errors/file';
 
 export const MAX_IMAGE_SIZE = 2097152; // 2MB
