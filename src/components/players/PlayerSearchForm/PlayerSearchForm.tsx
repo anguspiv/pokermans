@@ -101,7 +101,7 @@ export function PlayerSearchForm({ onSubmit = () => {}, onReset = () => {}, load
               icon={<FontAwesomeIcon icon={faSearch} />}
               type="submit"
               variant="ghost"
-              disabled={disabled}
+              isDisabled={disabled}
               colorScheme="teal"
             />
           </InputLeftElement>
@@ -119,7 +119,7 @@ export function PlayerSearchForm({ onSubmit = () => {}, onReset = () => {}, load
                 icon={<FontAwesomeIcon icon={faTimes} />}
                 variant="ghost"
                 onClick={onResetClick}
-                disabled={disabled}
+                isDisabled={disabled}
                 colorScheme="teal"
               />
             )}

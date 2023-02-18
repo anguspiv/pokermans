@@ -12,7 +12,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCamera } from '@fortawesome/free-solid-svg-icons';
 import { useDropzone } from 'react-dropzone';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -54,13 +54,19 @@ function ImageUpload({ onUpload = () => {}, placeholder = null }: ImageUploadPro
 
   const [uploadImage] = useMutation(UPLOAD_IMAGE);
 
+  const onDrop = useCallback(
+    (acceptedFiles) => {
+      // Do something with the files
+      setValue('image', acceptedFiles, { shouldValidate: true, shouldDirty: true, shouldTouch: true });
+    },
+    [setValue],
+  );
+
   const { acceptedFiles, getRootProps, getInputProps, isDragActive } = useDropzone({
     maxFiles: 1,
     accept: 'image/*',
     maxSize: 2097152,
-    onDrop: (files) => {
-      setValue('image', files, { shouldValidate: true, shouldDirty: true, shouldTouch: true });
-    },
+    onDrop,
   });
 
   const resetForm = () => {
@@ -142,14 +148,14 @@ function ImageUpload({ onUpload = () => {}, placeholder = null }: ImageUploadPro
           type="submit"
           loadingText="Saving"
           colorScheme="teal"
-          disabled={disabled}
+          isDisabled={disabled}
           isLoading={isSubmitting}
           size="sm"
           flex="1 1 50%"
         >
           Save
         </Button>
-        <Button size="sm" type="button" colorScheme="red" disabled={disabled} onClick={resetForm} flex="1 1 50%">
+        <Button size="sm" type="button" colorScheme="red" isDisabled={disabled} onClick={resetForm} flex="1 1 50%">
           Cancel
         </Button>
       </Flex>

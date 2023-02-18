@@ -47,9 +47,9 @@ function Breadcrumbs({ homeLabel = 'Home', labels = {} }: BreadcrumbsProps) {
             {isCurrent ? (
               <Text color="gray.500">{title}</Text>
             ) : (
-              <Link href={href} passHref>
-                <BreadcrumbLink isCurrentPage={isCurrent}>{title}</BreadcrumbLink>
-              </Link>
+              <BreadcrumbLink isCurrentPage={isCurrent} as={Link} href={href}>
+                {title}
+              </BreadcrumbLink>
             )}
           </BreadcrumbItem>
         );

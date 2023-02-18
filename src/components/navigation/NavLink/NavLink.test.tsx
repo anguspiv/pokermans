@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import NavLink from './NavLink';
 
@@ -79,9 +79,9 @@ describe('<NavLink />', () => {
   it('should set the link active', () => {
     expect.assertions(1);
 
-    const { getByRole } = setupNavLink({ href: '/test' });
+    setupNavLink({ href: '/test' });
 
-    expect(getByRole('link')).toHaveAttribute('aria-current', 'page');
+    expect(screen.getByRole('link')).toHaveAttribute('aria-current', 'page');
   });
 
   it('should use the default style', () => {
