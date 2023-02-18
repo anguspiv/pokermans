@@ -47,25 +47,25 @@ function NavLink({ href = '#', label, children, icon, variant }: NavLinkProps) {
   const { color, _hover, _activeLink } = variants[variant ?? 'default'] || {};
 
   return (
-    <NextLink href={href} passHref>
-      <Link
-        display="block"
-        py={2}
-        px={3}
-        transition="all 0.3s"
-        fontWeight="medium"
-        lineHeight="1.5rem"
-        aria-current={isActive ? 'page' : undefined}
-        color={color}
-        _hover={_hover}
-        _activeLink={_activeLink}
-      >
-        <HStack spacing={4}>
-          {!!icon && <Box width="1em">{icon && <FontAwesomeIcon icon={icon} data-testid="icon" />}</Box>}
-          <Text as="span">{children || label}</Text>
-        </HStack>
-      </Link>
-    </NextLink>
+    <Link
+      display="block"
+      py={2}
+      px={3}
+      transition="all 0.3s"
+      fontWeight="medium"
+      lineHeight="1.5rem"
+      aria-current={isActive ? 'page' : undefined}
+      color={color}
+      _hover={_hover}
+      _activeLink={_activeLink}
+      as={NextLink}
+      href={href}
+    >
+      <HStack spacing={4}>
+        {!!icon && <Box width="1em">{icon && <FontAwesomeIcon icon={icon} data-testid="icon" />}</Box>}
+        <Text as="span">{children || label}</Text>
+      </HStack>
+    </Link>
   );
 }
 

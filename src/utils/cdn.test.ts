@@ -37,7 +37,7 @@ let mockedFile = jest.fn();
 
 let mockedBucket;
 
-jest.mock('@google-cloud/storage', () => {
+jest.mock<typeof import('@google-cloud/storage')>('@google-cloud/storage', () => {
   return {
     Storage: jest.fn().mockImplementation(() => {
       mockedBucket = jest.fn().mockImplementation(() => {

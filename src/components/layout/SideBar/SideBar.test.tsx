@@ -11,6 +11,24 @@ jest.mock<typeof import('@apollo/client')>('@apollo/client', () => ({
   gql: jest.fn(),
 }));
 
+jest.mock<typeof import('next/router')>('next/router', () => ({
+  useRouter() {
+    return {
+      route: '/test',
+      pathname: '',
+      query: '',
+      asPath: '/test',
+      push: jest.fn(),
+      events: {
+        on: jest.fn(),
+        off: jest.fn(),
+      },
+      beforePopState: jest.fn(() => null),
+      prefetch: jest.fn(() => null),
+    };
+  },
+}));
+
 const useSession = useSessionOrig as jest.MockedFunction<typeof useSessionOrig>;
 
 describe('<SideBar />', () => {

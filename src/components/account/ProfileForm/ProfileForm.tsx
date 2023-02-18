@@ -101,7 +101,7 @@ export function ProfileForm({ profile, onSubmit = () => {}, loading = false }: P
         mt={2}
         isLoading={saveLoading}
         loadingText="Saving"
-        disabled={saveDisabled}
+        isDisabled={saveDisabled}
         colorScheme="teal"
       >
         Save

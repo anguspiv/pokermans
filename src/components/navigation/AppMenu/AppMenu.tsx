@@ -64,14 +64,12 @@ function AppMenu({ variant }: AppMenuProps) {
         {!isAuthed && <NavLink href="/api/auth/signin" label="Login" icon={faSignInAlt} />}
         {isAuthed && (
           <>
-            <Link href="/account" passHref>
-              <a>
-                <NavMenuUser
-                  image={getImageUrl(profile?.avatar || {})}
-                  firstName={profile?.firstName}
-                  lastName={profile?.lastName}
-                />
-              </a>
+            <Link href="/account">
+              <NavMenuUser
+                image={getImageUrl(profile?.avatar || {})}
+                firstName={profile?.firstName}
+                lastName={profile?.lastName}
+              />
             </Link>
             <NavLink href="/account" label="Account" variant={variant} icon={faUser} />
             <NavLink href="/api/auth/signout" label="Logout" icon={faSignOutAlt} />

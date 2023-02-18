@@ -2,6 +2,24 @@ import { render } from '@testing-library/react';
 import { useSession } from 'next-auth/react';
 import AppMenu from './AppMenu';
 
+jest.mock<typeof import('next/router')>('next/router', () => ({
+  useRouter() {
+    return {
+      route: '/test',
+      pathname: '',
+      query: '',
+      asPath: '/test',
+      push: jest.fn(),
+      events: {
+        on: jest.fn(),
+        off: jest.fn(),
+      },
+      beforePopState: jest.fn(() => null),
+      prefetch: jest.fn(() => null),
+    };
+  },
+}));
+
 jest.mock<typeof import('next-auth/react')>('next-auth/react', () => ({
   useSession: jest.fn(),
 }));
