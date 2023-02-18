@@ -3,7 +3,8 @@ import Cors from 'micro-cors';
 import { RequestHandler } from 'micro';
 import { withSentry } from '@sentry/nextjs';
 import { createContext } from '@graphql/context';
-import { processRequest } from 'graphql-upload';
+// eslint-disable-next-line import/extensions
+import processRequest from 'graphql-upload/processRequest.mjs';
 import logger from '@utils/logger';
 import schema from '../../schema';
 
