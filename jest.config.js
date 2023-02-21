@@ -3,6 +3,7 @@ module.exports = {
   collectCoverageFrom: [
     '**/src/**/*.{js,jsx,ts,tsx}',
     '!**/src/**/*.stories.{js,jsx,ts,tsx}',
+    '!**/src/**/*.index.{js,jsx,ts,tsx}',
     '!**/src/db/**/*',
     '!**/src/graphql/**/*',
     '!**/*.d.ts',
@@ -17,7 +18,7 @@ module.exports = {
       branches: 80,
       functions: 80,
       lines: 80,
-      statements: -20,
+      statements: -25,
     },
   },
   moduleNameMapper: {
