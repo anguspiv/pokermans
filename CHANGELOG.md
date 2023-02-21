@@ -1,3 +1,13 @@
+## [1.15.1](https://github.com/anguspiv/pokermans/compare/v1.15.0...v1.15.1) (2023-02-21)
+
+
+### Bug Fixes
+
+* **account:** removes required input for profile request ([6d691bd](https://github.com/anguspiv/pokermans/commit/6d691bd721810db650e89865ea212b27e8e121c3))
+* **sentry:** correctly setups the sentry integration ([fe5ea8b](https://github.com/anguspiv/pokermans/commit/fe5ea8b0b548876bf70e839bd17941ee714afd30)), closes [#92](https://github.com/anguspiv/pokermans/issues/92)
+* updates graphql upload imports ([2ab58e1](https://github.com/anguspiv/pokermans/commit/2ab58e14f6f6f4a309ab0b441b6d31d8021bcfaf)), closes [#134](https://github.com/anguspiv/pokermans/issues/134)
+* updates graphql-upload imports ([1fbb045](https://github.com/anguspiv/pokermans/commit/1fbb0452554093a98306ee1d0be6e8c9b28b0fe6))
+
 # [1.15.0](https://github.com/anguspiv/pokermans/compare/v1.14.0...v1.15.0) (2022-07-31)
 
 
