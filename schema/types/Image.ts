@@ -1,7 +1,7 @@
 import { v4 as uuid } from 'uuid';
 import { objectType, extendType, inputObjectType, arg } from 'nexus';
 // eslint-disable-next-line import/extensions
-import { FileUpload } from 'graphql-upload/processRequest.mjs';
+import type { FileUpload } from 'graphql-upload/Upload.js';
 import bytes from 'bytes';
 import path from 'path';
 import { UserInputError, AuthenticationError } from 'apollo-server-micro';
