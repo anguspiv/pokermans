@@ -4,7 +4,7 @@ import { RequestHandler } from 'micro';
 import { withSentry } from '@sentry/nextjs';
 import { createContext } from '@graphql/context';
 // eslint-disable-next-line import/extensions
-import processRequest from 'graphql-upload/processRequest.mjs';
+import processRequest from 'graphql-upload/processRequest.js';
 import logger from '@utils/logger';
 import schema from '../../schema';
 

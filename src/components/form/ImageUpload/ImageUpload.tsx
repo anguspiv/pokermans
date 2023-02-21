@@ -55,7 +55,7 @@ function ImageUpload({ onUpload = () => {}, placeholder = null }: ImageUploadPro
   const [uploadImage] = useMutation(UPLOAD_IMAGE);
 
   const onDrop = useCallback(
-    (acceptedFiles) => {
+    (acceptedFiles: File[]) => {
       // Do something with the files
       setValue('image', acceptedFiles, { shouldValidate: true, shouldDirty: true, shouldTouch: true });
     },
@@ -64,7 +64,9 @@ function ImageUpload({ onUpload = () => {}, placeholder = null }: ImageUploadPro
 
   const { acceptedFiles, getRootProps, getInputProps, isDragActive } = useDropzone({
     maxFiles: 1,
-    accept: 'image/*',
+    accept: {
+      'image/*': ['.jpg', '.jpeg', '.png', '.gif'],
+    },
     maxSize: 2097152,
     onDrop,
   });
