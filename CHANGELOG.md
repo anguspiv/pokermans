@@ -1,3 +1,10 @@
+## [1.15.2](https://github.com/anguspiv/pokermans/compare/v1.15.1...v1.15.2) (2023-02-21)
+
+
+### Bug Fixes
+
+* **sentry:** adds edge config ([782baa7](https://github.com/anguspiv/pokermans/commit/782baa78557b2995281dc7522d234ebeaa901d00))
+
 ## [1.15.1](https://github.com/anguspiv/pokermans/compare/v1.15.0...v1.15.1) (2023-02-21)
 
 
