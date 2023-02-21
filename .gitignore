@@ -57,3 +57,6 @@ build-storybook.log
 .sentryclirc
 
 types/nexus-typegen
+
+# Sentry
+.sentryclirc
