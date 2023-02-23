@@ -1,3 +1,10 @@
+## [1.15.3](https://github.com/anguspiv/pokermans/compare/v1.15.2...v1.15.3) (2023-02-23)
+
+
+### Bug Fixes
+
+* **apollo:** fixes missing bearer token on api calls ([376117b](https://github.com/anguspiv/pokermans/commit/376117b422d24343f3183d9ffbb7963c1c7ff2f3))
+
 ## [1.15.2](https://github.com/anguspiv/pokermans/compare/v1.15.1...v1.15.2) (2023-02-21)
 
 
