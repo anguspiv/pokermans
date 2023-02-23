@@ -1,17 +1,36 @@
-import { ApolloClient, InMemoryCache } from '@apollo/client';
+import { ApolloClient, InMemoryCache, from } from '@apollo/client';
 import { createUploadLink } from 'apollo-upload-client';
+import { getSession } from 'next-auth/react';
 import { getBaseUrl } from '@utils/getBaseUrl';
 import logger from '@utils/logger';
+import { ContextSetter, setContext } from '@apollo/client/link/context';
+import { AuthSession } from '../../pages/api/auth/[...nextauth]';
 
 const BASE_URL = getBaseUrl();
 const uri = `${BASE_URL}/api/graphql`;
 
 logger.info(`Base URL: ${BASE_URL}\n GraphQL uri: ${uri}`);
 
+const httpLink = createUploadLink({ uri, credentials: 'include' });
+
+const contextSetter: ContextSetter = async (operation, { headers }) => {
+  const session = (await getSession()) as AuthSession;
+
+  const modifiedHeader = {
+    headers: {
+      ...headers,
+      authorization: session?.accessToken ? `Bearer ${session.accessToken}` : '',
+    },
+  };
+
+  return modifiedHeader;
+};
+
+const authLink = setContext(contextSetter);
+
 const client = new ApolloClient({
-  uri,
   cache: new InMemoryCache(),
-  link: createUploadLink({ uri }),
+  link: from([authLink, httpLink]),
 });
 
 export default client;

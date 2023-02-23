@@ -29,6 +29,7 @@ module.exports = {
           '@emotion/core': '@emotion/react',
           'emotion-theming': '@emotion/react',
           '@components': path.resolve(__dirname, '../src/components'),
+          '@context': path.resolve(__dirname, '../src/context'),
           '@pages': path.resolve(__dirname, '../pages'),
           '@db': path.resolve(__dirname, '../src/db'),
           '@graphql': path.resolve(__dirname, '../src/graphql'),

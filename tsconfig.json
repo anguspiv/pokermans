@@ -17,6 +17,7 @@
     "baseUrl": "./",
     "paths": {
       "@components/*": ["src/components/*"],
+      "@context/*": ["src/context/*"],
       "@db/*": ["src/db/*"],
       "@graphql/*": ["src/graphql/*"],
       "@utils/*": ["src/utils/*"],
