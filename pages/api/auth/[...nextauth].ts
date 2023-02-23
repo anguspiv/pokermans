@@ -1,4 +1,4 @@
-import NextAuth from 'next-auth';
+import NextAuth, { Session } from 'next-auth';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import EmailProvider from 'next-auth/providers/email';
 import GoogleProvider from 'next-auth/providers/google';
@@ -59,6 +59,10 @@ const createUser = async ({ user }: NextAuthMessage) => {
   }
 };
 
+export interface AuthSession extends Session {
+  accessToken?: unknown;
+}
+
 export default withSentry(
   NextAuth({
     adapter,
@@ -67,6 +71,25 @@ export default withSentry(
     session: { strategy: 'jwt' },
     events: {
       createUser,
+    },
+    callbacks: {
+      async jwt({ token, account }) {
+        // Persist the OAuth access_token to the token right after signin
+        if (account) {
+          // eslint-disable-next-line no-param-reassign
+          token.accessToken = account.access_token;
+        }
+        return token;
+      },
+      async session({ session, token }) {
+        // Send properties to the client, like an access_token from a provider.
+
+        const newSession: AuthSession = {
+          ...session,
+          accessToken: token.accessToken,
+        };
+        return newSession as Session;
+      },
     },
   }),
 );

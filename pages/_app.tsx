@@ -2,8 +2,8 @@ import { ChakraProvider } from '@chakra-ui/react';
 import { SessionProvider } from 'next-auth/react';
 import { ApolloProvider } from '@apollo/client';
 import type { AppProps } from 'next/app';
-import PageLayout from '../src/components/layout/PageLayout';
-import client from '../src/utils/apollo-client';
+import PageLayout from '@components/layout/PageLayout';
+import client from '@utils/apollo-client';
 import '../styles/globals.css';
 
 // eslint-disable-next-line react/function-component-definition
