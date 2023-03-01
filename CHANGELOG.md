@@ -1,3 +1,10 @@
+## [1.15.4](https://github.com/anguspiv/pokermans/compare/v1.15.3...v1.15.4) (2023-03-01)
+
+
+### Bug Fixes
+
+* **apollo:** removes domain from client uri ([5c8d795](https://github.com/anguspiv/pokermans/commit/5c8d7956e3303662f7cbb93f6b2584ea87a61cc2)), closes [#160](https://github.com/anguspiv/pokermans/issues/160)
+
 ## [1.15.3](https://github.com/anguspiv/pokermans/compare/v1.15.2...v1.15.3) (2023-02-23)
 
 
