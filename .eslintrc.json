@@ -23,6 +23,7 @@
     "react/function-component-definition": "off",
     "react/react-in-jsx-scope": "off",
     "react/require-default-props": "off",
+    "import/prefer-default-export": "off",
     "jsx-a11y/anchor-is-valid": [
       "error",
       {

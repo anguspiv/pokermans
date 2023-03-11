@@ -36,6 +36,7 @@ module.exports = {
           '@schema': path.resolve(__dirname, '../schema'),
           '@utils': path.resolve(__dirname, '../src/utils'),
           '@errors': path.resolve(__dirname, '../src/errors'),
+          '@styles': path.resolve(__dirname, '../src/styles'),
         },
       },
     };
