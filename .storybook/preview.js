@@ -1,7 +1,18 @@
+import React from 'react';
 import * as NextImage from 'next/image';
 import { RouterContext } from 'next/dist/shared/lib/router-context';
 import { ChakraProvider } from '@chakra-ui/react';
 import { MockedProvider } from '@apollo/client/testing';
+import { CssBaseline, ThemeProvider } from '@mui/material';
+import theme from '@styles/theme';
+
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+import '@fontsource/material-icons';
+
+window.React = React;
 
 const OriginalImage = NextImage.default;
 
@@ -33,6 +44,28 @@ export const parameters = {
   },
 };
 
-const ThemeDecorator = (storyFn) => <ChakraProvider resetCSS>{storyFn()}</ChakraProvider>;
+export const globalTypes = {
+  theme: {
+    name: 'Theme',
+    title: 'Theme',
+    description: 'Theme for your components',
+    defaultValue: 'light',
+    toolbar: {
+      icon: 'paintbrush',
+      dynamicTitle: true,
+      items: [
+        { value: 'light', left: '☀️', title: 'Light mode' },
+        { value: 'dark', left: '🌙', title: 'Dark mode' },
+      ],
+    },
+  },
+};
+
+const ThemeDecorator = (storyFn) => (
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <ChakraProvider resetCSS>{storyFn()}</ChakraProvider>
+  </ThemeProvider>
+);
 
 export const decorators = [ThemeDecorator];

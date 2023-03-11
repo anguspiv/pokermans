@@ -23,6 +23,7 @@
       "@utils/*": ["src/utils/*"],
       "@schema/*": ["schema/*"],
       "@errors/*": ["src/errors/*"],
+      "@styles/*": ["src/styles/*"],
     },
     "typeRoots": [
       "node_modules/@types",

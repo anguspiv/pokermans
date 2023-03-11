@@ -11,6 +11,8 @@ module.exports = {
     '!**/stories/**',
     '!**/coverage/**',
     '!.next/**',
+    '!**/styles/**',
+    '!**/utils/createEmotionCache.ts',
   ],
   coverageDirectory: 'coverage',
   coverageThreshold: {
@@ -40,6 +42,7 @@ module.exports = {
     '^@pages(.*)$': '<rootDir>/pages$1',
     '^@schema(.*)$': '<rootDir>/schema$1',
     '^@errors(.*)$': '<rootDir>/src/errors$1',
+    '^@styles(.*)$': '<rootDir>/src/styles$1',
   },
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   testPathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/.next/', '<rootDir>/cypress/'],
