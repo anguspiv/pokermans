@@ -1,9 +1,10 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
+import { screen, render, fireEvent } from '@testing-library/react';
 import { useSession as useSessionOrig } from 'next-auth/react';
 import AppHeader, { AppHeaderProps } from './AppHeader';
 
 jest.mock<typeof import('next-auth/react')>('next-auth/react', () => ({
+  ...jest.requireActual<typeof import('next-auth/react')>('next-auth/react'),
   useSession: jest.fn(),
 }));
 
@@ -17,7 +18,7 @@ describe('<AppHeader />', () => {
   const setupAppHeader = (props: AppHeaderProps = {}, context: AppHeaderContext = {}) => {
     const { session } = context;
 
-    useSession.mockClear().mockReturnValue({ data: null, status: null, ...session });
+    useSession.mockClear().mockReturnValue({ data: null, status: 'loading', ...session });
 
     return render(<AppHeader {...props} />);
   };
@@ -25,9 +26,9 @@ describe('<AppHeader />', () => {
   it('should render a header', () => {
     expect.assertions(1);
 
-    const { getByTestId } = setupAppHeader();
+    setupAppHeader();
 
-    const header = getByTestId('app-header');
+    const header = screen.getByTestId('app-header');
 
     expect(header).toBeInTheDocument();
   });
@@ -35,9 +36,9 @@ describe('<AppHeader />', () => {
   it('should render a menu toggle', () => {
     expect.assertions(1);
 
-    const { getByTestId } = setupAppHeader();
+    setupAppHeader();
 
-    const menuButton = getByTestId('menu-button');
+    const menuButton = screen.getByRole('button', { name: /open menu/i });
 
     expect(menuButton).toBeInTheDocument();
   });
@@ -47,30 +48,30 @@ describe('<AppHeader />', () => {
 
     const onToggle = jest.fn();
 
-    const { getByTestId } = setupAppHeader({
+    setupAppHeader({
       onMenuToggle: onToggle,
     });
 
-    const menuButton = getByTestId('menu-button');
+    const menuButton = screen.getByRole('button', { name: /open menu/i });
 
     fireEvent.click(menuButton);
 
     expect(onToggle).toHaveBeenCalledTimes(1);
   });
 
-  it('should hide the app drawer', () => {
+  it('should show the close button', () => {
     expect.assertions(1);
 
-    const { queryByTestId } = setupAppHeader();
+    setupAppHeader({ isMenuOpen: true });
 
-    expect(queryByTestId('app-drawer')).toBeNull();
+    expect(screen.getByRole('button', { name: /close menu/i })).toBeInTheDocument();
   });
 
   it('should render the app title', () => {
     expect.assertions(1);
 
-    const { getByText } = setupAppHeader();
+    setupAppHeader();
 
-    expect(getByText('PokerMans')).toBeInTheDocument();
+    expect(screen.getByText('PokerMans')).toBeInTheDocument();
   });
 });

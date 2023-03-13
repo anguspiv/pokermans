@@ -1,8 +1,8 @@
 import { useDisclosure, useMediaQuery, Grid, GridItem, Box } from '@chakra-ui/react';
 import AppDrawer from '@components/navigation/AppDrawer';
 import { useEffect } from 'react';
-import AppHeader from '../AppHeader';
-import SideBar from '../SideBar';
+import AppHeader from '@components/molecules/AppHeader';
+import SideBar from '@components/layout/SideBar';
 
 interface PageLayoutProps {
   children: React.ReactNode;
@@ -31,7 +31,7 @@ function PageLayout({ children }: PageLayoutProps) {
       <GridItem gridArea="header">
         {!isDesktop && (
           <>
-            <AppHeader onMenuToggle={onToggle} isMenuOpen={isOpen && !isDesktop} hideMenuButton={isDesktop} />
+            <AppHeader onMenuToggle={onToggle} isMenuOpen={isOpen && !isDesktop} />
             <AppDrawer isOpen={isOpen} onClose={onClose} />
           </>
         )}
