@@ -3,7 +3,7 @@ import { SessionProvider } from 'next-auth/react';
 import AppHeader, { AppHeaderProps } from './AppHeader';
 
 export default {
-  title: 'components/layout/AppHeader',
+  title: 'Molecules/AppHeader',
   component: AppHeader,
   parameters: {
     layout: 'fullscreen',
@@ -20,5 +20,4 @@ export const Default = Template.bind({});
 
 Default.args = {
   isMenuOpen: false,
-  hideMenuButton: false,
 };

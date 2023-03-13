@@ -1,10 +1,11 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { screen, render } from '@testing-library/react';
 import { useSession as useSessionOrig } from 'next-auth/react';
 import { useDisclosure as useDisclosureOrig, useMediaQuery as useMediaQueryOrig } from '@chakra-ui/react';
 import PageLayout from './PageLayout';
 
 jest.mock<typeof import('next-auth/react')>('next-auth/react', () => ({
+  ...jest.requireActual<typeof import('next-auth/react')>('next-auth/react'),
   useSession: jest.fn(),
 }));
 
@@ -19,11 +20,13 @@ jest.mock<typeof import('@chakra-ui/react')>('@chakra-ui/react', () => ({
 }));
 
 jest.mock<typeof import('@apollo/client')>('@apollo/client', () => ({
+  ...jest.requireActual<typeof import('@apollo/client')>('@apollo/client'),
   useQuery: jest.fn().mockReturnValue({ data: { profile: { firstName: 'John' } } }),
   gql: jest.fn(),
 }));
 
 jest.mock<typeof import('next/router')>('next/router', () => ({
+  ...jest.requireActual('next/router'),
   useRouter() {
     return {
       route: '/test',
@@ -75,17 +78,17 @@ describe('<PageLayout />', () => {
 
     const children = <div>Child</div>;
 
-    const { getByText } = setupPageLayout({ children });
+    setupPageLayout({ children });
 
-    expect(getByText('Child')).toBeInTheDocument();
+    expect(screen.getByText('Child')).toBeInTheDocument();
   });
 
   it('should display the app header', () => {
     expect.assertions(1);
 
-    const { getByTestId } = setupPageLayout();
+    setupPageLayout();
 
-    expect(getByTestId('app-header')).toBeInTheDocument();
+    expect(screen.getByTestId('app-header')).toBeInTheDocument();
   });
 
   it('should show the app drawer', () => {
@@ -95,9 +98,9 @@ describe('<PageLayout />', () => {
       isOpen: true,
     };
 
-    const { getByTestId } = setupPageLayout({}, { disclosure });
+    setupPageLayout({}, { disclosure });
 
-    expect(getByTestId('app-drawer')).toBeInTheDocument();
+    expect(screen.getByTestId('app-drawer')).toBeInTheDocument();
   });
 
   it('should show the menu button', () => {
@@ -107,9 +110,9 @@ describe('<PageLayout />', () => {
       isOpen: true,
     };
 
-    const { getByTestId } = setupPageLayout({}, { disclosure });
+    setupPageLayout({}, { disclosure });
 
-    expect(getByTestId('menu-button')).toBeInTheDocument();
+    expect(screen.getByTestId('menu-button')).toBeInTheDocument();
   });
 
   it('should hide the app drawer', () => {
@@ -121,9 +124,9 @@ describe('<PageLayout />', () => {
 
     const mediaQuery = [true];
 
-    const { queryByTestId } = setupPageLayout({}, { disclosure, mediaQuery });
+    setupPageLayout({}, { disclosure, mediaQuery });
 
-    expect(queryByTestId('app-drawer')).toBeNull();
+    expect(screen.queryByTestId('app-drawer')).toBeNull();
   });
 
   it('should hide the menu button', () => {
@@ -135,17 +138,17 @@ describe('<PageLayout />', () => {
 
     const mediaQuery = [true];
 
-    const { queryByTestId } = setupPageLayout({}, { disclosure, mediaQuery });
+    setupPageLayout({}, { disclosure, mediaQuery });
 
-    expect(queryByTestId('menu-button')).toBeNull();
+    expect(screen.queryByTestId('menu-button')).toBeNull();
   });
 
   it('should call the onToggle func', () => {
     expect.assertions(1);
 
-    const { getByTestId } = setupPageLayout();
+    setupPageLayout();
 
-    getByTestId('menu-button').click();
+    screen.getByTestId('menu-button').click();
 
     expect(onToggle).toHaveBeenCalledTimes(1);
   });
@@ -153,9 +156,9 @@ describe('<PageLayout />', () => {
   it('should hide the page sidebar', () => {
     expect.assertions(1);
 
-    const { queryByTestId } = setupPageLayout();
+    setupPageLayout();
 
-    expect(queryByTestId('aoo-sidebar')).toBeNull();
+    expect(screen.queryByTestId('aoo-sidebar')).toBeNull();
   });
 
   it('should render the page sidebar', () => {
@@ -163,8 +166,8 @@ describe('<PageLayout />', () => {
 
     const mediaQuery = [true];
 
-    const { getByTestId } = setupPageLayout({}, { mediaQuery });
+    setupPageLayout({}, { mediaQuery });
 
-    expect(getByTestId('app-sidebar')).toBeInTheDocument();
+    expect(screen.getByTestId('app-sidebar')).toBeInTheDocument();
   });
 });

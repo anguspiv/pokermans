@@ -25,16 +25,16 @@ function MyApp({ Component, emotionCache = clientSideEmotionCache, pageProps: { 
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
       <SessionProvider session={session}>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <ChakraProvider>
+        <ChakraProvider>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
             <ApolloProvider client={client}>
               <PageLayout>
                 <Component {...pageProps} />
               </PageLayout>
             </ApolloProvider>
-          </ChakraProvider>
-        </ThemeProvider>
+          </ThemeProvider>
+        </ChakraProvider>
       </SessionProvider>
     </CacheProvider>
   );

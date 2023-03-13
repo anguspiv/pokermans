@@ -62,10 +62,12 @@ export const globalTypes = {
 };
 
 const ThemeDecorator = (storyFn) => (
-  <ThemeProvider theme={theme}>
-    <CssBaseline />
-    <ChakraProvider resetCSS>{storyFn()}</ChakraProvider>
-  </ThemeProvider>
+  <ChakraProvider>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      {storyFn()}
+    </ThemeProvider>
+  </ChakraProvider>
 );
 
 export const decorators = [ThemeDecorator];
