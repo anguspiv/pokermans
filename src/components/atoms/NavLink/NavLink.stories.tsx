@@ -1,16 +1,13 @@
 import { Story } from '@storybook/react';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import NavLink, { NavLinkProps } from './NavLink';
 
 export default {
-  title: 'components/navigation/NavLink',
+  title: 'Atoms/NavLink',
   component: NavLink,
   argTypes: {
     onClick: { action: 'clicked' },
-    variant: {
-      options: ['default', 'transparent'],
-      control: { type: 'select' },
-    },
   },
 };
 
@@ -20,5 +17,5 @@ export const Default = Template.bind({});
 Default.args = {
   label: 'Home',
   href: '#',
-  icon: faBars,
+  icon: <FontAwesomeIcon icon={faBars} />,
 };
