@@ -3,7 +3,7 @@ import { SessionProvider } from 'next-auth/react';
 import AppHeader, { AppHeaderProps } from './AppHeader';
 
 export default {
-  title: 'Molecules/AppHeader',
+  title: 'Organisms/AppHeader',
   component: AppHeader,
   parameters: {
     layout: 'fullscreen',

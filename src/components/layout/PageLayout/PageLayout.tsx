@@ -1,7 +1,7 @@
 import { useDisclosure, useMediaQuery, Grid, GridItem, Box } from '@chakra-ui/react';
 import AppDrawer from '@components/navigation/AppDrawer';
 import { useEffect } from 'react';
-import AppHeader from '@components/molecules/AppHeader';
+import AppHeader from '@components/organisms/AppHeader';
 import SideBar from '@components/layout/SideBar';
 
 interface PageLayoutProps {
