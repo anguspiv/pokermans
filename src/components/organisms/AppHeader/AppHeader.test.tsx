@@ -8,6 +8,13 @@ jest.mock<typeof import('next-auth/react')>('next-auth/react', () => ({
   useSession: jest.fn(),
 }));
 
+jest.mock<typeof import('@apollo/client')>('@apollo/client', () => ({
+  useQuery: jest.fn().mockReturnValue({
+    data: { profile: { firstName: 'John', lastName: 'Doe', avatar: { filepath: 'test.jpg' } } },
+  }),
+  gql: jest.fn(),
+}));
+
 interface AppHeaderContext {
   session?: object;
 }
@@ -73,5 +80,37 @@ describe('<AppHeader />', () => {
     setupAppHeader();
 
     expect(screen.getByText('PokerMans')).toBeInTheDocument();
+  });
+
+  it('should render the login link', () => {
+    expect.assertions(1);
+
+    setupAppHeader();
+
+    expect(screen.getByRole('link', { name: /login/i })).toBeInTheDocument();
+  });
+
+  it('should render the account link', () => {
+    expect.assertions(1);
+
+    setupAppHeader(
+      {},
+      {
+        session: {
+          status: 'authenticated',
+          data: {
+            profile: {
+              firstName: 'John',
+              lastName: 'Doe',
+              avatar: {
+                filepath: 'https://example.com/avatar.png',
+              },
+            },
+          },
+        },
+      },
+    );
+
+    expect(screen.getByRole('link', { name: /John D\./i })).toBeInTheDocument();
   });
 });
