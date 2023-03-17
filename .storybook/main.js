@@ -12,6 +12,7 @@ module.exports = {
     '@storybook/addon-essentials',
     'storybook-addon-next-router',
     'storybook-addon-apollo-client',
+    '@tomfreudenberg/next-auth-mock/storybook',
   ],
   core: {
     builder: 'webpack5',
