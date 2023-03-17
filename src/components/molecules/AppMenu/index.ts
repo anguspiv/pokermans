@@ -1,4 +1,4 @@
-import AppMenu from './AppMenu';
+import { AppMenu } from './AppMenu';
 
 export * from './AppMenu';
 

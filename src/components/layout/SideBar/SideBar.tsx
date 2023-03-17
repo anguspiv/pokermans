@@ -1,7 +1,7 @@
 import { Box, Flex, Grid, GridItem } from '@chakra-ui/react';
 import { useSession } from 'next-auth/react';
-import AppMenu from '@components/navigation/AppMenu';
-import NavLink from '@components/navigation/NavLink';
+import { AppMenu } from '@components/molecules/AppMenu';
+import NavLink from '@components/atoms/NavLink';
 
 function SideBar() {
   const { status } = useSession();

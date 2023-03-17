@@ -9,8 +9,8 @@ import {
   DrawerFooter,
 } from '@chakra-ui/react';
 import { useSession } from 'next-auth/react';
-import AppMenu from '@components/navigation/AppMenu';
-import NavLink from '../NavLink';
+import { AppMenu } from '@components/molecules/AppMenu';
+import NavLink from '@components/atoms/NavLink';
 
 export interface AppDrawerProps {
   isOpen?: boolean;
