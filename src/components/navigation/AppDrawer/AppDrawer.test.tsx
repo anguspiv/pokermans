@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { useSession as useSessionOrig } from 'next-auth/react';
 import AppDrawer from './AppDrawer';
 
@@ -46,7 +46,7 @@ describe('<AppDrawer />', () => {
 
     const { getByRole } = setupAppDrawer();
 
-    expect(getByRole('navigation')).toBeInTheDocument();
+    expect(getByRole('navigation', { name: 'account' })).toBeInTheDocument();
   });
 
   it('renders the app menu title', () => {
@@ -64,9 +64,9 @@ describe('<AppDrawer />', () => {
       status: 'authenticated',
     };
 
-    const { getByText } = setupAppDrawer({}, { session });
+    setupAppDrawer({}, { session });
 
-    expect(getByText('User')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Account' })).toBeInTheDocument();
   });
 
   it('should render the account link', () => {
