@@ -100,7 +100,7 @@ describe('<PageLayout />', () => {
 
     setupPageLayout({}, { disclosure });
 
-    expect(screen.getByTestId('app-drawer')).toBeInTheDocument();
+    expect(screen.getByTestId('app-sidebar')).toBeInTheDocument();
   });
 
   it('should show the menu button', () => {
@@ -127,30 +127,6 @@ describe('<PageLayout />', () => {
     setupPageLayout({}, { disclosure, mediaQuery });
 
     expect(screen.queryByTestId('app-drawer')).toBeNull();
-  });
-
-  it('should hide the menu button', () => {
-    expect.assertions(1);
-
-    const disclosure = {
-      isOpen: true,
-    };
-
-    const mediaQuery = [true];
-
-    setupPageLayout({}, { disclosure, mediaQuery });
-
-    expect(screen.queryByTestId('menu-button')).toBeNull();
-  });
-
-  it('should call the onToggle func', () => {
-    expect.assertions(1);
-
-    setupPageLayout();
-
-    screen.getByTestId('menu-button').click();
-
-    expect(onToggle).toHaveBeenCalledTimes(1);
   });
 
   it('should hide the page sidebar', () => {

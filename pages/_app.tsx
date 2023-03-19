@@ -6,7 +6,7 @@ import { SessionProvider } from 'next-auth/react';
 import Head from 'next/head';
 import { ApolloProvider } from '@apollo/client';
 import type { AppProps } from 'next/app';
-import PageLayout from '@components/layout/PageLayout';
+import PageLayout from '@components/templates/PageLayout';
 import client from '@utils/apollo-client';
 import theme from '@styles/theme';
 import { createEmotionCache } from '@utils/createEmotionCache';
