@@ -1,29 +1,33 @@
-import { Toolbar, Divider, Drawer } from '@mui/material';
+import { Toolbar, Divider, Drawer, DrawerProps } from '@mui/material';
 import { AppMenu } from '@components/molecules/AppMenu';
 
-interface SideBarProps {
+interface SideBarProps extends DrawerProps {
   open?: boolean;
   onClose?: () => void;
 }
 
-function SideBar({ open = false, onClose = () => {} }: SideBarProps) {
+export const DRAWER_WIDTH = 240;
+
+function SideBar({ open = false, onClose = () => {}, ...props }: SideBarProps) {
   return (
     <Drawer
       data-testid="app-sidebar"
       variant="persistent"
       anchor="left"
       open={open}
+      onClose={onClose}
+      {...props}
       sx={{
-        width: 240,
+        width: DRAWER_WIDTH,
         flexShrink: 0,
         '& .MuiDrawer-paper': {
-          width: 240,
+          width: DRAWER_WIDTH,
           boxSizing: 'border-box',
-          backgroundColor: (theme) => theme.palette.primary.main,
+          backgroundColor: (theme) => theme.palette.primary.dark,
           color: (theme) => theme.palette.primary.contrastText,
         },
+        ...props.sx,
       }}
-      onClose={onClose}
     >
       <Toolbar />
       <Divider />
