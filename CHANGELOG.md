@@ -1,3 +1,26 @@
+# [1.16.0](https://github.com/anguspiv/pokermans/compare/v1.15.4...v1.16.0) (2023-03-19)
+
+
+### Bug Fixes
+
+* **app-header:** corrects the app-header styles ([bceaf46](https://github.com/anguspiv/pokermans/commit/bceaf467f6033d6602ba3c485eefa31599cbf1f9))
+* **app-menu:** updates icons to inherit color ([7a002df](https://github.com/anguspiv/pokermans/commit/7a002df9e9ec32e7d1859a3a9584f629fa784e71)), closes [#143](https://github.com/anguspiv/pokermans/issues/143)
+
+
+### Features
+
+* adds the account link components ([4b11567](https://github.com/anguspiv/pokermans/commit/4b11567deb16beba81b2244c9c5703230d062db8)), closes [#143](https://github.com/anguspiv/pokermans/issues/143)
+* **app-header:** migrates app header to mui ([1700118](https://github.com/anguspiv/pokermans/commit/17001181abb1c6e17df602ea668c9bab1b124e33)), closes [#143](https://github.com/anguspiv/pokermans/issues/143)
+* **app-header:** migrates app-header to mui ([7619ed9](https://github.com/anguspiv/pokermans/commit/7619ed99217a6d16b74aa1acf7e4f97d4a9244c4)), closes [#143](https://github.com/anguspiv/pokermans/issues/143)
+* **app-menu:** migrates the app menu to mui ([ae0172f](https://github.com/anguspiv/pokermans/commit/ae0172fcb76c3df7d62b995c0e8ccc85d04c8275)), closes [#143](https://github.com/anguspiv/pokermans/issues/143)
+* **breadcrumbs:** migrates to material ui ([44102d0](https://github.com/anguspiv/pokermans/commit/44102d00d27cc710162150015a5a37299f24d36d)), closes [#143](https://github.com/anguspiv/pokermans/issues/143)
+* migrates app layout to material ui ([6cc10f0](https://github.com/anguspiv/pokermans/commit/6cc10f089e47e65144ec60b4e5265ec9b59890a8)), closes [#143](https://github.com/anguspiv/pokermans/issues/143)
+* **nav-link:** migrates to mui components ([5cb718d](https://github.com/anguspiv/pokermans/commit/5cb718d40f1b38cdccdcb1a603627c34804de8ed)), closes [#143](https://github.com/anguspiv/pokermans/issues/143)
+* **page-header:** migrates to material ui ([5d9f1f7](https://github.com/anguspiv/pokermans/commit/5d9f1f7645ab130373d16eecc02df69f870f3377)), closes [#143](https://github.com/anguspiv/pokermans/issues/143)
+* **page-layout:** migrates the page layout to mui ([0420af9](https://github.com/anguspiv/pokermans/commit/0420af9be7018ac05af00eb70a6eed17fdfaff08)), closes [#143](https://github.com/anguspiv/pokermans/issues/143)
+* **sidebar:** updates sidebar to use material ui ([f6dc60e](https://github.com/anguspiv/pokermans/commit/f6dc60e9f69a9c668a11e5fb9ff49237d15a2dcf)), closes [#143](https://github.com/anguspiv/pokermans/issues/143)
+* **theme:** sets primary color to teal ([ec50dda](https://github.com/anguspiv/pokermans/commit/ec50dda7a36b3567afbf0e24bab949530d725546)), closes [#143](https://github.com/anguspiv/pokermans/issues/143)
+
 ## [1.15.4](https://github.com/anguspiv/pokermans/compare/v1.15.3...v1.15.4) (2023-03-01)
 
 
