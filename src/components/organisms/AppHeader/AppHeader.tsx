@@ -3,6 +3,7 @@ import { AppBar, Typography, IconButton, Toolbar, Box, AppBarProps } from '@mui/
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import { AccountLink } from '@components/molecules/AccountLink';
+import Link from 'next/link';
 
 export interface AppHeaderProps extends AppBarProps {
   open?: boolean;
@@ -27,7 +28,7 @@ function AppHeader({ open = false, onMenuToggle = () => {}, ...props }: AppHeade
           >
             {open ? <MenuOpenIcon /> : <MenuIcon />}
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
+          <Typography variant="h6" noWrap component={Link} href="/">
             PokerMans
           </Typography>
         </Box>
