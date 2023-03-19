@@ -2,7 +2,7 @@ import { Story } from '@storybook/react';
 import PageHeader, { PageHeaderProps } from './PageHeader';
 
 export default {
-  title: 'components/layout/PageHeader',
+  title: 'Organisms/PageHeader',
   component: PageHeader,
 };
 

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useQuery } from '@apollo/client';
-import PageHeader from '@components/layout/PageHeader';
+import PageHeader from '@components/organisms/PageHeader';
 import { GET_PROFILE } from '@graphql/queries';
 import { getImageUrl } from '@utils/image';
 import { getFullName, getName } from '@utils/profile';
