@@ -1,4 +1,6 @@
-import { Toolbar, Divider, Drawer, DrawerProps } from '@mui/material';
+import { Toolbar, Divider, Drawer, DrawerProps, IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+import { styled } from '@mui/material/styles';
 import { AppMenu } from '@components/molecules/AppMenu';
 
 interface SideBarProps extends DrawerProps {
@@ -7,6 +9,13 @@ interface SideBarProps extends DrawerProps {
 }
 
 export const DRAWER_WIDTH = 240;
+
+const CloseButton = styled(IconButton)(({ theme }) => ({
+  color: 'inherit',
+  [theme.breakpoints.up('md')]: {
+    display: 'none',
+  },
+}));
 
 function SideBar({ open = false, onClose = () => {}, ...props }: SideBarProps) {
   return (
@@ -29,7 +38,11 @@ function SideBar({ open = false, onClose = () => {}, ...props }: SideBarProps) {
         ...props.sx,
       }}
     >
-      <Toolbar />
+      <Toolbar sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <CloseButton onClick={onClose} aria-label="close menu" data-testid="sidebar-close-button">
+          <CloseIcon />
+        </CloseButton>
+      </Toolbar>
       <Divider />
       <AppMenu />
     </Drawer>

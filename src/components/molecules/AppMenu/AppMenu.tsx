@@ -28,7 +28,7 @@ export function AppMenu() {
   const profile = data?.profile || {};
 
   const imgSrc = getImageUrl(profile?.avatar || {});
-  const label = getShortName(profile || {});
+  const label = profile.firstName ? getShortName(profile || {}) : 'User';
 
   return (
     <Box data-testid="app-menu">

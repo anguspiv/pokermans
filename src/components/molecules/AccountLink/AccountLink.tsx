@@ -33,7 +33,7 @@ export function AccountLink(props: NavLinkProps) {
     const profile = data?.profile || {};
     const imgSrc = getImageUrl(profile?.avatar || {});
 
-    label = getShortName(profile);
+    label = profile.firstName ? getShortName(profile) : 'User';
     href = '/account';
     icon = <Avatar alt={label} src={imgSrc} />;
   }

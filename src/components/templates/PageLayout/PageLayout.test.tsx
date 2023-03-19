@@ -1,7 +1,7 @@
 import React from 'react';
-import { screen, render } from '@testing-library/react';
+import { screen, render, fireEvent, waitFor } from '@testing-library/react';
 import { useSession as useSessionOrig } from 'next-auth/react';
-import { useDisclosure as useDisclosureOrig, useMediaQuery as useMediaQueryOrig } from '@chakra-ui/react';
+import useMediaQueryOrig from '@mui/material/useMediaQuery';
 import PageLayout from './PageLayout';
 
 jest.mock<typeof import('next-auth/react')>('next-auth/react', () => ({
@@ -9,15 +9,10 @@ jest.mock<typeof import('next-auth/react')>('next-auth/react', () => ({
   useSession: jest.fn(),
 }));
 
-const useSession = useSessionOrig as jest.MockedFunction<typeof useSessionOrig>;
-const useDisclosure = useDisclosureOrig as jest.MockedFunction<typeof useDisclosureOrig>;
-const useMediaQuery = useMediaQueryOrig as jest.MockedFunction<typeof useMediaQueryOrig>;
+jest.mock<typeof import('@mui/material/useMediaQuery')>('@mui/material/useMediaQuery', () => jest.fn());
 
-jest.mock<typeof import('@chakra-ui/react')>('@chakra-ui/react', () => ({
-  ...jest.requireActual('@chakra-ui/react'),
-  useDisclosure: jest.fn(),
-  useMediaQuery: jest.fn(),
-}));
+const useSession = useSessionOrig as jest.MockedFunction<typeof useSessionOrig>;
+const useMediaQuery = useMediaQueryOrig as jest.MockedFunction<typeof useMediaQueryOrig>;
 
 jest.mock<typeof import('@apollo/client')>('@apollo/client', () => ({
   ...jest.requireActual<typeof import('@apollo/client')>('@apollo/client'),
@@ -47,11 +42,10 @@ jest.mock<typeof import('next/router')>('next/router', () => ({
 describe('<PageLayout />', () => {
   const onOpen = jest.fn();
   const onClose = jest.fn();
-  const onToggle = jest.fn();
 
   const setupPageLayout = (props: object = {}, context: object = {}) => {
-    const { session, disclosure, mediaQuery } = {
-      mediaQuery: [],
+    const { session, mediaQuery } = {
+      mediaQuery: false,
       ...context,
     };
 
@@ -60,15 +54,7 @@ describe('<PageLayout />', () => {
     onOpen.mockClear();
     onClose.mockClear();
 
-    useDisclosure.mockClear().mockReturnValue({
-      isOpen: true,
-      onOpen,
-      onClose,
-      onToggle,
-      ...disclosure,
-    });
-
-    useMediaQuery.mockClear().mockReturnValue([...mediaQuery]);
+    useMediaQuery.mockClear().mockReturnValue(mediaQuery);
 
     return render(<PageLayout {...props} />);
   };
@@ -91,42 +77,12 @@ describe('<PageLayout />', () => {
     expect(screen.getByTestId('app-header')).toBeInTheDocument();
   });
 
-  it('should show the app drawer', () => {
-    expect.assertions(1);
-
-    const disclosure = {
-      isOpen: true,
-    };
-
-    setupPageLayout({}, { disclosure });
-
-    expect(screen.getByTestId('app-sidebar')).toBeInTheDocument();
-  });
-
   it('should show the menu button', () => {
     expect.assertions(1);
 
-    const disclosure = {
-      isOpen: true,
-    };
-
-    setupPageLayout({}, { disclosure });
+    setupPageLayout({});
 
     expect(screen.getByTestId('menu-button')).toBeInTheDocument();
-  });
-
-  it('should hide the app drawer', () => {
-    expect.assertions(1);
-
-    const disclosure = {
-      isOpen: true,
-    };
-
-    const mediaQuery = [true];
-
-    setupPageLayout({}, { disclosure, mediaQuery });
-
-    expect(screen.queryByTestId('app-drawer')).toBeNull();
   });
 
   it('should hide the page sidebar', () => {
@@ -137,13 +93,27 @@ describe('<PageLayout />', () => {
     expect(screen.queryByTestId('aoo-sidebar')).toBeNull();
   });
 
-  it('should render the page sidebar', () => {
+  it('should show the sidebar', () => {
     expect.assertions(1);
 
-    const mediaQuery = [true];
+    setupPageLayout({});
 
-    setupPageLayout({}, { mediaQuery });
+    fireEvent.click(screen.getByRole('button', { name: /menu/i }));
 
     expect(screen.getByTestId('app-sidebar')).toBeInTheDocument();
+  });
+
+  it('should close the sidebar', async () => {
+    expect.hasAssertions();
+
+    setupPageLayout({}, { mediaQuery: false });
+
+    fireEvent.click(screen.getByRole('button', { name: /menu/i }));
+
+    expect(screen.getByTestId('app-sidebar')).toBeInTheDocument();
+
+    fireEvent.click(screen.getByTestId('sidebar-close-button'));
+
+    await waitFor(() => expect(screen.queryByTestId('app-sidebar')).toBeNull());
   });
 });

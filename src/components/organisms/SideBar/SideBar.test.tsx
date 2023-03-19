@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { useSession as useSessionOrig } from 'next-auth/react';
 import SideBar from './SideBar';
 
@@ -33,16 +33,28 @@ describe('<SideBar />', () => {
   it('renders the sidebar', () => {
     expect.assertions(1);
 
-    const { getByTestId } = setupSideBar();
+    setupSideBar();
 
-    expect(getByTestId('app-sidebar')).toBeInTheDocument();
+    expect(screen.getByTestId('app-sidebar')).toBeInTheDocument();
   });
 
   it('renders the app-menu', () => {
     expect.assertions(1);
 
-    const { getByTestId } = setupSideBar();
+    setupSideBar();
 
-    expect(getByTestId('app-menu')).toBeInTheDocument();
+    expect(screen.getByTestId('app-menu')).toBeInTheDocument();
+  });
+
+  it('should call onClose when the close button is clicked', () => {
+    expect.assertions(1);
+
+    const onClose = jest.fn();
+
+    setupSideBar({ onClose });
+
+    fireEvent.click(screen.getByTestId('sidebar-close-button'));
+
+    expect(onClose).toHaveBeenCalledTimes(1);
   });
 });
