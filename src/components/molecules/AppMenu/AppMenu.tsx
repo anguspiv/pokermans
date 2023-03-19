@@ -37,14 +37,14 @@ export function AppMenu() {
           <ListItem disablePadding>
             {isAuthed ? (
               <ListItemButton href="/account" component={Link}>
-                <ListItemIcon>
+                <ListItemIcon sx={{ color: 'inherit' }}>
                   <Avatar alt={label} src={imgSrc} sx={{ width: 24, height: 24 }} />
                 </ListItemIcon>
                 <ListItemText primary={label} />
               </ListItemButton>
             ) : (
               <ListItemButton href="/api/auth/signin" component={Link}>
-                <ListItemIcon>
+                <ListItemIcon sx={{ color: 'inherit' }}>
                   <AccountCircleIcon />
                 </ListItemIcon>
                 <ListItemText primary="Login" />
@@ -55,7 +55,7 @@ export function AppMenu() {
             <>
               <ListItem disablePadding>
                 <ListItemButton href="/account" component={Link}>
-                  <ListItemIcon>
+                  <ListItemIcon sx={{ color: 'inherit' }}>
                     <AccountCircleIcon />
                   </ListItemIcon>
                   <ListItemText primary="Account" />
@@ -63,7 +63,7 @@ export function AppMenu() {
               </ListItem>
               <ListItem disablePadding>
                 <ListItemButton href="/api/auth/signout" component={Link} alignItems="center">
-                  <ListItemIcon>
+                  <ListItemIcon sx={{ color: 'inherit' }}>
                     <LogoutIcon />
                   </ListItemIcon>
                   <ListItemText primary="Logout" />
@@ -78,7 +78,7 @@ export function AppMenu() {
         <List>
           <ListItem disablePadding>
             <ListItemButton href="/players" component={Link}>
-              <ListItemIcon>
+              <ListItemIcon sx={{ color: 'inherit' }}>
                 <PeopleAltIcon />
               </ListItemIcon>
               <ListItemText primary="Players" />
