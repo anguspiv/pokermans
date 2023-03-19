@@ -4,7 +4,7 @@ import { profileQuery } from '@components/molecules/AccountLink';
 import SideBar from './SideBar';
 
 export default {
-  title: 'Oraganisms/SideBar',
+  title: 'Organisms/SideBar',
   component: SideBar,
 };
 
