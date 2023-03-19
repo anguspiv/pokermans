@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Stack, Heading, Text } from '@chakra-ui/react';
-import Breadcrumbs from '../../navigation/Breadcrumbs';
+import Breadcrumbs from '../../molecules/Breadcrumbs';
 
 export interface PageHeaderProps {
   title: string;

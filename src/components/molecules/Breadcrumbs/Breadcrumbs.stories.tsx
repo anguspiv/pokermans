@@ -2,7 +2,7 @@ import { Story } from '@storybook/react';
 import Breadcrumbs, { BreadcrumbsProps } from './Breadcrumbs';
 
 export default {
-  title: 'components/navigation/Breadcrumbs',
+  title: 'Molecules/Breadcrumbs',
   component: Breadcrumbs,
 };
 
