@@ -2,31 +2,23 @@ import { render } from '@testing-library/react';
 import { useSession as useSessionOrig } from 'next-auth/react';
 import SideBar from './SideBar';
 
+jest.mock<typeof import('next/router')>('next/router', () => ({
+  ...jest.requireActual<typeof import('next/router')>('next/router'),
+  useRouter: () =>
+    ({
+      asPath: '/',
+    } as NextRouter),
+}));
+
 jest.mock<typeof import('next-auth/react')>('next-auth/react', () => ({
   useSession: jest.fn(),
 }));
 
 jest.mock<typeof import('@apollo/client')>('@apollo/client', () => ({
-  useQuery: jest.fn().mockReturnValue({ data: { profile: { firstName: 'John' } } }),
+  useQuery: jest.fn().mockReturnValue({
+    data: { profile: { firstName: 'John', lastName: 'Doe', avatar: { filepath: 'test.jpg' } } },
+  }),
   gql: jest.fn(),
-}));
-
-jest.mock<typeof import('next/router')>('next/router', () => ({
-  useRouter() {
-    return {
-      route: '/test',
-      pathname: '',
-      query: '',
-      asPath: '/test',
-      push: jest.fn(),
-      events: {
-        on: jest.fn(),
-        off: jest.fn(),
-      },
-      beforePopState: jest.fn(() => null),
-      prefetch: jest.fn(() => null),
-    };
-  },
 }));
 
 const useSession = useSessionOrig as jest.MockedFunction<typeof useSessionOrig>;
