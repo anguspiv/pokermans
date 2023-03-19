@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { Flex } from '@chakra-ui/react';
-import PageHeader from '@components/layout/PageHeader';
+import PageHeader from '@components/organisms/PageHeader';
 import EditProfile from '@components/account/EditProfile';
 
 const Account: NextPage = () => {
