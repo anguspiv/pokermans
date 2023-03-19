@@ -19,5 +19,5 @@ const Template: Story<AppHeaderProps> = (props) => (
 export const Default = Template.bind({});
 
 Default.args = {
-  isMenuOpen: false,
+  open: false,
 };

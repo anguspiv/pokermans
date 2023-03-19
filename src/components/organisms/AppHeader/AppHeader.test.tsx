@@ -69,7 +69,7 @@ describe('<AppHeader />', () => {
   it('should show the close button', () => {
     expect.assertions(1);
 
-    setupAppHeader({ isMenuOpen: true });
+    setupAppHeader({ open: true });
 
     expect(screen.getByRole('button', { name: /close menu/i })).toBeInTheDocument();
   });
