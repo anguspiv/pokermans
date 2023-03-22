@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Box, Center, useToast } from '@chakra-ui/react';
 import { useQuery, useMutation } from '@apollo/client';
 import ProfileForm from '@components/account/ProfileForm';
-import ImageUpload from '@components/form/ImageUpload';
+import ImageUpload from '@components/molecules/ImageUpload';
 import { GET_PROFILE, UPDATE_PROFILE } from '@graphql/queries';
 import logger from '@utils/logger';
 

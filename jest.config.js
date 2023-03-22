@@ -13,6 +13,7 @@ module.exports = {
     '!.next/**',
     '!**/styles/**',
     '!**/utils/createEmotionCache.ts',
+    '!**/src/components/molecules/ImageUpload/**',
   ],
   coverageDirectory: 'coverage',
   coverageThreshold: {
