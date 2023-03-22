@@ -47,41 +47,41 @@ describe('<ImageUpload />', () => {
   it('should render a form', () => {
     expect.assertions(1);
 
-    const { getByRole } = setupImageUpload();
+    setupImageUpload();
 
-    expect(getByRole('form')).toBeInTheDocument();
+    expect(screen.getByRole('form')).toBeInTheDocument();
   });
 
   it('should render the file input', () => {
     expect.assertions(1);
 
-    const { getByLabelText } = setupImageUpload();
+    setupImageUpload();
 
-    expect(getByLabelText('Upload Image')).toBeInTheDocument();
+    expect(screen.getByLabelText('Upload Image')).toBeInTheDocument();
   });
 
   it('should render the save button', () => {
     expect.assertions(1);
 
-    const { getByRole } = setupImageUpload();
+    setupImageUpload();
 
-    expect(getByRole('button', { name: 'Save' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Save' })).toBeInTheDocument();
   });
 
   it('should render the cancel button', () => {
     expect.assertions(1);
 
-    const { getByRole } = setupImageUpload();
+    setupImageUpload();
 
-    expect(getByRole('button', { name: 'Cancel' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Cancel' })).toBeInTheDocument();
   });
 
   it('should render the icon', () => {
     expect.assertions(1);
 
-    const { getByRole } = setupImageUpload();
+    setupImageUpload();
 
-    expect(getByRole('img')).toHaveAttribute('data-icon', 'camera');
+    expect(screen.getByTestId('CameraAltIcon')).toBeInTheDocument();
   });
 
   it('should preview the image on image select', async () => {
@@ -97,27 +97,32 @@ describe('<ImageUpload />', () => {
       getRootProps: jest.fn(),
       getInputProps: jest.fn(),
       isDragActive: false,
+      isFocused: false,
+      isDragAccept: false,
+      isDragReject: false,
+      isFileDialogActive: false,
+      fileRejections: [],
     });
 
-    const { getByRole } = setupImageUpload();
+    setupImageUpload();
 
-    await waitFor(() => expect(getByRole('img')).toHaveAttribute('src', URL.createObjectURL(FILE)));
+    await waitFor(() => expect(screen.getByRole('img')).toHaveAttribute('src', URL.createObjectURL(FILE)));
   });
 
   it('should disable the save button', () => {
     expect.assertions(1);
 
-    const { getByRole } = setupImageUpload();
+    setupImageUpload();
 
-    expect(getByRole('button', { name: 'Save' })).toBeDisabled();
+    expect(screen.getByRole('button', { name: 'Save' })).toBeDisabled();
   });
 
   it('should disable the cancel button', () => {
     expect.assertions(1);
 
-    const { getByRole } = setupImageUpload();
+    setupImageUpload();
 
-    expect(getByRole('button', { name: 'Cancel' })).toBeDisabled();
+    expect(screen.getByRole('button', { name: 'Cancel' })).toBeDisabled();
   });
 
   it('should enable the save button', async () => {
@@ -139,9 +144,9 @@ describe('<ImageUpload />', () => {
       watch: jest.fn(),
     });
 
-    const { getByRole } = setupImageUpload();
+    setupImageUpload();
 
-    await waitFor(() => expect(getByRole('button', { name: 'Save' })).not.toBeDisabled());
+    await waitFor(() => expect(screen.getByRole('button', { name: 'Save' })).not.toBeDisabled());
   });
 
   it('should enable the cancel button', async () => {
@@ -163,9 +168,9 @@ describe('<ImageUpload />', () => {
       watch: jest.fn(),
     });
 
-    const { getByRole } = setupImageUpload();
+    setupImageUpload();
 
-    await waitFor(() => expect(getByRole('button', { name: 'Cancel' })).not.toBeDisabled());
+    await waitFor(() => expect(screen.getByRole('button', { name: 'Cancel' })).not.toBeDisabled());
   });
 
   it.skip('should call the onUpload callback', async () => {
@@ -201,9 +206,9 @@ describe('<ImageUpload />', () => {
 
     useMutation.mockClear().mockReturnValue([uploadImage, {}]);
 
-    const { getByRole } = setupImageUpload({ onUpload });
+    setupImageUpload({ onUpload });
 
-    await waitFor(() => fireEvent.click(getByRole('button', { name: 'Save' })));
+    await waitFor(() => fireEvent.click(screen.getByRole('button', { name: 'Save' })));
 
     expect(onUpload).toHaveBeenCalledWith(data.uploadImage);
   });
@@ -241,11 +246,11 @@ describe('<ImageUpload />', () => {
 
     useMutation.mockClear().mockReturnValue([uploadImage, {}]);
 
-    const { getByRole, getByLabelText } = setupImageUpload({ onUpload });
+    setupImageUpload({ onUpload });
 
-    await waitFor(() => fireEvent.click(getByRole('button', { name: 'Save' })));
+    await waitFor(() => fireEvent.click(screen.getByRole('button', { name: 'Save' })));
 
-    expect(getByLabelText('Upload Image')).toHaveValue('');
+    expect(screen.getByLabelText('Upload Image')).toHaveValue('');
   });
 
   it.skip('should reset the form on cancel', () => {
@@ -264,7 +269,7 @@ describe('<ImageUpload />', () => {
         errors: {},
         isDirty: false,
         isSubmitting: false,
-        touched: {},
+        touched: false,
         isValid: true,
       },
       reset,
@@ -313,7 +318,6 @@ describe('<ImageUpload />', () => {
         errors: {},
         isDirty: false,
         isSubmitting: false,
-        touched: {},
         isValid: true,
       },
       reset: jest.fn(),
@@ -326,11 +330,12 @@ describe('<ImageUpload />', () => {
         getRootProps: jest.fn(),
         getInputProps: jest.fn(),
         isDragActive: false,
+        open: jest.fn(),
       };
     });
 
-    const { getByTestId } = setupImageUpload({ placeholder });
+    setupImageUpload({ placeholder });
 
-    expect(getByTestId('placeholder-img')).toHaveAttribute('src', getImageUrl(placeholder));
+    expect(screen.getByRole('img', { name: 'Upload Image' })).toHaveAttribute('src', getImageUrl(placeholder));
   });
 });

@@ -1,6 +1,6 @@
 import { Story } from '@storybook/react';
 import { GET_PROFILE, UPDATE_PROFILE } from '@graphql/queries';
-import { UPLOAD_IMAGE } from '@components/form/ImageUpload';
+import { UPLOAD_IMAGE } from '@components/molecules/ImageUpload';
 import { EditProfileProps, EditProfile } from './EditProfile';
 
 export default {

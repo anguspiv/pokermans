@@ -1,16 +1,8 @@
-import {
-  Circle,
-  VisuallyHiddenInput,
-  VisuallyHidden,
-  Image,
-  Box,
-  Button,
-  Center,
-  Flex,
-  useToast,
-} from '@chakra-ui/react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCamera } from '@fortawesome/free-solid-svg-icons';
+import { LoadingButton } from '@mui/lab';
+import { Alert, Avatar, Box, Button, Snackbar, AlertColor } from '@mui/material';
+import { styled } from '@mui/material/styles';
+import SaveIcon from '@mui/icons-material/Save';
+import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import { useDropzone } from 'react-dropzone';
 import { useEffect, useState, useCallback } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
@@ -34,13 +26,18 @@ const schema = yup.object().shape({
   image: yup.mixed().required('Image is required'),
 });
 
+const HiddenInput = styled('input')(() => ({
+  display: 'none',
+}));
+
 export interface ImageUploadProps {
   onUpload?: (data: Image) => void | Promise<void>;
   placeholder?: Image | null;
 }
 
 function ImageUpload({ onUpload = () => {}, placeholder = null }: ImageUploadProps) {
-  const toast = useToast();
+  const [message, setMessage] = useState('');
+  const [messageType, setMessageType] = useState<AlertColor>();
   const {
     handleSubmit,
     register,
@@ -84,16 +81,13 @@ function ImageUpload({ onUpload = () => {}, placeholder = null }: ImageUploadPro
 
       logger.debug('data', data);
       await onUpload(data?.uploadImage);
+
+      setMessageType('success');
+      setMessage('Image Saved!');
     } catch (error) {
       logger.error(error);
-
-      toast({
-        title: 'Error Uploading Image',
-        description: 'We could not upload your image. Please try again.',
-        status: 'error',
-        duration: 9000,
-        isClosable: true,
-      });
+      setMessageType('error');
+      setMessage('Error Uploading Image');
     }
 
     resetForm();
@@ -109,59 +103,80 @@ function ImageUpload({ onUpload = () => {}, placeholder = null }: ImageUploadPro
 
   const disabled = !isDirty || isSubmitting;
   const showPlaceholder = !isDirty && !isSubmitting && !isDragActive && !imgFile && placeholder;
-  const showIcon = !showPlaceholder && !imgFile;
+  let imageSrc;
+
+  if (showPlaceholder) {
+    imageSrc = getImageUrl(placeholder);
+  }
+
+  if (imgFile) {
+    imageSrc = URL.createObjectURL(imgFile);
+  }
+
+  const handleMessageClose = () => {
+    setMessage('');
+    setMessageType(undefined);
+  };
 
   return (
-    <Center
-      as="form"
+    <Box
+      component="form"
       name="image-upload"
-      flexDirection="column"
-      display="inline-flex"
       onSubmit={handleSubmit(onFormSubmit)}
       data-testid="image-upload-form"
+      sx={{
+        display: 'inline-flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
     >
-      <Circle
-        bg="gray.100"
-        color="gray.600"
-        size="32px"
-        boxShadow={isDragActive ? 'outline' : 'none'}
-        transition="all 0.2s ease-in-out"
-        overflow="hidden"
-        {...getRootProps()}
-      >
-        <Box as="label" htmlFor="image-upload">
-          {showIcon && <FontAwesomeIcon icon={faCamera} title="Upload Image" size="2x" />}
-          <VisuallyHidden>Upload Image</VisuallyHidden>
-          <VisuallyHiddenInput type="file" name="image" id="image-upload" {...getInputProps()} />
+      <Box>
+        <Avatar sx={{ width: 120, height: 120, m: 1 }} alt="Upload Image" src={imageSrc} {...getRootProps()}>
+          <CameraAltIcon fontSize="large" />
+        </Avatar>
+        <Box component="label" htmlFor="image-upload" sx={{ display: 'none' }}>
+          <span>Upload Image</span>
+          <HiddenInput type="file" name="image" id="image-upload" {...getInputProps()} />
         </Box>
-        {showPlaceholder && (
-          <Image
-            src={getImageUrl(placeholder)}
-            alt={placeholder?.title}
-            data-testid="placeholder-img"
-            height="100%"
-            maxWidth="none"
-          />
-        )}
-        {imgFile && <Image src={URL.createObjectURL(imgFile)} alt="Uploaded Image" height="100%" maxWidth="none" />}
-      </Circle>
-      <Flex mt={2} gap={1}>
-        <Button
+      </Box>
+      <Box>
+        <LoadingButton
           type="submit"
-          loadingText="Saving"
-          colorScheme="teal"
-          isDisabled={disabled}
-          isLoading={isSubmitting}
-          size="sm"
-          flex="1 1 50%"
+          loadingPosition="start"
+          variant="contained"
+          loading={isSubmitting}
+          disabled={disabled}
+          startIcon={<SaveIcon />}
+          sx={{ m: 0.5 }}
         >
           Save
-        </Button>
-        <Button size="sm" type="button" colorScheme="red" isDisabled={disabled} onClick={resetForm} flex="1 1 50%">
+        </LoadingButton>
+        <Button
+          type="button"
+          disabled={disabled}
+          variant="contained"
+          color="secondary"
+          onClick={resetForm}
+          sx={{ m: 0.5 }}
+        >
           Cancel
         </Button>
-      </Flex>
-    </Center>
+      </Box>
+      <Snackbar
+        open={!!message}
+        autoHideDuration={6000}
+        onClose={handleMessageClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+      >
+        <Alert sx={{ width: '100%' }} onClose={handleMessageClose} severity={messageType}>
+          {message}
+        </Alert>
+      </Snackbar>
+    </Box>
   );
 }
 

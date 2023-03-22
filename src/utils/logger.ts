@@ -22,6 +22,7 @@ const LOG_LEVEL = process.env.NEXT_PUBLIC_LOG_LEVEL ?? DEFAULT_LOG_LEVEL;
 try {
   level = getConsolaLevelStr(LOG_LEVEL);
 } catch (err) {
+  level = DEFAULT_LOG_LEVEL;
   consola.error(err);
 }
 
