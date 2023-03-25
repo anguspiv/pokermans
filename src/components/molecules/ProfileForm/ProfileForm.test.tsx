@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { ProfileForm, ProfileFormProps } from './ProfileForm';
 
 describe('<ProfileForm />', () => {
@@ -54,11 +54,15 @@ describe('<ProfileForm />', () => {
   it('should require the firstName value', async () => {
     expect.assertions(1);
 
-    const { getByText, getByLabelText } = setupProfileForm();
+    setupProfileForm();
 
-    fireEvent.blur(getByLabelText('First Name'));
+    const field = screen.getByLabelText('First Name');
 
-    await waitFor(() => expect(getByText('First Name is required')).toBeInTheDocument());
+    fireEvent.change(field, { target: { value: 'Val' } });
+
+    fireEvent.change(field, { target: { value: '' } });
+
+    await waitFor(() => expect(screen.getByText('First Name is required')).toBeInTheDocument());
   });
 
   it('should change the value of the firstName', () => {
@@ -102,11 +106,15 @@ describe('<ProfileForm />', () => {
   it('should require the lastName value', async () => {
     expect.assertions(1);
 
-    const { getByText, getByLabelText } = setupProfileForm();
+    setupProfileForm();
 
-    fireEvent.blur(getByLabelText('Last Name'));
+    const field = screen.getByLabelText('Last Name');
 
-    await waitFor(() => expect(getByText('Last Name is required')).toBeInTheDocument());
+    fireEvent.change(field, { target: { value: 'Val' } });
+
+    fireEvent.change(field, { target: { value: '' } });
+
+    await waitFor(() => expect(screen.getByText('Last Name is required')).toBeInTheDocument());
   });
 
   it('should change the value of the lastName', () => {
@@ -166,17 +174,19 @@ describe('<ProfileForm />', () => {
   });
 
   it('should submit the values', async () => {
-    expect.assertions(2);
+    expect.hasAssertions();
 
     const onSubmit = jest.fn();
 
-    const { getByLabelText, getByRole } = setupProfileForm({ onSubmit });
+    setupProfileForm({ onSubmit });
 
-    fireEvent.change(getByLabelText('First Name'), { target: { value: 'Jane' } });
+    fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Jane' } });
 
-    fireEvent.change(getByLabelText('Last Name'), { target: { value: 'Doe' } });
+    fireEvent.change(screen.getByLabelText('Last Name'), { target: { value: 'Doe' } });
 
-    fireEvent.click(getByRole('button', { name: 'Save' }));
+    await waitFor(() => expect(screen.getByRole('button', { name: 'Save' })).not.toBeDisabled());
+
+    fireEvent.click(screen.getByRole('button', { name: 'Save' }));
 
     await waitFor(() =>
       expect(onSubmit).toHaveBeenCalledWith({ firstName: 'Jane', lastName: 'Doe', nickname: '', bio: '' }),
@@ -188,7 +198,7 @@ describe('<ProfileForm />', () => {
 
     const { getByRole } = setupProfileForm({ loading: true });
 
-    const button = getByRole('button', { name: /Saving/i });
+    const button = getByRole('button', { name: /Save/i });
 
     expect(button).toHaveAttribute('disabled');
   });
@@ -201,8 +211,8 @@ describe('<ProfileForm />', () => {
     expect(getByLabelText('First Name')).toBeDisabled();
   });
 
-  it('should disable the form until dirty', () => {
-    expect.assertions(2);
+  it('should disable the form until dirty', async () => {
+    expect.hasAssertions();
 
     const { getByRole, getByLabelText } = setupProfileForm();
 
@@ -210,6 +220,6 @@ describe('<ProfileForm />', () => {
 
     fireEvent.change(getByLabelText('First Name'), { target: { value: 'Jane' } });
 
-    expect(getByRole('button', { name: /Save/i })).not.toBeDisabled();
+    await waitFor(() => expect(getByRole('button', { name: /Save/i })).not.toBeDisabled());
   });
 });

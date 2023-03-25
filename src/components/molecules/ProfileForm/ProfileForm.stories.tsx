@@ -2,7 +2,7 @@ import { Story } from '@storybook/react';
 import { ProfileForm, ProfileFormProps } from './ProfileForm';
 
 export default {
-  title: 'components/account/ProfileForm',
+  title: 'Molecules/ProfileForm',
   component: ProfileForm,
   argTypes: { onSubmit: { action: 'submitted' }, onReset: { action: 'reset' } },
 };
