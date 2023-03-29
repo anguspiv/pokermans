@@ -1,11 +1,8 @@
 import { useQuery as useQueryOrig, useMutation as useMutationOrig, QueryResult } from '@apollo/client';
-import { fireEvent, render, waitFor } from '@testing-library/react';
+import { fireEvent, render, waitFor, screen } from '@testing-library/react';
 import { useDropzone } from 'react-dropzone';
-import { useToast } from '@chakra-ui/react';
 import logger from '@utils/logger';
 import { EditProfile, EditProfileProps } from './EditProfile';
-
-const useMutate = jest.fn();
 
 const FILE = new File(['(⌐□_□)'], 'chucknorris.png', { type: 'image/png' });
 
@@ -33,6 +30,8 @@ jest.mock<typeof import('react-dropzone')>('react-dropzone', () => ({
 const useQuery = useQueryOrig as jest.MockedFunction<typeof useQueryOrig>;
 const useMutation = useMutationOrig as jest.MockedFunction<typeof useMutationOrig>;
 
+const useMutate = jest.fn();
+
 describe('<EditProfile />', () => {
   // eslint-disable-next-line jest/no-hooks
   beforeAll(() => {
@@ -44,7 +43,7 @@ describe('<EditProfile />', () => {
     { profile, ...getQuery } = {
       profile: {},
     },
-    results = {} as QueryResult<unknown, unknown>,
+    results = {} as QueryResult<unknown>,
   ) => {
     logger.mockTypes(() => jest.fn());
 
@@ -94,9 +93,9 @@ describe('<EditProfile />', () => {
       firstName: 'John',
     };
 
-    const { getByDisplayValue } = setupEditProfile({}, { profile });
+    setupEditProfile({}, { profile });
 
-    await waitFor(() => expect(getByDisplayValue('John')).toBeInTheDocument());
+    await waitFor(() => expect(screen.getByDisplayValue('John')).toBeInTheDocument());
   });
 
   it('should save the form values', async () => {
@@ -109,11 +108,13 @@ describe('<EditProfile />', () => {
       lastName: 'Doe',
     };
 
-    const { getByDisplayValue, getAllByRole } = setupEditProfile({}, { profile });
+    setupEditProfile({}, { profile });
 
-    fireEvent.change(getByDisplayValue('John'), { target: { value: 'Jane' } });
+    fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Jane' } });
 
-    fireEvent.click(getAllByRole('button', { name: 'Save' })[1]);
+    await waitFor(() => expect(screen.getAllByRole('button', { name: 'Save' })[1]).not.toBeDisabled());
+
+    fireEvent.click(screen.getAllByRole('button', { name: 'Save' })[1]);
 
     await waitFor(() =>
       expect(useMutate).toHaveBeenCalledWith({
@@ -132,9 +133,9 @@ describe('<EditProfile />', () => {
   it('should set the form loading while waiting to fetch profile', () => {
     expect.assertions(1);
 
-    const { getByRole } = setupEditProfile({}, { loading: true });
+    setupEditProfile({}, { loading: true });
 
-    expect(getByRole('button', { name: /Saving/i })).toBeDisabled();
+    expect(screen.getAllByRole('button', { name: /Save/i })[1]).toBeDisabled();
   });
 
   it('should set the form loading while waiting to save profile', async () => {
@@ -147,38 +148,9 @@ describe('<EditProfile />', () => {
     expect(button).toBeDisabled();
   });
 
-  it('should log the update profile error', async () => {
-    expect.hasAssertions();
-
-    const error = new Error('Something went wrong');
-
-    const profile = {
-      id: '1',
-      userId: '1',
-      firstName: 'John',
-      lastName: 'Doe',
-    };
-
-    const { getByDisplayValue, getAllByRole } = setupEditProfile({}, { profile });
-
-    useMutate.mockImplementation(() => {
-      throw error;
-    });
-
-    fireEvent.change(getByDisplayValue('John'), { target: { value: 'Jane' } });
-
-    fireEvent.click(getAllByRole('button', { name: 'Save' })[1]);
-
-    await waitFor(() => expect(logger.error).toHaveBeenCalledWith(error));
-  });
-
   it('should display an error message', async () => {
     expect.hasAssertions();
 
-    const toast = jest.fn();
-
-    useToast.mockReturnValue(toast);
-
     const error = new Error('Something went wrong');
 
     const profile = {
@@ -188,29 +160,25 @@ describe('<EditProfile />', () => {
       lastName: 'Doe',
     };
 
-    const { getByDisplayValue, getAllByRole } = setupEditProfile({}, { profile });
+    setupEditProfile({}, { profile });
 
     useMutate.mockImplementation(() => {
       throw error;
     });
 
-    fireEvent.change(getByDisplayValue('John'), { target: { value: 'Jane' } });
+    fireEvent.change(screen.getByDisplayValue('John'), { target: { value: 'Jane' } });
 
-    fireEvent.click(getAllByRole('button', { name: 'Save' })[1]);
+    await waitFor(() => expect(screen.getAllByRole('button', { name: 'Save' })[1]).not.toBeDisabled());
 
-    await waitFor(() =>
-      expect(toast.mock.calls[0][0]).toMatchObject({
-        status: 'error',
-      }),
-    );
+    fireEvent.click(screen.getAllByRole('button', { name: 'Save' })[1]);
+
+    await waitFor(() => expect(logger.error).toHaveBeenCalledWith(error));
+
+    await waitFor(() => expect(screen.getByText('Error saving profile')).toBeInTheDocument());
   });
 
   it('should display an succes message', async () => {
-    expect.assertions(1);
-
-    const toast = jest.fn();
-
-    useToast.mockReturnValue(toast);
+    expect.hasAssertions();
 
     const profile = {
       id: '1',
@@ -225,21 +193,19 @@ describe('<EditProfile />', () => {
 
     fireEvent.change(getByDisplayValue('John'), { target: { value: 'Jane' } });
 
+    await waitFor(() => expect(screen.getAllByRole('button', { name: 'Save' })[1]).not.toBeDisabled());
+
     fireEvent.click(getAllByRole('button', { name: 'Save' })[1]);
 
-    await waitFor(() =>
-      expect(toast.mock.calls[0][0]).toMatchObject({
-        status: 'success',
-      }),
-    );
+    await waitFor(() => expect(screen.getByText('Profile saved')).toBeInTheDocument());
   });
 
   it('should display the image upload form', () => {
     expect.assertions(1);
 
-    const { getByTestId } = setupEditProfile();
+    setupEditProfile();
 
-    expect(getByTestId('image-upload-form')).toBeInTheDocument();
+    expect(screen.getByTestId('image-upload-form')).toBeInTheDocument();
   });
 
   // eslint-disable-next-line jest/no-disabled-tests

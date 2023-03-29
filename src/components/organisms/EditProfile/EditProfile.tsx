@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { Box, Center, useToast } from '@chakra-ui/react';
+import { Alert, Box, Snackbar } from '@mui/material';
 import { useQuery, useMutation } from '@apollo/client';
-import ProfileForm from '@components/account/ProfileForm';
+import ProfileForm from '@components/molecules/ProfileForm';
 import ImageUpload from '@components/molecules/ImageUpload';
 import { GET_PROFILE, UPDATE_PROFILE } from '@graphql/queries';
 import logger from '@utils/logger';
@@ -10,11 +10,15 @@ import logger from '@utils/logger';
 export interface EditProfileProps {}
 
 export function EditProfile() {
-  const toast = useToast();
   const { data, loading } = useQuery(GET_PROFILE);
   const [updateProfile] = useMutation(UPDATE_PROFILE);
   const [isLoading, setIsLoading] = useState(loading);
   const [userProfile, setUserProfile] = useState(data?.profile || {});
+  const [alert, setAlert] = useState<Alert>({ open: false, message: '', severity: 'success' });
+
+  const handleMessageClose = () => {
+    setAlert({ open: false, message: '', severity: 'success' });
+  };
 
   const { avatar, ...profile } = userProfile;
 
@@ -35,21 +39,18 @@ export function EditProfile() {
 
       setUserProfile(updated?.data?.updateProfile || {});
 
-      toast({
-        title: 'Profile saved!',
-        description: 'Changes saved successfully.',
-        status: 'success',
-        duration: 9000,
-        isClosable: true,
+      setAlert({
+        open: true,
+        message: 'Profile saved',
+        severity: 'success',
       });
     } catch (err) {
       logger.error(err);
-      toast({
-        title: 'Error saving profile',
-        description: 'Please try again later.',
-        status: 'error',
-        duration: 9000,
-        isClosable: true,
+
+      setAlert({
+        open: true,
+        message: 'Error saving profile',
+        severity: 'error',
       });
     }
 
@@ -64,22 +65,18 @@ export function EditProfile() {
 
       setUserProfile(updated?.data?.updateProfile || {});
 
-      toast({
-        title: 'Avatar updated',
-        description: 'Your avatar has been updated',
-        status: 'success',
-        duration: 5000,
-        isClosable: true,
+      setAlert({
+        open: true,
+        message: 'Avatar updated',
+        severity: 'success',
       });
     } catch (err) {
       logger.error(err);
 
-      toast({
-        title: 'Error Saving Avatar',
-        description: 'We could not save your avatar. Please try again.',
-        status: 'error',
-        duration: 9000,
-        isClosable: true,
+      setAlert({
+        open: true,
+        message: 'Error Saving Avatar',
+        severity: 'error',
       });
     }
 
@@ -87,11 +84,24 @@ export function EditProfile() {
   };
 
   return (
-    <Box data-testid="edit-profile" p={4} maxW="xl" width="100%">
-      <Center mb={4}>
+    <Box data-testid="edit-profile" sx={{ p: 4, width: '100%', maxWidth: 640 }}>
+      <Box sx={{ mb: 4, textAlign: 'center' }}>
         <ImageUpload onUpload={onAvatarUpload} placeholder={avatar} />
-      </Center>
+      </Box>
       <ProfileForm profile={profile} onSubmit={onSubmit} loading={isLoading} />
+      <Snackbar
+        open={alert.open}
+        autoHideDuration={6000}
+        onClose={handleMessageClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+      >
+        <Alert sx={{ width: '100%' }} onClose={handleMessageClose} severity={alert.severity}>
+          {alert.message}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 }
