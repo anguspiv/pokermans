@@ -4,7 +4,7 @@ import { UPLOAD_IMAGE } from '@components/molecules/ImageUpload';
 import { EditProfileProps, EditProfile } from './EditProfile';
 
 export default {
-  title: 'components/account/EditProfile',
+  title: 'Organisms/EditProfile',
   component: EditProfile,
 };
 
