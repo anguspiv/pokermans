@@ -1,9 +1,9 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { PlayerList } from './PlayerList';
+import { PlayerList, PlayerListProps } from './PlayerList';
 
 describe('<PlayerList />', () => {
-  const setupPlayerList = (props) => {
+  const setupPlayerList = (props: PlayerListProps = { players: [] }) => {
     render(<PlayerList {...props} />);
   };
 
@@ -53,6 +53,6 @@ describe('<PlayerList />', () => {
 
     setupPlayerList({ loading: true });
 
-    expect(screen.getByText('Loading...')).toBeInTheDocument();
+    expect(screen.getByLabelText('Loading...')).toBeInTheDocument();
   });
 });

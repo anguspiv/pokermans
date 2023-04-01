@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useQuery } from '@apollo/client';
 import { Grid, GridItem } from '@chakra-ui/react';
 import { PlayerSearchForm, PlayerSearchFormData } from '@components/molecules/PlayerSearchForm';
-import { PlayerList } from '@components/players/PlayerList';
+import { PlayerList } from '@components/organisms/PlayerList';
 import { SEARCH_PLAYERS } from '@graphql/queries';
 
 interface SearchPlayersData {
