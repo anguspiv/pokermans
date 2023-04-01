@@ -2,7 +2,7 @@ import { Story } from '@storybook/react';
 import { PlayerListItem, PlayerListItemProps } from './PlayerListItem';
 
 export default {
-  title: 'components/players/PlayerListItem',
+  title: 'Molecules/PlayerListItem',
   component: PlayerListItem,
 };
 

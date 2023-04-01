@@ -1,6 +1,6 @@
 import React from 'react';
 import { Stack, Divider, Center, Spinner } from '@chakra-ui/react';
-import { PlayerListItem, PlayerListItemProps } from '../PlayerListItem';
+import { PlayerListItem, PlayerListItemProps } from '@components/molecules/PlayerListItem';
 
 export interface PlayerListProps {
   players: PlayerListItemProps[];
