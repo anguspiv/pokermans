@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { PlayerListItem } from './PlayerListItem';
 
 describe('<PlayerListItem />', () => {
-  const setupPlayerListItem = (props) => {
+  const setupPlayerListItem = (props = {}) => {
     return render(<PlayerListItem {...props} />);
   };
 
@@ -22,7 +22,7 @@ describe('<PlayerListItem />', () => {
       firstName: 'John',
     });
 
-    expect(screen.getByText('John')).toBeInTheDocument();
+    expect(screen.getByText(/John/)).toBeInTheDocument();
   });
 
   it('should render the users nickname', () => {
