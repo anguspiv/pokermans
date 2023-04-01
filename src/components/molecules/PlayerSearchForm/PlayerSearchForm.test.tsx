@@ -3,7 +3,12 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { PlayerSearchForm } from './PlayerSearchForm';
 
 describe('<PlayerSearchForm />', () => {
-  const setupPlayerSearchForm = (props) => {
+  const setupPlayerSearchForm = (
+    props = {
+      onSubmit: () => {},
+      onReset: () => {},
+    },
+  ) => {
     return render(<PlayerSearchForm {...props} />);
   };
 
@@ -64,7 +69,7 @@ describe('<PlayerSearchForm />', () => {
 
     const onSubmit = jest.fn();
 
-    setupPlayerSearchForm({ onSubmit });
+    setupPlayerSearchForm({ onSubmit, onReset: () => {} });
 
     fireEvent.change(screen.getByPlaceholderText('Search'), { target: { value: 'Jane' } });
 
@@ -130,7 +135,7 @@ describe('<PlayerSearchForm />', () => {
 
     setupPlayerSearchForm({ loading: true });
 
-    expect(screen.getByLabelText('Loading...')).toBeInTheDocument();
+    expect(screen.getByLabelText('Loading')).toBeInTheDocument();
   });
 
   it('should show the sort descending button', () => {
