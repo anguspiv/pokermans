@@ -2,7 +2,7 @@ import { Story } from '@storybook/react';
 import { PlayerSearchForm, PlayerSearchFormProps } from './PlayerSearchForm';
 
 export default {
-  title: 'components/players/PlayerSearchForm',
+  title: 'Molecules/PlayerSearchForm',
   component: PlayerSearchForm,
   argTypes: { onSubmit: { action: 'onSubmit' } },
 };
