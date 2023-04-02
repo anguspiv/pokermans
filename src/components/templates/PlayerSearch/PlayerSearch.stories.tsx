@@ -3,7 +3,7 @@ import { SEARCH_PLAYERS } from '@graphql/queries';
 import { PlayerSearch } from './PlayerSearch';
 
 export default {
-  title: 'Molecules/PlayerSearch',
+  title: 'Templates/PlayerSearch',
   component: PlayerSearch,
 };
 

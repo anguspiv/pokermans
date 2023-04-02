@@ -173,6 +173,6 @@ describe('<PlayerSearch />', () => {
 
     setupPlayerSearch({}, { profiles, loading: true });
 
-    expect(screen.getByText('Loading...')).toBeInTheDocument();
+    expect(screen.getByLabelText('Loading...')).toBeInTheDocument();
   });
 });
