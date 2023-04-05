@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import PageHeader from '@components/organisms/PageHeader';
-import { Grid, GridItem } from '@chakra-ui/react';
+import { Box } from '@mui/material';
 import { PlayerSearch } from '@components/templates/PlayerSearch';
 
 const PlayersListPage = () => {
@@ -10,20 +10,20 @@ const PlayersListPage = () => {
         <title>Players</title>
       </Head>
 
-      <Grid
-        display="grid"
-        templateRows="auto 1fr"
-        templateColumns="1fr"
-        templateAreas={'"header" "content"'}
-        height="100%"
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          height: '100%',
+        }}
       >
-        <GridItem area="header">
+        <Box sx={{ flex: '0 0 auto' }}>
           <PageHeader title="Players" />
-        </GridItem>
-        <GridItem area="content">
+        </Box>
+        <Box sx={{ flex: '1 0 100%' }}>
           <PlayerSearch />
-        </GridItem>
-      </Grid>
+        </Box>
+      </Box>
     </>
   );
 };

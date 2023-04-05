@@ -1,6 +1,7 @@
 import React from 'react';
 import { List, ListItem, ListItemText, Divider, Typography, Skeleton, ListItemAvatar } from '@mui/material';
 import { PlayerListItem, PlayerListItemProps } from '@components/molecules/PlayerListItem';
+import { getImageUrl } from '@utils/image';
 
 export interface PlayerListProps {
   players?: PlayerListItemProps[];
@@ -11,10 +12,10 @@ export function PlayerList({ players = [], loading = false }: PlayerListProps) {
   return (
     <List data-testid="player-list">
       {!loading &&
-        players.map(({ id, ...player }, index) => (
+        players.map(({ id, avatar, ...player }, index) => (
           <>
             {index > 0 && <Divider />}
-            <PlayerListItem key={id} id={id} {...player} />
+            <PlayerListItem key={id} id={id} {...player} image={getImageUrl(avatar as Image)} />
           </>
         ))}
       {!loading && !players.length && (

@@ -24,7 +24,6 @@ const FormWrapper = styled('div')({
 
 const ListWrapper = styled('div')({
   gridArea: 'list',
-  padding: '0 16px',
 });
 
 export function PlayerSearch() {

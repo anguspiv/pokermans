@@ -7,7 +7,7 @@ import { GET_PROFILE } from '@graphql/queries';
 import { getImageUrl } from '@utils/image';
 import { getFullName, getName } from '@utils/profile';
 import logger from '@utils/logger';
-import ProfileCard from '@components/account/ProfileCard';
+import ProfileCard from '@components/molecules/ProfileCard';
 
 const PlayerPage = () => {
   const [profile, setProfile] = useState<Profile>({});
