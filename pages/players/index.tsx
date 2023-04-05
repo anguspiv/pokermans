@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import PageHeader from '@components/organisms/PageHeader';
 import { Grid, GridItem } from '@chakra-ui/react';
-import { PlayerSearch } from '@components/players/PlayerSearch';
+import { PlayerSearch } from '@components/templates/PlayerSearch';
 
 const PlayersListPage = () => {
   return (

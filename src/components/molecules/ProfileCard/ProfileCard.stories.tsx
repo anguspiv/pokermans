@@ -2,7 +2,7 @@ import { Story } from '@storybook/react';
 import { ProfileCard, ProfileCardProps } from './ProfileCard';
 
 export default {
-  title: 'components/account/ProfileCard',
+  title: 'Molecules/ProfileCard',
   component: ProfileCard,
 };
 
