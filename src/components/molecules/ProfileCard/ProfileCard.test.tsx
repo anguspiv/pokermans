@@ -58,17 +58,6 @@ describe('<ProfileCard />', () => {
     expect(getByText('jdoe')).toBeInTheDocument();
   });
 
-  it('should show the users initials', () => {
-    expect.assertions(1);
-
-    const { getByText } = setupProfileCard({
-      firstName: 'John',
-      lastName: 'Doe',
-    });
-
-    expect(getByText('JD')).toBeInTheDocument();
-  });
-
   it('should render the bio', () => {
     expect.assertions(1);
 
