@@ -29,7 +29,7 @@ const defaultValues = {
   sort: ASC,
 };
 
-const Form = styled(Paper)(({ theme }) => ({
+const Form = styled('form')(({ theme }) => ({
   display: 'grid',
   gridTemplateRows: 'auto auto',
   gridTemplateColumns: '1fr',
@@ -83,35 +83,37 @@ export function PlayerSearchForm({ onSubmit = () => {}, onReset = () => {}, load
   const inputDisabled = loading || isSubmitting;
 
   return (
-    <Form component="form" data-testid="player-search-form" onSubmit={onFormSubmit}>
-      <Box sx={{ display: 'flex', alignContent: 'center', alignItems: 'center' }}>
-        <IconButton type="submit" disabled={disabled} aria-label="Search">
-          <SearchIcon />
-        </IconButton>
-        <Controller
-          name="searchTerm"
-          control={control}
-          render={({ field }) => (
-            <InputBase
-              id="searchTerm"
-              placeholder="Search"
-              disabled={inputDisabled}
-              {...field}
-              sx={{ flex: '0 1 100%', mx: 1 }}
-            />
-          )}
-        />
-        {!inputDisabled && searchTerm && (
-          <IconButton aria-label="Clear" onClick={onResetClick} disabled={disabled}>
-            <ClearIcon />
+    <Paper data-testid="player-search-form">
+      <Form onSubmit={onFormSubmit}>
+        <Box sx={{ display: 'flex', alignContent: 'center', alignItems: 'center' }}>
+          <IconButton type="submit" disabled={disabled} aria-label="Search">
+            <SearchIcon />
           </IconButton>
-        )}
-        <IconButton aria-label={sortLabel} onClick={onSortClick} disabled={disabled} title={sortLabel}>
-          <SortByAlphaIcon />
-        </IconButton>
-        {inputDisabled && <CircularProgress size={20} aria-label="Loading" />}
-      </Box>
-    </Form>
+          <Controller
+            name="searchTerm"
+            control={control}
+            render={({ field }) => (
+              <InputBase
+                id="searchTerm"
+                placeholder="Search"
+                disabled={inputDisabled}
+                {...field}
+                sx={{ flex: '0 1 100%', mx: 1 }}
+              />
+            )}
+          />
+          {!inputDisabled && searchTerm && (
+            <IconButton aria-label="Clear" onClick={onResetClick} disabled={disabled}>
+              <ClearIcon />
+            </IconButton>
+          )}
+          <IconButton aria-label={sortLabel} onClick={onSortClick} disabled={disabled} title={sortLabel}>
+            <SortByAlphaIcon />
+          </IconButton>
+          {inputDisabled && <CircularProgress size={20} aria-label="Loading" />}
+        </Box>
+      </Form>
+    </Paper>
   );
 }
 
