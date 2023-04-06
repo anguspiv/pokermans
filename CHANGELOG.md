@@ -1,3 +1,18 @@
+# [1.17.0](https://github.com/anguspiv/pokermans/compare/v1.16.0...v1.17.0) (2023-04-06)
+
+
+### Features
+
+* **edit-profile:** migrates component to material ui ([71ac900](https://github.com/anguspiv/pokermans/commit/71ac90026650e6263861454374c57a5663ca653f)), closes [#144](https://github.com/anguspiv/pokermans/issues/144)
+* **image-upload:** migrates component to mui ([a9dc910](https://github.com/anguspiv/pokermans/commit/a9dc9101ea6c24b659c0f673c748132ab3548322)), closes [#144](https://github.com/anguspiv/pokermans/issues/144)
+* **pages:** converts pages to use material ui ([8ccff25](https://github.com/anguspiv/pokermans/commit/8ccff25c7d9e3c930cbb5dd6cdc354183fec6ba9)), closes [#144](https://github.com/anguspiv/pokermans/issues/144)
+* **player-list-item:** migrates to material ui ([5dc6e54](https://github.com/anguspiv/pokermans/commit/5dc6e5490ff43268cc02671c42cf786b95cdc453)), closes [#144](https://github.com/anguspiv/pokermans/issues/144)
+* **player-list:** migrates to material ui ([9645317](https://github.com/anguspiv/pokermans/commit/96453175e9639922439be144edae45078cc201ff)), closes [#144](https://github.com/anguspiv/pokermans/issues/144)
+* **player-search-form:** migrates to material ui ([b3c58ad](https://github.com/anguspiv/pokermans/commit/b3c58ad5ab3507964151d52c388f3b16e6fbe997)), closes [#144](https://github.com/anguspiv/pokermans/issues/144)
+* **player-search:** migrates to material ui ([15d1853](https://github.com/anguspiv/pokermans/commit/15d18530873559a526e3a214e4d034c307cc074c)), closes [#144](https://github.com/anguspiv/pokermans/issues/144)
+* **profile-card:** migrates to material ui ([24710c4](https://github.com/anguspiv/pokermans/commit/24710c4eb83979ae968da0a07feea4eda4454b06)), closes [#144](https://github.com/anguspiv/pokermans/issues/144)
+* **profile-form:** migrates to material ui ([06217e9](https://github.com/anguspiv/pokermans/commit/06217e97a14d14e6e14d8f47911874995a0a0ef6)), closes [#144](https://github.com/anguspiv/pokermans/issues/144)
+
 # [1.16.0](https://github.com/anguspiv/pokermans/compare/v1.15.4...v1.16.0) (2023-03-19)
 
 
