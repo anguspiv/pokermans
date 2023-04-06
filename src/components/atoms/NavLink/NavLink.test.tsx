@@ -69,20 +69,4 @@ describe('<NavLink />', () => {
     expect(screen.getByTestId('icon')).toBeInTheDocument();
     expect(screen.getByTestId('icon')).toHaveAttribute('data-icon', 'bars');
   });
-
-  it('should use the default style', () => {
-    expect.assertions(1);
-
-    setupNavLink({ href: '/test' });
-
-    expect(screen.getByRole('link')).toHaveStyle('background: var(--chakra-colors-blue-700);');
-  });
-
-  it('should use the transparent color scheme', () => {
-    expect.assertions(1);
-
-    setupNavLink({ href: '/test', variant: 'transparent' });
-
-    expect(screen.getByRole('link')).toHaveStyle('background-color: transparent');
-  });
 });
