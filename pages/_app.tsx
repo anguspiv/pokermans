@@ -1,7 +1,6 @@
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { CacheProvider } from '@emotion/react';
-import { ChakraProvider } from '@chakra-ui/react';
 import { SessionProvider } from 'next-auth/react';
 import Head from 'next/head';
 import { ApolloProvider } from '@apollo/client';
@@ -25,16 +24,14 @@ function MyApp({ Component, emotionCache = clientSideEmotionCache, pageProps: { 
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
       <SessionProvider session={session}>
-        <ChakraProvider>
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <ApolloProvider client={client}>
-              <PageLayout>
-                <Component {...pageProps} />
-              </PageLayout>
-            </ApolloProvider>
-          </ThemeProvider>
-        </ChakraProvider>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <ApolloProvider client={client}>
+            <PageLayout>
+              <Component {...pageProps} />
+            </PageLayout>
+          </ApolloProvider>
+        </ThemeProvider>
       </SessionProvider>
     </CacheProvider>
   );

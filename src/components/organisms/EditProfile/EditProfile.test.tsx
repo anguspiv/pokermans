@@ -12,11 +12,6 @@ jest.mock<typeof import('@apollo/client')>('@apollo/client', () => ({
   useMutation: jest.fn().mockReturnValue([jest.fn(), {}]),
 }));
 
-jest.mock<typeof import('@chakra-ui/react')>('@chakra-ui/react', () => ({
-  ...jest.requireActual('@chakra-ui/react'),
-  useToast: jest.fn().mockReturnValue(jest.fn()),
-}));
-
 jest.mock<typeof import('react-dropzone')>('react-dropzone', () => ({
   ...jest.requireActual('react-dropzone'),
   useDropzone: jest.fn().mockReturnValue({

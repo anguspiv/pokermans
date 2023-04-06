@@ -1,7 +1,6 @@
 import React from 'react';
 import * as NextImage from 'next/image';
 import { RouterContext } from 'next/dist/shared/lib/router-context';
-import { ChakraProvider } from '@chakra-ui/react';
 import { MockedProvider } from '@apollo/client/testing';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import theme from '@styles/theme';
@@ -62,12 +61,10 @@ export const globalTypes = {
 };
 
 const ThemeDecorator = (storyFn) => (
-  <ChakraProvider>
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      {storyFn()}
-    </ThemeProvider>
-  </ChakraProvider>
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    {storyFn()}
+  </ThemeProvider>
 );
 
 export const decorators = [ThemeDecorator];
